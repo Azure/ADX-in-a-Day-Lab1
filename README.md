@@ -87,10 +87,10 @@ When the deployment is complete, select Go to resource. You will be redirected t
   ![Screen capture 1](/assets/images/Challenge1-Task3-Pic1.png)
   
   We can see our cluster and the database that we created.
-To run KQL queries, you must select the database that the query will run on (the scope). <br>
-To select the database, just click on the database name.<br>
-Now – you can write a simple KQL query: print ("hello world"),
-and hit the “Run” button. The query will be executed and its result can be seen in the result grid on the bottom of the page. 
+  To run KQL queries, you must select the database that the query will run on (the scope). <br>
+  To select the database, just click on the database name.<br>
+  Now – you can write a simple KQL query: print ("hello world"),
+  and hit the “Run” button. The query will be executed and its result can be seen in the result grid on the bottom of the page. 
   
   ![Screen capture 1](/assets/images/Challenge1-Task3-Pic2.png)
   
@@ -108,7 +108,7 @@ and hit the “Run” button. The query will be executed and its result can be s
 
 ---
 ##### Task 1: Use the “One-click” UI (User Interfaces) to create a data connection to Azure blob storage
-For the best user experience, we will use the Azure Data Explorer Web UI (aka: Kusto web Explorer/KWE). To open it, go to "Query" Pane and click on the “Open in Web UI” or just go to [Kusto Web Explorer](https://dataexplorer.azure.com).The web UI opens.
+  For the best user experience, we will use the Azure Data Explorer Web UI (aka: Kusto web Explorer/KWE). To open it, go to "Query" Pane and click on the “Open in Web UI” or just go to [Kusto Web Explorer](https://dataexplorer.azure.com).The web UI opens.
   
   ![Screen capture 1](/assets/images/Challenge2-Task1-Pic1.png)
   
@@ -160,7 +160,7 @@ For the best user experience, we will use the Azure Data Explorer Web UI (aka: K
   
   In the **Link to source**, paste the SAS URL of the blob container. As a part of pre-requisites, we uploaded Logistics_telemetry_Historical files (3) in to a storage account. To get the SAS URL of the blob container, go to this storage account in the Azure portal. Once you're on the storage account page, go to the "Containers" menu and right-click on the container named "data". Click "Generate SAS". A side pane opens. In the "permissions" dropdown, add "list" along with "read". Click "Generate SAS token and URL" and copy the "Blob SAS URL".
 
- Go back to the ADX “One-click” UI. Paste the SAS URL and select one of the **Schema defining file** that start with "export_" (not all the files in that blob storage have the same schema) and click **Next**
+  Go back to the ADX “One-click” UI. Paste the SAS URL and select one of the **Schema defining file** that start with "export_" (not all the files in that blob storage have the same schema) and click **Next**
   
   ![Screen capture 1](/assets/images/Challenge2-Task3-Pic3.png)
   
@@ -172,7 +172,7 @@ For the best user experience, we will use the Azure Data Explorer Web UI (aka: K
 
    <img src="/assets/images/ingestion-completed.png" width="520">
   
-    Verify that data was ingested to the table
+  Verify that data was ingested to the table
 
 ```
   LogisticsTelemetryHistorical
@@ -475,7 +475,6 @@ Update policy can transform and move the data from source table from the time it
 
 ```
   .set-or-append LogisticsTelemetryHistorical <| LogisticsTelemetryHistorical | take 1000
-
 ```
 - [Kusto Ingest from Query | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/data-ingestion/ingest-from-query)
 
