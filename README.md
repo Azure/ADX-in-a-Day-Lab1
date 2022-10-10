@@ -1,16 +1,17 @@
 ## Lab1: Cluster Creation, Data Ingestion and Exploration
 
 This Lab is organized into the following 4 Challenges:
-
-- Challenge 1: Create an ADX cluster
-- Challenge 2: Load Data from Azure Storage
-- Challenge 3: Starting with the basics of KQL
-- Challenge 4: Explore and Transform Data
+| Challenge | Description | Est. Time |
+|--|--|--|
+| [Challenge 1](https://github.com/Azure/ADX-in-a-Day-Lab1#challenge-1-create-an-adx-cluster)| Create an ADX cluster | 45 Min|
+| [Challenge 2](https://github.com/Azure/ADX-in-a-Day-Lab1#challenge-2-ingest-data-from-storage-account)| Load Data from Azure Storage| 30 Min|
+| [Challenge 3](https://github.com/Azure/ADX-in-a-Day-Lab1#challenge-3-starting-with-the-basics-of-kql)| Starting with the basics of KQL| 1 Hour|
+| [Challenge 4](https://github.com/Azure/ADX-in-a-Day-Lab1#challenge-4-explore-and-transform-data)| Explore and Transform Data | 45 min|
 
 Each challenge has a set of tasks that need to be completed in order to move on to the next challenge. It is advisable to complete the challenges and tasks in the prescribed order.
 
 ---
-Earn a digital badge! In order to receive the "ADX In a Day" digital badge, you will need to complete the tasks marked with 🎓. Please submit the KQL queries/commands of these tasks in the following link: [Answer sheet - ADX Lab 1](https://forms.office.com/r/Dj1PqLifA6)
+Earn a digital badge! In order to receive the "ADX In a Day" digital badge, you will need to complete the tasks marked with 🎓. Please submit the KQL queries/commands of these tasks in the following link: [Answer sheet - ADX Lab 1](https://forms.office.com/r/3V7yjXwAMD)
 ---
 
 ---
@@ -508,4 +509,4 @@ There are 2 ways to query a materialized view: query the entire view or query th
 
 ---
 
-🎉 Congrats! You've completed the first Lab. Keep going with [**Lab 2: Data exploration and visualization using Kusto Query Language (KQL)**](https://github.com/Azure/azure-kusto-Lab2)
+🎉 Congrats! You've completed ADX in a Day Lab 1. Keep going with [**Lab 2: Advanced KQL, Policies and Visualisation**](https://github.com/Azure/ADX-in-a-Day-Lab2)
