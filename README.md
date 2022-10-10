@@ -401,23 +401,35 @@ Expected result:</br>
 ---
 ### Challenge 4: Explore and Transform Data
 
-In this challenge we will use update policy to perform In-place ETL (Extract, Transform and Load) data into a new table, create functions and Materialized View
+In this challenge we will explore 3 capabilities of Data Explorer
+
+- **Update Policy** is like an internal ETL. It can help you manipulate or enrich the data as it gets ingested into the source table (e.g. extracting JSON into separate columns, creating a new calculated column, joining the new records with a static dimension table that is already in your database, etc). For these cases, using an update policy is a very common and powerful practice.
+Each time records get ingested into the source table, the update policy's qeury (which we'll define in the update policy) will run on them (and only on newly ingested records - other existing records in the source table aren’t visible to the update policy when it runs), and the results of the query will be appended to the target table. This function output schema and target table schema should exactly match.
 
 - **Materialized views** expose an aggregation query over a source table, or over another materialized view. Materialized views always return an up-to-date result of the aggregation query (always fresh). Querying a materialized view is more performant than running the aggregation directly over the source table.
 
 - **User-defined functions** are reusable subqueries that can be defined as part of the query itself (ad-hoc functions), or persisted as part of the database metadata (stored functions). User-defined functions are invoked through a name, are provided with zero or more input arguments (which can be scalar or tabular), and produce a single value (which can be scalar or tabular) based on the function body.
 
 Expected Learning Outcomes:
-- Create an update policy to transform the data at ingestion time
 - Create user created functions to use repeatable and parameterized logic
+- Create an update policy to transform the data at ingestion time
 - Create Materialized view to create a performant way to query source table with an aggregate 
 
 For the next task, we will use the LogisticsTelemetryHistorical table .
 
-#### Task 1: Create an update policy 🎓
+### Task 1: User defined Functions (Stored Functions) 🎓
+
+Create a stored function that will contain the code of the following logic. Make sure the function works. </br></br>
+
+- Creates a calculated column NumofTagsCalculated = TotalTags - LostTags
+- Projects only 4 columns - deviceId, enqueuedTime, NumofTagsCalculated, Temp
+
+See the [create function](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/functions) article.
+
+---
+
+#### Task 2: Create an update policy 🎓
 By taking 10 records, we can see that the telemetry column has a JSON structure. In this task, we will use an 'update policy' to manipulate the raw data in the LogisticsTelemetryHistorical table (the source table) and transform the JSON data into separate columns, that will be ingested into a new table that we’ll create (“target table”).
-Update policy is like an internal ETL. It can help you manipulate or enrich the data as it gets ingested into the source table (e.g. extracting JSON into separate columns, creating a new calculated column, joining the new records with a static dimension table that is already in your database, etc). For these cases, using an update policy is a very common and powerful practice.
-Each time records get ingested into the source table, the update policy's qeury (which we'll define in the update policy) will run on them (and only on newly ingested records - other existing records in the source table aren’t visible to the update policy when it runs), and the results of the query will be appended to the target table.
 We want to create a new table, with a calculated column (we will call it: NumOfTagsCalculated) that contains the following value: telemetry.TotalTags - telemetry.LostTags.
 
 The schema of the new (destination) table would be:
@@ -453,11 +465,8 @@ Example (note that the order of the keys may be different):
 .create table LogisticsTelemetryManipulated  (deviceId:string, enqueuedTime:datetime, NumOfTagsCalculated:long, Temp:real) 
 ```
 Create a function for the update policy 🎓
-```
-.create-or-alter function ManipulateLogisticsTelemetryData()
-{ 
-     <Complete the query>
-} 
+ ```
+ **Use the function created in Task 1**
 ```
 Create the update policy 🎓
 ```
@@ -474,7 +483,7 @@ Make sure the data is transformed correctly in the destination table
 
 ---
 ---
-### Task 2: Create a materialized view 🎓
+### Task 3: Create a materialized view 🎓
 
 Instead of writing a query every time to retrieve the last known value for every device, create a materialized view containing the last known value for every device (the last record for each deviceId, based on the enqueuedTime column)
 
@@ -483,19 +492,12 @@ Instead of writing a query every time to retrieve the last known value for every
 Use arg_max(). See examples of [arg_min() (aggregation function) - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/arg-min-aggfunction)
 
 -----
-### Task 3: Materialized views queries 🎓
+### Task 4: Materialized views queries 🎓
 
 There are 2 ways to query a materialized view: query the entire view or query the materialized part only. Try both of them.<br>
 
 [Materialized views queries
 ](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/materialized-views/materialized-view-overview#materialized-views-queries)
-
----
-### Task 4: User defined Functions (Stored Functions) 🎓
-
-As part of the first microhack, task 9, you wrote a query that finds out how many records startswith "x", per device ID (aggregated by device ID) and render a pie chart. Create a stored function that will contain the code of this query. Make sure the function works. </br></br>
-
-See the [create function](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/functions) article.
 
 ---
 
