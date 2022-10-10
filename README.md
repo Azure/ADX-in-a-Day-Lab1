@@ -509,4 +509,4 @@ There are 2 ways to query a materialized view: query the entire view or query th
 
 ---
 
-🎉 Congrats! You've completed ADX in a Day Lab 1. Keep going with [**Lab 2: Advanced KQL, Policies and Visualisation**](https://github.com/Azure/ADX-in-a-Day-Lab2)
+🎉 Congrats! You've completed ADX in a Day Lab 1. Keep going with [**Lab 2: Advanced KQL, Policies and Visualization**](https://github.com/Azure/ADX-in-a-Day-Lab2)
