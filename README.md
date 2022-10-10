@@ -1,6 +1,6 @@
 ## Lab1: Cluster Creation, Data Ingestion and Exploration
 
-This Lab is organized into the following 3 Challenges:
+This Lab is organized into the following 4 Challenges:
 
 - Challenge 1: Create an ADX cluster
 - Challenge 2: Load Data from Azure Storage
@@ -10,7 +10,7 @@ This Lab is organized into the following 3 Challenges:
 Each challenge has a set of tasks that need to be completed in order to move on to the next challenge. It is advisable to complete the challenges and tasks in the prescribed order.
 
 ---
-Earn a digital badge! In order to receive the ADX Lab digital badge, you will need to complete the tasks marked with 🎓. Please submit the KQL queries/commands of these tasks in the following link: [Answer sheet - ADX Lab 1](https://forms.office.com/r/Dj1PqLifA6)
+Earn a digital badge! In order to receive the "ADX In a Day" digital badge, you will need to complete the tasks marked with 🎓. Please submit the KQL queries/commands of these tasks in the following link: [Answer sheet - ADX Lab 1](https://forms.office.com/r/Dj1PqLifA6)
 ---
 
 ---
@@ -107,7 +107,7 @@ and hit the “Run” button. The query will be executed and its result can be s
   - Create one-time ingestion from Azure Blob Storage to your ADX cluster.
 
 ---
-  ##### Task 1: Use the “One-click” UI (User Interfaces) to create a data connection to Azure blob storage
+##### Task 1: Use the “One-click” UI (User Interfaces) to create a data connection to Azure blob storage
 For the best user experience, we will use the Azure Data Explorer Web UI (aka: Kusto web Explorer/KWE). To open it, go to "Query" Pane and click on the “Open in Web UI” or just go to [Kusto Web Explorer](https://dataexplorer.azure.com).The web UI opens.
   
   ![Screen capture 1](/assets/images/Challenge2-Task1-Pic1.png)
@@ -174,16 +174,14 @@ For the best user experience, we will use the Azure Data Explorer Web UI (aka: K
   
     Verify that data was ingested to the table
 
-  ```
+```
   LogisticsTelemetryHistorical
   | count 
-  ```
-  
----
+```
 ---
 ### Challenge 3: Starting with the basics of KQL
 
-In this task you’ll write queries in Kusto Query Language (KQL) to explore and gain insights from your data. 
+In this challenge you’ll write queries in Kusto Query Language (KQL) to explore and gain insights from your data. 
 
 Expected Learning Outcomes:
 - Know how to write queries with KQL.
@@ -411,15 +409,15 @@ Each time records get ingested into the source table, the update policy's qeury 
 - **User-defined functions** are reusable subqueries that can be defined as part of the query itself (ad-hoc functions), or persisted as part of the database metadata (stored functions). User-defined functions are invoked through a name, are provided with zero or more input arguments (which can be scalar or tabular), and produce a single value (which can be scalar or tabular) based on the function body.
 
 Expected Learning Outcomes:
-- Create user created functions to use repeatable and parameterized logic
+- Create user defined functions to use repeatable logic
 - Create an update policy to transform the data at ingestion time
 - Create Materialized view to create a performant way to query source table with an aggregate 
 
 For the next task, we will use the LogisticsTelemetryHistorical table .
 
-### Task 1: User defined Functions (Stored Functions) 🎓
+#### Task 1: User defined Functions (Stored Functions) 🎓
 
-Create a stored function that will contain the code of the following logic. Make sure the function works. </br></br>
+Create a stored function that will contain the code of the following logic. Make sure the function works.
 
 - Creates a calculated column NumofTagsCalculated = TotalTags - LostTags
 - Projects only 4 columns - deviceId, enqueuedTime, NumofTagsCalculated, Temp
@@ -472,6 +470,16 @@ Create the update policy 🎓
 ```
      <Complete the command>
 ```
+
+Update policy can transform and move the data from source table from the time it is created. It cannot look back at already existing data in source table. In order to mimic new data ingesting into source table we will use ".set-or-append" control commnd to ingest 1000 rows into source table (sample data from source table)
+
+```
+  .set-or-append LogisticsTelemetryHistorical <| LogisticsTelemetryHistorical | take 1000
+
+```
+- [Kusto Ingest from Query | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/data-ingestion/ingest-from-query)
+
+
 Make sure the data is transformed correctly in the destination table
 ```
     LogisticsTelemetryManipulated
@@ -483,7 +491,7 @@ Make sure the data is transformed correctly in the destination table
 
 ---
 ---
-### Task 3: Create a materialized view 🎓
+#### Task 3: Create a materialized view 🎓
 
 Instead of writing a query every time to retrieve the last known value for every device, create a materialized view containing the last known value for every device (the last record for each deviceId, based on the enqueuedTime column)
 
@@ -492,7 +500,7 @@ Instead of writing a query every time to retrieve the last known value for every
 Use arg_max(). See examples of [arg_min() (aggregation function) - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/arg-min-aggfunction)
 
 -----
-### Task 4: Materialized views queries 🎓
+#### Task 4: Materialized views queries 🎓
 
 There are 2 ways to query a materialized view: query the entire view or query the materialized part only. Try both of them.<br>
 
