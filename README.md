@@ -28,16 +28,16 @@ In addition, you will get familiarized with One Click Ingestion that enable you 
 #### Task 1: Create an ADX cluster resource
 Sign in to the Azure portal, select the + Create a resource button in the upper-left corner of the portal’s main page.
 
-<img src="/assets/images/task1-Task1-Pic1.png" width="400">
+<img src="/assets/images/Challenge1-Task1-Pic1.png" width="400">
   
 - Search for Azure Data Explorer. Under Azure Data Explorer, select Create.
 
-<img src="/assets/images/task1-Task1-Pic2.png" width="450">
-<img src="/assets/images/task1-Task1-Pic3.png" width="450">
+<img src="/assets/images/Challenge1-Task1-Pic2.png" width="450">
+<img src="/assets/images/Challenge1-Task1-Pic3.png" width="450">
 
 - Fill out the basic cluster details with the following information.
 
-![Screen capture 1](/assets/images/task1-Task1-Pic4.png)
+![Screen capture 1](/assets/images/Challenge1-Task1-Pic4.png)
 
 - Subscription: Use your own subscription
 - Resource Group: It's recommended to create a new resource group for the Lab's resources. Call it: <youralias>-Lab-RG
@@ -59,11 +59,11 @@ When the deployment is complete, select Go to resource. You will be redirected t
 - You're now ready for the second step in the process: database creation.
 - On the Overview tab, select Create database. Alternatively, you can go to the “Databases” blade.
 
-  ![Screen capture 1](/assets/images/task1-Task2-Pic1.png)
+  ![Screen capture 1](/assets/images/Challenge1-Task2-Pic1.png)
 
 - Fill out the form with the following information.
   
-<img src="/assets/images/task1-Task2-Pic2.png" width="450">
+<img src="/assets/images/Challenge1-Task2-Pic2.png" width="450">
   
   | Setting       | Suggested Value   | Field Description                                                             |
   | ------------- | ----------------- | ----------------------------------------------------------------------------- |
@@ -74,7 +74,7 @@ When the deployment is complete, select Go to resource. You will be redirected t
 
 - Select Create to create the database. Creation typically takes less than a minute. When the process is complete, you're back on the cluster Overview blade. You can see the database that you have created from on the Databases blade.
 
-  ![Screen capture 1](/assets/images/task1-Task2-Pic3.png)
+  ![Screen capture 1](/assets/images/Challenge1-Task2-Pic3.png)
   
 ---
 #### Task 3: Write your first Kusto Query Language (KQL) query
@@ -84,7 +84,7 @@ When the deployment is complete, select Go to resource. You will be redirected t
   In the next tasks, we'll ingest data to the cluster, and then learn the most important concepts in KQL and write interesting queries. In this task, you will write a few basic queries to get an understanding of the environment.<br>
   To start, go to the “Query” blade. In this example, you'll use the Azure Data Explorer web interface as a query editor (Kusto Query Language can also be used in Azure Monitor Logs, Azure Sentinel, and other services that are built on-top of Azure Data Explorer.)
   
-  ![Screen capture 1](/assets/images/task1-Task3-Pic1.png)
+  ![Screen capture 1](/assets/images/Challenge1-Task3-Pic1.png)
   
   We can see our cluster and the database that we created.
 To run KQL queries, you must select the database that the query will run on (the scope). <br>
@@ -92,7 +92,7 @@ To select the database, just click on the database name.<br>
 Now – you can write a simple KQL query: print ("hello world"),
 and hit the “Run” button. The query will be executed and its result can be seen in the result grid on the bottom of the page. 
   
-  ![Screen capture 1](/assets/images/task1-Task3-Pic2.png)
+  ![Screen capture 1](/assets/images/Challenge1-Task3-Pic2.png)
   
   Windows users can also download [Kusto Explorer](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer), a desktop client to run queries and benefit from advanced features available in the client.
 
@@ -110,7 +110,7 @@ and hit the “Run” button. The query will be executed and its result can be s
   ##### Task 1: Use the “One-click” UI (User Interfaces) to create a data connection to Azure blob storage
 For the best user experience, we will use the Azure Data Explorer Web UI (aka: Kusto web Explorer/KWE). To open it, go to "Query" Pane and click on the “Open in Web UI” or just go to [Kusto Web Explorer](https://dataexplorer.azure.com).The web UI opens.
   
-  ![Screen capture 1](/assets/images/task2-Task1-Pic1.png)
+  ![Screen capture 1](/assets/images/Challenge2-Task1-Pic1.png)
   
    For this Lab,we use messages that are in JSON format. This is how a sample message looks like:
   ```
@@ -152,21 +152,21 @@ For the best user experience, we will use the Azure Data Explorer Web UI (aka: K
   
   Go to the “Data management” tab, and select the **Ingest from blob container** option under **Continuous ingestion**
   
-  <img src="/assets/images/task2-Task3-Pic1.png" width="450">
+  <img src="/assets/images/Challenge2-Task3-Pic1.png" width="450">
   
   Make sure the cluster and the Database fields are correct. Select **New table**
   
-  <img src="/assets/images/task2-Task3-Pic2.png" width="450">
+  <img src="/assets/images/Challenge2-Task3-Pic2.png" width="450">
   
   In the **Link to source**, paste the SAS URL of the blob container. As a part of pre-requisites, we uploaded Logistics_telemetry_Historical files (3) in to a storage account. To get the SAS URL of the blob container, go to this storage account in the Azure portal. Once you're on the storage account page, go to the "Containers" menu and right-click on the container named "data". Click "Generate SAS". A side pane opens. In the "permissions" dropdown, add "list" along with "read". Click "Generate SAS token and URL" and copy the "Blob SAS URL".
 
  Go back to the ADX “One-click” UI. Paste the SAS URL and select one of the **Schema defining file** that start with "export_" (not all the files in that blob storage have the same schema) and click **Next**
   
-  ![Screen capture 1](/assets/images/task2-Task3-Pic3.png)
+  ![Screen capture 1](/assets/images/Challenge2-Task3-Pic3.png)
   
   Make sure you use the **JSON Data format**
   
-  ![Screen capture 1](/assets/images/task2-Task3-Pic4.png)
+  ![Screen capture 1](/assets/images/Challenge2-Task3-Pic4.png)
   
   Wait for the ingestion to be completed. For production modes, you could use Azure Event Grid for continuous Blob ingestion. The **Event Grid** link under **Continuous Ingestion** will create the Event Grid resource for that. We won't use this option in this Lab.
 
