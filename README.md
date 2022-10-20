@@ -3,7 +3,7 @@
 This Lab is organized into the following 4 Challenges:
 | Challenge | Description | Est. Time |
 |--|--|--|
-| [Challenge 1](https://github.com/Azure/ADX-in-a-Day-Lab1#challenge-1-create-an-adx-cluster)| Create an ADX cluster | 45 Min|
+| [Challenge 1](https://github.com/Azure/ADX-in-a-Day-Lab1#challenge-1-create-an-adx-cluster)| Create a free ADX cluster | 10 Min|
 | [Challenge 2](https://github.com/Azure/ADX-in-a-Day-Lab1#challenge-2-ingest-data-from-storage-account)| Load Data from Azure Storage| 30 Min|
 | [Challenge 3](https://github.com/Azure/ADX-in-a-Day-Lab1#challenge-3-starting-with-the-basics-of-kql)| Starting with the basics of KQL| 1 Hour|
 | [Challenge 4](https://github.com/Azure/ADX-in-a-Day-Lab1#challenge-4-explore-and-transform-data)| Explore and Transform Data | 45 min|
@@ -16,84 +16,49 @@ Earn a digital badge! In order to receive the "ADX In a Day" digital badge, you 
 
 ---
 ### Challenge 1: Create an ADX cluster
-To use Data Explorer (ADX), you first have to create an ADX cluster, and create one or more databases in that cluster. Each database has tables. Then you can ingest data into a database so that you can run queries against it.
+To use Azure Data Explorer (ADX), you first have to create a free ADX cluster, and create one or more databases in that cluster. Each database has tables. Then you can ingest data into a database so that you can run queries against it.
 
-In this Challenge, you will create an ADX cluster and database.
-In addition, you will get familiarized with One Click Ingestion that enable you to Load data to your Azure Data Explorer and Kusto Web Explorer to run queries.
+In this Challenge, you will create a Free cluster and a database. You will run simple KQl query in Kusto Web Explorer (KWE UI).
 
 **Expected Learning Outcomes:**
-- Deploy ADX cluster from Azure Portal
-- The initial configuration of the cluster at creation time
+- Use Free ADX cluster creation for the purpose of learning KQL and this workshop
 
 ---
-#### Task 1: Create an ADX cluster resource
-Sign in to the Azure portal, select the + Create a resource button in the upper-left corner of the portal’s main page.
+#### Task 1: Create an ADX cluster
+Create your free cluster here: https://aka.ms/kustofree
 
-<img src="/assets/images/Challenge1-Task1-Pic1.png" width="400">
+**Note**: The below screenshot is just an example 
+![Screen capture 1](/assets/images/onboarding-kusto-free.png)
+
+A Free cluster home page is added to Myclusters pane in UI
+![Screen capture 1](/assets/images/Free-cluster-page.png)
   
-- Search for Azure Data Explorer. Under Azure Data Explorer, select Create.
+#### Task 2: Create a database in the free cluster
+To create database, once the free cluster is created, you can use the "Create" button in the Create database window 
 
-<img src="/assets/images/Challenge1-Task1-Pic2.png" width="450">
-<img src="/assets/images/Challenge1-Task1-Pic3.png" width="450">
+![Screen capture 1](/assets/images/Free-cluster-create-DB.png)
 
-- Fill out the basic cluster details with the following information.
+In the next page, enter the database name you want to use and click 'Next: Create Database"
+![Screen capture 1](/assets/images/Free-cluster-create-DB1.png)
 
-![Screen capture 1](/assets/images/Challenge1-Task1-Pic4.png)
-
-- Subscription: Use your own subscription
-- Resource Group: It's recommended to create a new resource group for the Lab's resources. Call it: <youralias>-Lab-RG
-- Cluster name: Must be unique for each participant. Call it: <youralias>Labadx (cluster name must begin with a letter and contain lowercase alphanumeric characters.)
-- Region: France Central
--	Compute specification: For a production system, select the specification that best meets your needs (storage optimized or compute optimized). For this Lab we can use the Dev (No SLA) SKU. </br>
-With various compute SKU options to choose from, you can optimize costs for the performance and hot-cache requirements for your scenario. If you need the most optimal performance for a high query volume, the ideal SKU should be compute-optimized. If you need to query large volumes of data with relatively lower query load, the storage-optimized SKU can help reduce costs and still provide excellent performance. You can read more about ADX’s SKU types [here](https://docs.microsoft.com/en-us/azure/data-explorer/manage-cluster-choose-sku).
-- Availability zones: We can remove the 3 selected Availability zones for this Lab.
-- Move to the next tab (“Scale”). Choose how to scale your resource. It’s always recommended to use "Optimized Autoscale" option. Optimized Autoscale is a built-in feature that helps clusters perform their best when demand changes. Optimized Autoscale enables your cluster to be performant and cost effective by adding and removing instances based on demand. For this Lab, since we will use Dev/Test (no SLA) SKU,Optimized Autoscale option is disabled. keep the default values (Minimum instance count == 1, Maximum instance count == 1)
-
-You can keep all the other configurations with the default values. 
-Select Review + create to review your cluster details. Then, select Create to provision the cluster. Provisioning typically takes about 10 minutes.
-Creating an ADX cluster takes in average 10-15 minutes.
-
-When the deployment is complete, select Go to resource. You will be redirected to the ADX cluster resource page. On the top of the Overview page, you can see the basic details of the cluster, like: the Subscription, the state (running) and the URI.
-
----
-#### Task 2: Create a Database
-- You're now ready for the second step in the process: database creation.
-- On the Overview tab, select Create database. Alternatively, you can go to the “Databases” blade.
-
-  ![Screen capture 1](/assets/images/Challenge1-Task2-Pic1.png)
-
-- Fill out the form with the following information.
-  
-<img src="/assets/images/Challenge1-Task2-Pic2.png" width="450">
-  
-  | Setting       | Suggested Value   | Field Description                                                             |
-  | ------------- | ----------------- | ----------------------------------------------------------------------------- |
-  | Admin         | Default selected  | The admin field is disabled. New admins can be added after database creation. |
-  | Database Name | TelemetryDatabase | The database name must be unique within the cluster.                          |
-  | Retention period | 365	| The time span (in days) for which it's guaranteed that the data is kept available to query. The time span is measured from the time that data is ingested. This is the longer-term storage (in reliable storage) retention. |
-  | Cache period	| 31	| The time span (in days) for which to keep frequently queried data available in SSD storage or RAM of the cluster’s VM, rather than in longer-term storage. Azure Data Explorer stores all its ingested data in reliable storage (most commonly Azure Blob Storage), away from its actual processing (such as Azure Compute) nodes. To speed up queries on that data, Azure Data Explorer caches it, or parts of it, on its processing nodes, SSD, or even in RAM. The best query performance is achieved when all ingested data is cached. Sometimes, certain data doesn't justify the cost of keeping it "warm" in local SSD storage. For example, many teams consider that rarely accessed older log records are of lesser importance. They prefer to have reduced performance when querying this data, rather than pay to keep it warm all the time. By increasing the cache policy, more VMs will be required to store data on their SSD/RAM. For Azure Data Explorer cluster, compute cost (VMs) is the most significant part of cluster cost as compared to storage and networking. |
-
-- Select Create to create the database. Creation typically takes less than a minute. When the process is complete, you're back on the cluster Overview blade. You can see the database that you have created from on the Databases blade.
-
-  ![Screen capture 1](/assets/images/Challenge1-Task2-Pic3.png)
   
 ---
 #### Task 3: Write your first Kusto Query Language (KQL) query
   What is a Kusto query?
   Azure Data Explorer provides a web experience that enables you to connect to your Azure Data Explorer clusters and write and run Kusto Query Language queries. The web experience is available in the Azure portal and as a stand-alone web application, the Azure Data Explorer Web UI, that we will use later.<br>
   A Kusto query is a read-only request to process data and return results. The request is stated in plain text that's easy to read. A Kusto query has one or more query statements and returns data in a tabular or graph format.<br>
-  In the next tasks, we'll ingest data to the cluster, and then learn the most important concepts in KQL and write interesting queries. In this task, you will write a few basic queries to get an understanding of the environment.<br>
-  To start, go to the “Query” blade. In this example, you'll use the Azure Data Explorer web interface as a query editor (Kusto Query Language can also be used in Azure Monitor Logs, Azure Sentinel, and other services that are built on-top of Azure Data Explorer.)
+  In the next Challenge, we'll ingest data to the cluster, and then learn the most important concepts in KQL and write interesting queries. In this task, you will write a few basic queries to get an understanding of the environment.<br>
+  In this example, you'll use the Azure Data Explorer web interface as a query editor (Kusto Query Language can also be used in Azure Monitor Logs, Azure Sentinel, and other services that are built on-top of Azure Data Explorer.)
   
-  ![Screen capture 1](/assets/images/Challenge1-Task3-Pic1.png)
+  
   
   We can see our cluster and the database that we created.
-  To run KQL queries, you must select the database that the query will run on (the scope). <br>
-  To select the database, just click on the database name.<br>
+  To run KQL queries, you must select the query button on the Free Cluster page. <br>
+  ![Screen capture 1](/assets/images/Free-cluster-query.png)
   Now – you can write a simple KQL query: print ("hello world"),
   and hit the “Run” button. The query will be executed and its result can be seen in the result grid on the bottom of the page. 
   
-  ![Screen capture 1](/assets/images/Challenge1-Task3-Pic2.png)
+  ![Screen capture 1](/assets/images/Free-cluster-helloworld.png)
   
   Windows users can also download [Kusto Explorer](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer), a desktop client to run queries and benefit from advanced features available in the client.
 
@@ -105,14 +70,13 @@ When the deployment is complete, select Go to resource. You will be redirected t
   ADX supports several ingestion methods. [These methods include ingestion tools, connectors and plugins, managed pipelines, programmatic ingestion using SDKs, and direct access to ingestion.]
 
   **Expected Learning Outcomes:**
-  - Create one-time ingestion from Azure Blob Storage to your ADX cluster.
+  - Ingest data using one-click ingestion from Azure Blob Storage to your ADX cluster.
 
 ---
-##### Task 1: Use the “One-click” UI (User Interfaces) to create a data connection to Azure blob storage
-  For the best user experience, we will use the Azure Data Explorer Web UI (aka: Kusto web Explorer/KWE). To open it, go to "Query" Pane and click on the “Open in Web UI” or just go to [Kusto Web Explorer](https://dataexplorer.azure.com).The web UI opens.
+#### Task 1: Use the “One-click” UI (User Interfaces) to create a data connection to Azure blob storage
+  For the best user experience, we will use the Azure Data Explorer Web UI (aka: Kusto web Explorer/KWE). To open it, click "Query" in Free cluster page by going to [Kusto Web Explorer](https://dataexplorer.azure.com/freecluster).The web UI opens.
   
-  ![Screen capture 1](/assets/images/Challenge2-Task1-Pic1.png)
-  
+    
    For this Lab,we use messages that are in JSON format. This is how a sample message looks like:
   ```
   {
@@ -148,20 +112,27 @@ When the deployment is complete, select Go to resource. You will be redirected t
 }
 ```
   
-  We will ingest data from an Azure Storage account. We will ingest one dataset: </br>
+  We will ingest data one dataset from an Azure Storage account. </br>
     1. Logistics telemetry data. The table will be named LogisticsTelemetryHistorical.  </br> 
   
-  Go to the “Data management” tab, and select the **Ingest from blob container** option under **Continuous ingestion**
+  Go to the “Data management” tab, and select **Ingest data**
   
-  <img src="/assets/images/Challenge2-Task3-Pic1.png" width="450">
+  ![Screen capture 1](/assets/images/Free-cluster-ingestdata.png)
   
   Make sure the cluster and the Database fields are correct. Select **New table**
   
   <img src="/assets/images/Challenge2-Task3-Pic2.png" width="450">
+
+  **Note**: If you do not have a storage account, follow the "Ingest from File" section below. Otherwise, follow the "Ingest from Storage" section.
+
+  **Ingest from File**: Select "File" as the source type in Ingest data window. Browse your system for the already downloaded Logistics_telemetry_Historical files
+
+  <img src="/assets/images/Free-cluster-ingestfromFile.png" width="400">
   
-  In the **Link to source**, paste the SAS URL of the blob container. As a part of pre-requisites, we uploaded Logistics_telemetry_Historical files (3) in to a storage account. To get the SAS URL of the blob container, go to this storage account in the Azure portal. Once you're on the storage account page, go to the "Containers" menu and right-click on the container named "data". Click "Generate SAS". A side pane opens. In the "permissions" dropdown, add "list" along with "read". Click "Generate SAS token and URL" and copy the "Blob SAS URL".
+  **Ingest from Storage**: Select "Blob container" as the source type in Ingest data window. In the **Link to source**, paste the SAS URL of the blob container. As a part of pre-requisites, we uploaded 3 Logistics_telemetry_Historical files to a storage account. To get the SAS URL of the blob container, go to this storage account in the Azure portal. Once you're on the storage account page, go to the "Containers" menu and right-click on the container named "data". Click "Generate SAS". A side pane opens. In the "permissions" dropdown, add "list" along with "read". Click "Generate SAS token and URL" and copy the "Blob SAS URL".
 
   Go back to the ADX “One-click” UI. Paste the SAS URL and select one of the **Schema defining file** that start with "export_" (not all the files in that blob storage have the same schema) and click **Next**
+ 
   
   ![Screen capture 1](/assets/images/Challenge2-Task3-Pic3.png)
   
