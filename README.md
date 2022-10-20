@@ -18,10 +18,10 @@ Earn a digital badge! In order to receive the "ADX In a Day" digital badge, you 
 ### Challenge 1: Create an ADX cluster
 To use Azure Data Explorer (ADX), you first have to create a free ADX cluster, and create one or more databases in that cluster. Each database has tables. Then you can ingest data into a database so that you can run queries against it.
 
-In this Challenge, you will create a Free cluster and a database. You will run simple KQl query in Kusto Web Explorer (KWE UI).
+In this Challenge, you will create a Free cluster and a database. You will run simple KQL query in Kusto Web Explorer (KWE UI).
 
 **Expected Learning Outcomes:**
-- Use Free ADX cluster creation for the purpose of learning KQL and this workshop
+- Create and work with Free ADX cluster.
 
 ---
 #### Task 1: Create an ADX cluster
@@ -70,7 +70,7 @@ In the next page, enter the database name you want to use and click 'Next: Creat
   ADX supports several ingestion methods. [These methods include ingestion tools, connectors and plugins, managed pipelines, programmatic ingestion using SDKs, and direct access to ingestion.]
 
   **Expected Learning Outcomes:**
-  - Ingest data using one-click ingestion from Azure Blob Storage to your ADX cluster.
+  - Ingest data using one-click ingestion from Azure Blob Storage(or local files) to your ADX cluster.
 
 ---
 #### Task 1: Use the “One-click” UI (User Interfaces) to create a data connection to Azure blob storage
@@ -117,7 +117,7 @@ In the next page, enter the database name you want to use and click 'Next: Creat
   
   Go to the “Data management” tab, and select **Ingest data**
   
-  ![Screen capture 1](/assets/images/Free-cluster-ingestdata.png)
+  ![Screen capture 1](/assets/images/Free-cluster-Ingestdata.png)
   
   Make sure the cluster and the Database fields are correct. Select **New table**
   
