@@ -172,12 +172,11 @@ Let's look at an example query:
 
 ```
 LogisticsTelemetryHistorical
-| where enqueuedTime > ago(7d) 
 | where messageSource == "telemetry"
 | count 
 ```
 
-This query has a single tabular expression statement. The statement begins with a reference to the table LogisticsTelemetry and contains the operators where and count. Each operator is separated by a pipe. The data rows for the source table are filtered by the value of the enqueuedTime column and then filtered by the value of the messageSource column. In the last line, the query returns a table with a single column and a single row that contains the count of the remaining rows.
+This query has a single tabular expression statement. The statement begins with a reference to the table LogisticsTelemetry and contains the operators where and count. Each operator is separated by a pipe. The data rows for the source table are filtered by the value of the messageSource column. In the last line, the query returns a table with a single column and a single row that contains the count of the remaining rows.
 
 References:
 - [SQL to Kusto cheat sheet](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sqlcheatsheet)
@@ -212,7 +211,7 @@ Similarly, you can filter where the time of an event occurred more than a certai
 
   ```
 LogisticsTelemetryHistorical
-| where enqueuedTime > ago(2m)
+| where enqueuedTime > ago(2m) // You might get 0 records if data is old. Use above query to check enqueuedTime in data
 | take 10 
   ```
 
@@ -223,11 +222,11 @@ LogisticsTelemetryHistorical
 | summarize count() // or: count
   ```
 
-Find out how many records have enqueuedTime bigger than the last 10 minutes.
+Find out how many records have enqueuedTime bigger than the last 180 minutes.
 
   ```
 LogisticsTelemetryHistorical
-| where enqueuedTime > ago(10m)
+| where enqueuedTime > ago(180d) // You might get 0 records if data is old. Take any timespan based on enqueuedTime in data
 | summarize count()
  ``` 
  
@@ -270,7 +269,7 @@ LogisticsTelemetryHistorical
 #### Task 2: Explore the table and columns 🎓
 Write a query to get the schema of the table. 
 
-Hint 1: Observe that new columns like Shock, Temp are extracted from original message.
+Hint 1: Extract columns like Shock, Temp from 'telemetry' column if they are not available.
 
 Expected result:  
 <img src="/assets/images/Schema.png" width="400">
@@ -293,7 +292,7 @@ Expected result:</br>
 
 ---
 #### Task 4: Filter the output 🎓
-Write a query to get only specific desired columns: deviceId, enqueuedTime, Temp. Take arbitrary 10 records from the past 90 days.
+Write a query to get only specific desired columns: deviceId, enqueuedTime, Temp. Take arbitrary 10 records from the past 'n' days. Ex: Based on enqueuedTime timestamps in your data, any timespan that can fetch some records will be marked valid. Ex: 180 days
 
 Hint 1: “ago” </br>
 Hint 2: In case you see 0 records, remember that operators are sequenced by a pipe (|). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
@@ -393,6 +392,8 @@ Create a stored function that will contain the code of the following logic. Make
 
 - Creates a calculated column NumofTagsCalculated = TotalTags - LostTags
 - Projects only 4 columns - deviceId, enqueuedTime, NumofTagsCalculated, Temp
+
+Hint 1: Even if NumofTagsCalculated field is present, try to extract the required columns TotalTags and LostTags from 'telemetry' column and recalculate NumofTagsCalculated for this exercise.
 
 See the [create function](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/functions) article.
 
