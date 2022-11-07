@@ -220,7 +220,7 @@ LogisticsTelemetryHistorical
 | summarize count() // or: count
   ```
 
-Find out how many records have enqueuedTime bigger than the last 180 minutes.
+Find out how many records have enqueuedTime bigger than the last 180 days.
 
   ```
 LogisticsTelemetryHistorical
