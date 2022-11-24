@@ -77,46 +77,10 @@ In the next page, enter the database name you want to use and click 'Next: Creat
 
 ---
 #### Task 1: Use the “One-click” UI (User Interfaces) to create a data connection to Azure blob storage
-  For the best user experience, we will use the Azure Data Explorer Web UI (aka: Kusto web Explorer/KWE). To open it, click "Query" in Free cluster page by going to [Kusto Web Explorer](https://dataexplorer.azure.com/freecluster).The web UI opens.
-  
-    
-   For this Lab,we use messages that are in JSON format. This is how a sample message looks like:
-  ```
-  {
-  "messageProperties": {
-    "iothub-creation-time-utc": "2021-12-22T11:16:58.668Z"
-  },
-  "enrichments": {},
-  "applicationId": "1b2f5f29-a78b-4012-bf31-2016473cadf6",
-  "deviceId": "13n5b9yiael",
-  "messageSource": "telemetry",
-  "telemetry": {
-    "Status": "Online",
-    "BatteryLife": 52,
-    "Light": 62602.66864777621,
-    "Tilt": 44.70275959833819,
-    "Shock": -6.381560743718394,
-    "ActiveTags": 164,
-    "Location": {
-      "lon": -68.4585,
-      "lat": 40.9633,
-      "alt": 1069.4617
-    },
-    "TransportationMode": "Train",
-    "LostTags": 5,
-    "Temp": 13.178830710467722,
-    "Humidity": 91.17280445807984,
-    "Pressure": 1033.3527307505506,
-    "TotalTags": 187
-  },
-  "schema": "default@v1",
-  "enqueuedTime": "2021-12-22T11:16:58.753Z",
-  "templateId": "dtmi:ltifbs50b:mecybcwqm"
-}
-```
+  For the best user experience, we will use the Azure Data Explorer Web UI (aka: Kusto web Explorer/KWE). To open it, click "Query" in Free cluster page by going to [Kusto Web Explorer](https://dataexplorer.azure.com/freecluster).The web UI opens. 
   
   We will ingest one dataset from an Azure Storage account. </br>
-    1. 3 json.gz files are avaialble for download in 'Data/Logistics_telemetry_Historical' folder in this github page.  </br> 
+  1 json.gz files are avaialble for download in 'Data/GitHub_Events' folder in this github page.  </br> 
   
   Go to the “Data management” tab, and select **Ingest data**
   
@@ -124,7 +88,7 @@ In the next page, enter the database name you want to use and click 'Next: Creat
   
   Make sure the cluster and the Database fields are correct. Select **New table**
   
-  **Note**: We used an example table name as LogisticsLifeCycle here. You can give any name to your table but be sure to use it in all your queries going forward.
+  **Note**: We used an example table name as 'githubraw' here. You can give any name to your table but be sure to use it in all your queries going forward.
 
   <img src="/assets/images/Challenge2-Task3-Pic2.png" width="450">
 
@@ -139,20 +103,20 @@ In the next page, enter the database name you want to use and click 'Next: Creat
   Go back to the ADX “One-click” UI. Paste the SAS URL and select one of the **Schema defining file** that start with "export_" (not all the files in that blob storage have the same schema) and click **Next**
  
   
-  ![Screen capture 1](/assets/images/Challenge2-Task3-Pic3.png)
+  ![Screen capture 1](/assets/images/IngestData_ContainerSelection.png)
   
   Make sure you use the **JSON Data format**
   
-  ![Screen capture 1](/assets/images/Challenge2-Task3-Pic4.png)
+  ![Screen capture 1](/assets/images/IngestFiles.png)
   
   Wait for the ingestion to be completed. For production modes, you could use Azure Event Grid for continuous Blob ingestion. The **Event Grid** link under **Continuous Ingestion** will create the Event Grid resource for that. We won't use this option in this Lab.
 
-   <img src="/assets/images/ingestion-completed.png" width="520">
+   <img src="/assets/images/Ingestion-Complete.png" width="520">
   
   Verify that data was ingested to the table
 
 ```
-  LogisticsTelemetryHistorical
+  githubraw
   | count 
 ```
 ---
@@ -176,12 +140,12 @@ It's like a funnel, where you start out with an entire data table. Each time the
 Let's look at an example query:
 
 ```
-LogisticsTelemetryHistorical
-| where messageSource == "telemetry"
+githubraw
+| where Type == "PushEvent"
 | count 
 ```
 
-This query has a single tabular expression statement. The statement begins with a reference to the table LogisticsTelemetry and contains the operators where and count. Each operator is separated by a pipe. The data rows for the source table are filtered by the value of the messageSource column. In the last line, the query returns a table with a single column and a single row that contains the count of the remaining rows.
+This query has a single tabular expression statement. The statement begins with a reference to the table githubraw and contains the operators where and count. Each operator is separated by a pipe. The data rows for the source table are filtered by the value of the Type column. In the last line, the query returns a table with a single column and a single row that contains the count of the remaining rows.
 
 References:
 - [SQL to Kusto cheat sheet](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sqlcheatsheet)
@@ -201,45 +165,44 @@ For the following tasks, connect to the cluster [ADX Lab Cluster](https://adxLab
 ---
 #### Task 1: Basic KQL queries - explore the data
   
-In this task, you will see some KQL examples. For this task, we will use the table LogisticsTelemetryHistorical, which has data we loaded in previous challenge from storage account. </br> 
+In this task, you will see some KQL examples. For this task, we will use the table githubraw, which has data we loaded in previous challenge from storage account. </br> 
 Execute the queries and view the results. KQL queries can be used to filter data and return specific information. Now, you'll learn how to choose specific rows of the data. The where operator filters results that satisfy a certain condition. 
 
-For the following tasks, we will use the table LogisticsTelemetryHistorical.
+For the following tasks, we will use the table githubraw.
 
 ```
-LogisticsTelemetryHistorical
+githubraw
 | take 10
 ```
-
-Similarly, you can filter where the time of an event occurred more than a certain number of years/days/minutes ago. For example, run the following query, where 2m means 2 minutes:
+'take' operator samples any number of records from our table without any order. In the above example, we asked to provide 10 random records.
 
  Find out how many records are in the table
 
   ```
-LogisticsTelemetryHistorical
+githubraw
 | summarize count() // or: count
   ```
 
-Find out how many records have enqueuedTime bigger than the last 180 days.
+Find out how many records have CreatedAt between 1-Oct-2022 and 31-Oct-2022
 
   ```
-LogisticsTelemetryHistorical
-| where enqueuedTime > ago(180d) // You might get 0 records if data is old. Take any timespan based on enqueuedTime in data
+githubraw
+| where CreatedAt between (datetime('2022-10-01') .. datetime('2022-10-31'))
 | summarize count()
  ``` 
 
 KQL makes it simple to access fields in JSON and treat them like an independent column:
 
 ```
-LogisticsTelemetryHistorical
-| extend humidity = telemetry.Humidity, shock = telemetry.Shock
+githubraw
+| take 100
+| extend reponame= Repo.name, author = Payload.pull_request.user.login
 ```
 
 ---
 #### Task 2: Explore the table and columns 🎓
 Write a query to get the schema of the table. 
-
-Hint 1: Your table will already contain Shock and Temp columns.But, try to extract both Shock and Temp again from 'telemetry' column using extend for this exercise.
+Hint: Observe there are 2 new columns RepoName and Author. Try to extract from Repo and Payload columns.
 
 Example result:  
 <img src="/assets/images/Schema.png" width="400">
@@ -251,7 +214,7 @@ Example result:
 
 ---
 #### Task 3: Keep the columns of your interest 🎓
-Write a query to get only specific desired columns: deviceId, enqueuedTime, Temp. Take arbitrary 10 records.
+Write a query to get only specific desired columns: Id, Type, Public, CreatedAt. Take arbitrary 10 records.
 
 Example result:</br>
 <img src="/assets/images/project.png" width="400">
@@ -262,16 +225,15 @@ Example result:</br>
 
 ---
 #### Task 4: Filter the output 🎓
-Write a query to get only specific desired columns: deviceId, enqueuedTime, Temp. Take arbitrary 10 records from the past 'n' days. Ex: Based on enqueuedTime timestamps in your data, any timespan that can fetch some records will be marked valid. Ex: 180 days
+Write a query to get only specific desired columns: Id, Type, Public, CreatedAt. Take arbitrary 10 records between 1-Oct-2022 10:00 and 1-oct-2022 23:00.
 
-Hint 1: “ago” </br>
-Hint 2: In case you see 0 records, remember that operators are sequenced by a pipe (|). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
+Hint 1: In case you see 0 records, remember that operators are sequenced by a pipe (|). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
 
 [where operator in Kusto query language - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/whereoperator)
 
 ---
 #### Task 5: Sorting the results 🎓
-Write a query to get the 5 records which have the highest temperature. Write another query get the 5 records which have the lowest temperature.
+Write a query to get top 5 'PushEvent' records by Payload size. Write another query get the 5 records which have least Payload size.
 
 [sort operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sortoperator)
 [top operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/topoperator)
@@ -279,17 +241,21 @@ Write a query to get the 5 records which have the highest temperature. Write ano
 
 ---
 #### Task 6: Reorder, rename, add columns 🎓
-Current temperature is in Fahrenheit.Write a query to convert Fahrenheit temperatures to Celsius temperatures. For readability, show the Fahrenheit temperature and the Celsius temperaturesa as the 2 left-most columns. You can use the following formula: 
-C = (F – 32) * (5.0/9.0) <br>
-Take 5 random records. Make sure columns are in this order C_Temp, F_Temp, deviceId, messageSource, enqueuedTime, messageProperties
-Hint 1: 'project' operator provides lot more features
-Hint 2: We used 5.0 and 9.0, rather than 5 and 9 to ensure these numbers were to the 'real' data type (double-precision floating-point format), rather than 'long' (a signed integer, Int64)
+1. Filter 'IssuesEvent' type records. sample 100 records
+2. Extract issue number, action, created_at, closed_at
+3. Find out number of days difference between closed_at and created_at for closed issues.
+4. Query only desired columns - Id, IssueNumber, Action, IssueCreateTime, IssueCloseTime, IssueTime
+
+Hint 1: IssueTime= datetime_diff('day',IssueCloseTime, IssueCreateTime )
+Hint 2: You can check status of issues using 'action' field
 
 Example result:</br>
 <img src="/assets/images/temp.png" width="600">
 
 [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
+
 [project-rename operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectrenameoperator)
+
 [project-reorder operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectreorderoperator)
 
 ---
@@ -300,8 +266,8 @@ Write a query to find out how many records are in the table.
 
 ---
 #### Task 8: Aggregations and string operations 🎓
-Write a query to find out how many records have deviceId starting with 'x'. <br>
-Write another query to find out how many records have deviceId starting with 'x', per device ID (aggregated by deviceId).</br>
+Write a query to find out how many records have 'azure' in repo name. <br>
+Write another query to find out how many records have 'azure' in repo name per Event Type (aggregated by Type).</br>
 Example result for the second query:</br>
 <img src="/assets/images/count_by.png" width="250">
 
@@ -311,7 +277,7 @@ Example result for the second query:</br>
 
 ---
 #### Task 9: Render a chart 🎓
-Write a query to find out how many records startswith "x" , per device ID (aggregated by device ID) and render a piechart.
+Write a query to find out how many records are present per event Type (aggregated by Type) and render a piechart.
 
 Example result:</br>
 <img src="/assets/images/pie.png" width="500">
@@ -320,19 +286,13 @@ Example result:</br>
 
 ---
 #### Task 10: Create bins and visualize time series 🎓
-Write a query to show a timechart of the number of records over time. Use 10 minute bins (buckets). Each point on the timechart represent the number of devices on that bucket.
-
-Example result:</br>
-<img src="/assets/images/chart.png" width="650">
-
-[bin() - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
-
----
-#### Task 11: Aggregations with time series visualizations 🎓
-Write a query to show a timechart of the **average temperature** over time. Use 30 minute bins (buckets) Each point on the timechart represent the average temperature in that 30 min period.
+Write a query to show a timechart of the number of records between 1-Oct-t2022 03:00 and 1-Oct-2022 21:00. Use 10 minute bins (buckets). Each point on the timechart represent the number of events on that bucket.
 
 Example result:</br>
 <img src="/assets/images/timeseries.png" width="650">
+
+[bin() - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
+
 
 [summarize operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
 
@@ -344,65 +304,41 @@ In this challenge we will explore 3 capabilities of Data Explorer
 - **Update Policy** is like an internal ETL. It can help you manipulate or enrich the data as it gets ingested into the source table (e.g. extracting JSON into separate columns, creating a new calculated column, joining the new records with a static dimension table that is already in your database, etc). For these cases, using an update policy is a very common and powerful practice.
 Each time records get ingested into the source table, the update policy's query (which we'll define in the update policy) will run on them (and only on newly ingested records - other existing records in the source table aren’t visible to the update policy when it runs), and the results of the query will be appended to the target table. This function output schema and target table schema should exactly match.
 
-- **Materialized views** expose an aggregation query over a source table, or over another materialized view. Materialized views always return an up-to-date result of the aggregation query (always fresh). Querying a materialized view is more performant than running the aggregation directly over the source table.
-
 - **User-defined functions** are reusable subqueries that can be defined as part of the query itself (ad-hoc functions), or persisted as part of the database metadata (stored functions). User-defined functions are invoked through a name, are provided with zero or more input arguments (which can be scalar or tabular), and produce a single value (which can be scalar or tabular) based on the function body.
 
 Expected Learning Outcomes:
 - Create user defined functions to use repeatable logic
 - Create an update policy to transform the data at ingestion time
-- Create Materialized view to create a performant way to query source table with an aggregate 
 
-For the next task, we will use the LogisticsTelemetryHistorical table .
+For the next task, we will use the githubraw table .
 
 #### Task 1: User defined Functions (Stored Functions) 🎓
 
-Create a stored function that will contain the code of the following logic. Make sure the function works.
+Create 2 stored functions that will contain the code of the following logic. Make sure the function works.
 
-- Creates a calculated column NumofTagsCalculated = TotalTags - LostTags
-- Projects only 4 columns - deviceId, enqueuedTime, NumofTagsCalculated, Temp
+Function 1: 
+- Filter events that are of Type = 'PushEvent'
+- Perform mv-expand on 'commits' object inside Payload column
+- Remove the following columns Actor,Type, Public
 
-Hint 1: Even if NumofTagsCalculated field is present, try to extract the required columns TotalTags and LostTags from 'telemetry' column and recalculate NumofTagsCalculated for this exercise.
+Function 2:
+- Filter events that are of Type = 'PullRequestEvent'
+- Perform mv-expand on 'labels' object inside 'pull_requests" object inside Payload column (Hint: Payload.pull_requests.labels)
+- Remove the following columns Actor,Type, Public
 
 See the [create function](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/functions) article.
 
 ---
 
 #### Task 2: Create an update policy 🎓
-By taking 10 records, we can see that the telemetry column has a JSON structure. In this task, we will use an 'update policy' to manipulate the raw data in the LogisticsTelemetryHistorical table (the source table) and transform the JSON data into separate columns, that will be ingested into a new table that we’ll create (“target table”).
-We want to create a new table, with a calculated column (we will call it: NumOfTagsCalculated) that contains the following value: telemetry.TotalTags - telemetry.LostTags.
+In this task, we will use an 'update policy' to manipulate the raw data in the githubraw table (the source table) and transform the JSON data into separate columns, that will be ingested into new tables that we’ll create (“target table”).
+We want to create 2 new tables - PushEvent , PullRequestEvent
 
-The schema of the new (destination) table would be:
+**Build the 2 target tables**
 ```
-  ( deviceId:string, enqueuedTime:datetime, NumOfTagsCalculated:int, Temp:real)
-```
-```
-Example (note that the order of the keys may be different):
+.create table PushEvent (Id:long, Repo: dynamic, Payload:dynamic, CreatedAt:datetime, Payload_commits:dynamic)
 
-{
-  "BatteryLife": 73,
-  "Light": "70720.236143472212",
-  "Tilt": "18.608539012789223",
-  "Humidity": "60.178854625386215",
-  "Shock": "-4.6141182265359628",
-  "Pressure": "529.61165751122712",
-  "ActiveTags": 165,
-  "TransportationMode": "Ocean",
-  "Status": "Online",
-  "LostTags": 9,
-  "Temp": "7.5054504554744765",
-  "TotalTags": 185,
-  "Location": {
-      "alt": 1361.0469,
-      "lon": -107.7473,
-      "lat": 36.0845
-  }
-}
-```
-
-**Build the target table**
-```
-.create table LogisticsTelemetryManipulated  (deviceId:string, enqueuedTime:datetime, NumOfTagsCalculated:long, Temp:real) 
+ .create table PullRequestEvent (Id:long, Repo: dynamic, Payload:dynamic, CreatedAt:datetime, Payload_pull_request_labels:dynamic) 
 ```
 Create a function for the update policy 🎓
  ```
@@ -416,40 +352,24 @@ Create the update policy 🎓
 Update policy can transform and move the data from source table from the time it is created. It cannot look back at already existing data in source table. In order to mimic new data ingesting into source table we will use ".set-or-append" control commnd to ingest 1000 rows into source table (sample data from source table)
 
 ```
-  .set-or-append LogisticsTelemetryHistorical <| LogisticsTelemetryHistorical | take 1000
+  .set-or-append githubraw <| githubraw | take 1000
 ```
 - [Kusto Ingest from Query | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/data-ingestion/ingest-from-query)
 
 
-Make sure the data is transformed correctly in the destination table
+Make sure the data is transformed correctly in the destination tables
 ```
-    LogisticsTelemetryManipulated
-   | take 10
+PushEvent
+| take 10
+
+PullRequestEvent
+| take 10
 ```
 
 **Relevant docs for this challenge:**
   - [Kusto update policy - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/updatepolicy)
 
 ---
----
-#### Task 3: Create a materialized view 🎓
-
-Instead of writing a query every time to retrieve the last known value for every device, create a materialized view on LogisticsTelemetryManipulate containing the last known value for every device (the last record for each deviceId, based on the enqueuedTime column)
-
-Hint: Materialized View only starts materializeing from the time you create it. In order to lookback and materiazlize data alraedy present in source, you can use 'backfill=true' property when creating Materialized view
-
-[Materialized views - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/materialized-views/materialized-view-overview) </br>
-[.create materialized view - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/materialized-views/materialized-view-create) </br>
-Use arg_max(). See examples of [arg_max() (aggregation function) - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/arg-max-aggfunction)
-
------
-#### Task 4: Materialized views queries 🎓
-
-There are 2 ways to query a materialized view: query the entire view or query the materialized part only. Try both of them.<br>
-
-[Materialized views queries
-](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/materialized-views/materialized-view-overview#materialized-views-queries)
-
 ---
 
 🎉 Congrats! You've completed ADX in a Day Lab 1. Keep going with [**Lab 2: Advanced KQL, Policies and Visualization**](https://github.com/Azure/ADX-in-a-Day-Lab2)
