@@ -53,8 +53,6 @@ In the next page, enter the database name you want to use and click 'Next: Creat
   In the next Challenge, we'll ingest data to the cluster, and then learn the most important concepts in KQL and write interesting queries. In this task, you will write a few basic queries to get an understanding of the environment.<br>
   In this example, you'll use the Azure Data Explorer web interface as a query editor (Kusto Query Language can also be used in Azure Monitor Logs, Azure Sentinel, and other services that are built on-top of Azure Data Explorer.)
   
-  
-  
   We can see our cluster and the database that we created.
   To run KQL queries, you must select the query button on the Free Cluster page. <br>
   ![Screen capture 1](/assets/images/Free-cluster-query.png)
@@ -73,14 +71,48 @@ In the next page, enter the database name you want to use and click 'Next: Creat
   ADX supports several ingestion methods. [These methods include ingestion tools, connectors and plugins, managed pipelines, programmatic ingestion using SDKs, and direct access to ingestion.]
 
   **Expected Learning Outcomes:**
+  - Ingest from Storage using .ingest control commands
   - Ingest data using one-click ingestion from Azure Blob Storage(or local files) to your ADX cluster.
+  
+---
+#### Task 1: Create table and ingest data 
+Execute the below database script to
+  - Create a table logsRaw
+  - Set retention policy to 100 years
+  - Load data using .ingest commands from storage account
+
+```
+.execute database script with (ContinueOnErrors=true) <|
+//
+// Define table schema.
+.create-merge table logsRaw(Timestamp:datetime, Source:string, Node:string, Level:string, Component:string, ClientRequestId:string, Message:string, Properties:dynamic) 
+//
+// Retention policy
+.alter-merge table logsRaw policy retention softdelete = 36500d recoverability = enabled
+//
+// Load data- On free cluster, it will take about 20 seconds; 
+.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/00/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T00:00:00Z')
+.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/01/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T01:00:00Z')
+.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/02/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T02:00:00Z')
+.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/03/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T03:00:00Z')
+.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/04/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T04:00:00Z')
+.ingest       into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/05/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T05:00:00Z')
+.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/06/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T06:00:00Z')
+.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/07/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T07:00:00Z')
+.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/08/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T08:00:00Z')
+.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/09/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T09:00:00Z')
+.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/10/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T10:00:00Z')
+.ingest       into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/11/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T11:00:00Z')
+.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/12/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T12:00:00Z')
+.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/13/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T13:00:00Z')
+```
 
 ---
 #### Task 1: Use the “One-click” UI (User Interfaces) to create a data connection to Azure blob storage
   For the best user experience, we will use the Azure Data Explorer Web UI (aka: Kusto web Explorer/KWE). To open it, click "Query" in Free cluster page by going to [Kusto Web Explorer](https://dataexplorer.azure.com/freecluster).The web UI opens. 
   
   We will ingest one dataset from an Azure Storage account. </br>
-  1 json.gz files are avaialble for download in 'Data/GitHub_Events' folder in this github page.  </br> 
+  1 csv.gz files are avaialble for download in 'Data' folder in this github page.  </br> 
   
   Go to the “Data management” tab, and select **Ingest data**
   
@@ -88,35 +120,35 @@ In the next page, enter the database name you want to use and click 'Next: Creat
   
   Make sure the cluster and the Database fields are correct. Select **New table**
   
-  **Note**: We used an example table name as 'githubraw' here. You can give any name to your table but be sure to use it in all your queries going forward.
+  **Note**: We used an example table name as 'logsRaw' here. You can give any name to your table but be sure to use it in all your queries going forward.
 
-  <img src="/assets/images/Challenge2-Task3-Pic2.png" width="450">
+  ![Screen capture 1](/assets/images/IngestTable.png)
 
   **Note**: If you do not have a storage account, follow the "Ingest from File" section below. Otherwise, follow the "Ingest from Storage" section.
 
   **Ingest from File**: Select "File" as the source type in Ingest data window. Browse your system for the already downloaded Logistics_telemetry_Historical files
 
-  <img src="/assets/images/Free-cluster-ingestfromFile.png" width="400">
+  <img src="/assets/images/IngestFromFile.png" width="400">
   
   **Ingest from Storage**: Select "Blob container" as the source type in Ingest data window. In the **Link to source**, paste the SAS URL of the blob container. To get the SAS URL of the blob container, go to this storage account in the Azure portal. Once you're on the storage account page, go to the "Containers" menu and right-click on the container where you uploaded the 3 data files. Click "Generate SAS". A side pane opens. In the "permissions" dropdown, add "list" along with "read". Click "Generate SAS token and URL" and copy the "Blob SAS URL".
 
   Go back to the ADX “One-click” UI. Paste the SAS URL and select one of the **Schema defining file** that start with "export_" (not all the files in that blob storage have the same schema) and click **Next**
  
   
-  ![Screen capture 1](/assets/images/IngestData_ContainerSelection.png)
+  ![Screen capture 1](/assets/images/IngestFromStorage.png)
   
-  Make sure you use the **JSON Data format**
+  Make sure you use the **CSV Data format**
   
-  ![Screen capture 1](/assets/images/IngestFiles.png)
+  ![Screen capture 1](/assets/images/IngestFromStorage_schema.png)
   
   Wait for the ingestion to be completed. For production modes, you could use Azure Event Grid for continuous Blob ingestion. The **Event Grid** link under **Continuous Ingestion** will create the Event Grid resource for that. We won't use this option in this Lab.
 
    <img src="/assets/images/Ingestion-Complete.png" width="520">
   
-  Verify that data was ingested to the table
+  Verify that data was ingested to the table. logsRaw table should have 3834012 records
 
 ```
-  githubraw
+  logsRaw
   | count 
 ```
 ---
@@ -140,9 +172,8 @@ It's like a funnel, where you start out with an entire data table. Each time the
 Let's look at an example query:
 
 ```
-githubraw
-| where Type == "PushEvent"
-| count 
+logsRaw
+| take 10 
 ```
 
 This query has a single tabular expression statement. The statement begins with a reference to the table githubraw and contains the operators where and count. Each operator is separated by a pipe. The data rows for the source table are filtered by the value of the Type column. In the last line, the query returns a table with a single column and a single row that contains the count of the remaining rows.
@@ -171,7 +202,8 @@ Execute the queries and view the results. KQL queries can be used to filter data
 For the following tasks, we will use the table githubraw.
 
 ```
-githubraw
+logsRaw
+| where Level=="Error"
 | take 10
 ```
 'take' operator samples any number of records from our table without any order. In the above example, we asked to provide 10 random records.
@@ -179,30 +211,30 @@ githubraw
  Find out how many records are in the table
 
   ```
-githubraw
+logsRaw
 | summarize count() // or: count
   ```
 
-Find out how many records have CreatedAt between 1-Oct-2022 and 31-Oct-2022
+Find out how minimum and maximum Timestamp
 
   ```
-githubraw
-| where CreatedAt between (datetime('2022-10-01') .. datetime('2022-10-31'))
-| summarize count()
+logsRaw
+| summarize min(Timestamp), max(Timestamp)
  ``` 
 
 KQL makes it simple to access fields in JSON and treat them like an independent column:
 
 ```
-githubraw
+logsRaw
+| where Component == "DOWNLOADER"
 | take 100
-| extend reponame= Repo.name, author = Payload.pull_request.user.login
+| extend originalSize=Properties.OriginalSize, compressedSize=Properties.compressedSize
 ```
 
 ---
 #### Task 2: Explore the table and columns 🎓
 Write a query to get the schema of the table. 
-Hint: Observe there are 2 new columns RepoName and Author. Try to extract from Repo and Payload columns.
+Hint: Observe there are 2 new columns originalSize and compressedSize with datatype 'long'
 
 Example result:  
 <img src="/assets/images/Schema.png" width="400">
@@ -214,7 +246,7 @@ Example result:
 
 ---
 #### Task 3: Keep the columns of your interest 🎓
-Write a query to get only specific desired columns: Id, Type, Public, CreatedAt. Take arbitrary 10 records.
+Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records.
 
 Example result:</br>
 <img src="/assets/images/project.png" width="400">
@@ -225,7 +257,7 @@ Example result:</br>
 
 ---
 #### Task 4: Filter the output 🎓
-Write a query to get only specific desired columns: Id, Type, Public, CreatedAt. Take arbitrary 10 records between 1-Oct-2022 10:00 and 1-oct-2022 23:00.
+Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records. between 2014-03-08 01:00 and 2014-03-08 10:00.
 
 Hint 1: In case you see 0 records, remember that operators are sequenced by a pipe (|). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
 
@@ -233,11 +265,12 @@ Hint 1: In case you see 0 records, remember that operators are sequenced by a pi
 
 ---
 #### Task 5: Sorting the results 🎓
-Write a query to get top 5 'PushEvent' records by Payload size. Write another query get the 5 records which have least Payload size.
+Write a query to get top 10 records with highest rowcount for INGESTOR_EXECUTER Component field.
+
+Hint: Extract rowCount from Properties column 
 
 [sort operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sortoperator)
 [top operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/topoperator)
-
 
 ---
 #### Task 6: Reorder, rename, add columns 🎓
@@ -277,7 +310,7 @@ Example result for the second query:</br>
 
 ---
 #### Task 9: Render a chart 🎓
-Write a query to find out how many records are present per event Type (aggregated by Type) and render a piechart.
+Write a query to find out how many records are present per Level (aggregated by Level) and render a piechart.
 
 Example result:</br>
 <img src="/assets/images/pie.png" width="500">
@@ -312,33 +345,23 @@ Expected Learning Outcomes:
 
 For the next task, we will use the githubraw table .
 
-#### Task 1: User defined Functions (Stored Functions) 🎓
+#### Task 1: User defined Function (Stored Functions) 🎓
 
-Create 2 stored functions that will contain the code of the following logic. Make sure the function works.
+Create a stored functions that will contain the code of the following logic. Make sure the function works.
 
-Function 1: 
-- Filter events that are of Type = 'PushEvent'
-- Perform mv-expand on 'commits' object inside Payload column
-- Remove the following columns Actor,Type, Public
+Function: Filter records by Ingestion Components -INGESTOR_EXECUTER, INGESTOR_GATEWAY, INTEGRATIONDATABASE,INTEGRATIONSERVICEFLOWS, INTEGRATIONSERVICETRACE, DOWNLOADER
 
-Function 2:
-- Filter events that are of Type = 'PullRequestEvent'
-- Perform mv-expand on 'labels' object inside 'pull_requests" object inside Payload column (Hint: Payload.pull_requests.labels)
-- Remove the following columns Actor,Type, Public
 
 See the [create function](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/functions) article.
 
 ---
 
 #### Task 2: Create an update policy 🎓
-In this task, we will use an 'update policy' to manipulate the raw data in the githubraw table (the source table) and transform the JSON data into separate columns, that will be ingested into new tables that we’ll create (“target table”).
-We want to create 2 new tables - PushEvent , PullRequestEvent
+In this task, we will use an 'update policy' to filter the raw data in the logsRaw table (the source table) for ingestion logs, that will be ingested into new tables that we’ll create (“ingestionLogs”).
 
-**Build the 2 target tables**
+**Build the target tables**
 ```
-.create table PushEvent (Id:long, Repo: dynamic, Payload:dynamic, CreatedAt:datetime, Payload_commits:dynamic)
-
- .create table PullRequestEvent (Id:long, Repo: dynamic, Payload:dynamic, CreatedAt:datetime, Payload_pull_request_labels:dynamic) 
+.create table ingestionLogs (Timestamp: datetime, Source: string, Properties: dynamic, Node: string, Message: string, Level: string, Component: string, ClientRequestId: string)
 ```
 Create a function for the update policy 🎓
  ```
@@ -352,18 +375,16 @@ Create the update policy 🎓
 Update policy can transform and move the data from source table from the time it is created. It cannot look back at already existing data in source table. In order to mimic new data ingesting into source table we will use ".set-or-append" control commnd to ingest 1000 rows into source table (sample data from source table)
 
 ```
-  .set-or-append githubraw <| githubraw | take 1000
+  .set-or-append logsRaw <| logsRaw | take 1000
 ```
 - [Kusto Ingest from Query | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/data-ingestion/ingest-from-query)
 
 
 Make sure the data is transformed correctly in the destination tables
 ```
-PushEvent
+ingestionLogs
 | take 10
 
-PullRequestEvent
-| take 10
 ```
 
 **Relevant docs for this challenge:**
