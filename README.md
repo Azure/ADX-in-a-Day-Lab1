@@ -77,14 +77,15 @@ In the next page, enter the database name you want to use and click 'Next: Creat
 ---
 #### Task 1: Create table and ingest data 
 Execute the below database script to
-  - Create a table logsRaw
-  - Set retention policy to 100 years
+  - Create a table - logsRaw
+  - Set retention policy to 100 years (Deeper learning in Lab 2 Challenge 6)
   - Load data using .ingest commands from storage account
 
 ```
 .execute database script with (ContinueOnErrors=true) <|
 //
-// Define table schema.
+// Create raw table with defined schema
+//
 .create-merge table logsRaw(Timestamp:datetime, Source:string, Node:string, Level:string, Component:string, ClientRequestId:string, Message:string, Properties:dynamic) 
 //
 // Retention policy
@@ -182,24 +183,11 @@ References:
 - [SQL to Kusto cheat sheet](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sqlcheatsheet)
 - [KQL cheat sheets](https://github.com/marcusbakker/KQL/blob/master/kql_cheat_sheet.pdf)
 
-<!--
-#### Task 0: Connect to the cluster
-
-For the following tasks, connect to the cluster [ADX Lab Cluster](https://adxLabcluster.eastus.kusto.windows.net/)
-
-![Screen capture 1](/assets/images/task5-Task0-Pic1.png)
-
-![Screen capture 1](/assets/images/task5-Task0-Pic2.png)
-
--->
-
 ---
 #### Task 1: Basic KQL queries - explore the data
   
-In this task, you will see some KQL examples. For this task, we will use the table githubraw, which has data we loaded in previous challenge from storage account. </br> 
+In this task, you will see some KQL examples. For this task, we will use the table logsRaw, which has data we loaded in previous challenge from storage account. </br> 
 Execute the queries and view the results. KQL queries can be used to filter data and return specific information. Now, you'll learn how to choose specific rows of the data. The where operator filters results that satisfy a certain condition. 
-
-For the following tasks, we will use the table githubraw.
 
 ```
 logsRaw
@@ -215,7 +203,7 @@ logsRaw
 | summarize count() // or: count
   ```
 
-Find out how minimum and maximum Timestamp
+Find out the minimum and maximum Timestamp
 
   ```
 logsRaw
@@ -274,16 +262,10 @@ Hint: Extract rowCount from Properties column
 
 ---
 #### Task 6: Reorder, rename, add columns 🎓
-1. Filter 'IssuesEvent' type records. sample 100 records
-2. Extract issue number, action, created_at, closed_at
-3. Find out number of days difference between closed_at and created_at for closed issues.
-4. Query only desired columns - Id, IssueNumber, Action, IssueCreateTime, IssueCloseTime, IssueTime
-
-Hint 1: IssueTime= datetime_diff('day',IssueCloseTime, IssueCreateTime )
-Hint 2: You can check status of issues using 'action' field
+Write a query to extract format and row count from INGESTOR_EXECUTOR component. Rename the field to fileFormat and rowCount respectively. Also, Make Sure Timestamp, fileFormat and rowCount are the first 3 columns
 
 Example result:</br>
-<img src="/assets/images/temp.png" width="600">
+<img src="/assets/images/rename_reorder.png" width="600">
 
 [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
 
@@ -293,15 +275,16 @@ Example result:</br>
 
 ---
 #### Task 7: Total number of records 🎓
-Write a query to find out how many records are in the table. 
+Write a query to find out how many records are in the table by Component. 
 
 [count operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/countoperator)
 
 ---
 #### Task 8: Aggregations and string operations 🎓
-Write a query to find out how many records have 'azure' in repo name. <br>
-Write another query to find out how many records have 'azure' in repo name per Event Type (aggregated by Type).</br>
-Example result for the second query:</br>
+Write a query to find out how many records have 'ingestion' string in Message column. Aggregate the results by Level.
+
+Example result:
+
 <img src="/assets/images/count_by.png" width="250">
 
 [String operators - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/datatypes-string-operators)
@@ -312,22 +295,38 @@ Example result for the second query:</br>
 #### Task 9: Render a chart 🎓
 Write a query to find out how many records are present per Level (aggregated by Level) and render a piechart.
 
-Example result:</br>
+Example result:
+
 <img src="/assets/images/pie.png" width="500">
 
 [render operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/renderoperator?pivots=azuredataexplorer)
 
 ---
 #### Task 10: Create bins and visualize time series 🎓
-Write a query to show a timechart of the number of records between 1-Oct-t2022 03:00 and 1-Oct-2022 21:00. Use 10 minute bins (buckets). Each point on the timechart represent the number of events on that bucket.
+Write a query to show a timechart of the number of records 30 minute bins (buckets). Each point on the timechart represent the number of logs on that bucket.
 
-Example result:</br>
+Example result:<br>
 <img src="/assets/images/timeseries.png" width="650">
 
 [bin() - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
 
 
 [summarize operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
+
+---
+#### Task 11: Shortcuts
+There are many keyboard shortcuts available in ADX Web UI and Kusto Explorer to increase productivity while working with KQL.
+Below are a few examples
+- You don't have to select a block of code. Based on current cursor position, code that is separated by empty lines is considered a single block of code.<br>
+<img src="/assets/images/codeBlock.png" width="650">
+
+- You can execute a block of code using Shift+Enter
+- You can directly insert filters based on data cells selections using Ctrl+Shift+Space <br>
+<img src="/assets/images/AddasFilters.png" width="650">
+
+[Kusto Web UI shortcuts | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/web-ui-query-keyboard-shortcuts)
+
+[Kusto Explorer shortcuts | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer-shortcuts)
 
 ---
 ### Challenge 4: Explore and Transform Data
@@ -384,7 +383,6 @@ Make sure the data is transformed correctly in the destination tables
 ```
 ingestionLogs
 | take 10
-
 ```
 
 **Relevant docs for this challenge:**
