@@ -13,7 +13,7 @@ Each challenge has a set of tasks that need to be completed in order to move on 
 ---
 Earn a digital badge! In order to receive the "ADX In a Day" digital badge, you will need to complete the tasks marked with 🎓. Please submit the KQL queries/commands of these tasks in the following link: [Answer sheet - ADX Lab 1](https://forms.office.com/r/3V7yjXwAMD)
 
-<img src="/assets/images/Badge_Transparent.png" width="400">
+<img src="/assets/images/Badge_Transparent.png" width="200">
 
 ---
 ---
