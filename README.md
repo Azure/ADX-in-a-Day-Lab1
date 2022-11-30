@@ -13,7 +13,12 @@ Each challenge has a set of tasks that need to be completed in order to move on 
 ---
 Earn a digital badge! In order to receive the "ADX In a Day" digital badge, you will need to complete the tasks marked with 🎓. Please submit the KQL queries/commands of these tasks in the following link: [Answer sheet - ADX Lab 1](https://forms.office.com/r/3V7yjXwAMD)
 
-<img src="/assets/images/Badge_Transparent.png" width="200">
+<img style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 30%;"
+           src="/assets/images/badge_transparent.png" width="100">
+</img>
 
 ---
 ---
@@ -34,18 +39,18 @@ In this Challenge, you will create a Free cluster and a database. You will run s
 Create your free cluster here: https://aka.ms/kustofree
 
 **Note**: The below screenshot is just an example 
-![Screen capture 1](/assets/images/onboarding-kusto-free.png)
+![Screen capture 1](/assets/images/onboarding_kusto_free.png)
 
 A Free cluster home page is added to Myclusters pane in UI
-![Screen capture 1](/assets/images/Free-cluster-page.png)
   
 #### Task 2: Create a database in the free cluster
 To create database, once the free cluster is created, you can use the "Create" button in the Create database window 
 
-![Screen capture 1](/assets/images/Free-cluster-create-DB.png)
+![Screen capture 1](/assets/images/free_cluster_create_db.png)
 
 In the next page, enter the database name you want to use and click 'Next: Create Database"
-![Screen capture 1](/assets/images/Free-cluster-create-DB1.png)
+
+![Screen capture 1](/assets/images/free_cluster_create_db1.png)
 
   
 ---
@@ -57,12 +62,12 @@ In the next page, enter the database name you want to use and click 'Next: Creat
   In this example, you'll use the Azure Data Explorer web interface as a query editor (Kusto Query Language can also be used in Azure Monitor Logs, Azure Sentinel, and other services that are built on-top of Azure Data Explorer.)
   
   We can see our cluster and the database that we created.
-  To run KQL queries, you must select the query button on the Free Cluster page. <br>
-  ![Screen capture 1](/assets/images/Free-cluster-query.png)
+  To run KQL queries, you must select the **Query** button on the Free Cluster page. <br>
+  ![Screen capture 1](/assets/images/free_cluster_query.png)
   Now – you can write a simple KQL query: print ("hello world"),
   and hit the “Run” button. The query will be executed and its result can be seen in the result grid on the bottom of the page. 
   
-  ![Screen capture 1](/assets/images/Free-cluster-helloworld.png)
+  ![Screen capture 1](/assets/images/hello_world.png)
   
   Windows users can also download [Kusto Explorer](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer), a desktop client to run queries and benefit from advanced features available in the client.
 
@@ -74,80 +79,44 @@ In the next page, enter the database name you want to use and click 'Next: Creat
   ADX supports several ingestion methods. [These methods include ingestion tools, connectors and plugins, managed pipelines, programmatic ingestion using SDKs, and direct access to ingestion.]
 
   **Expected Learning Outcomes:**
-  - Ingest from Storage using .ingest control commands
-  - Ingest data using one-click ingestion from Azure Blob Storage(or local files) to your ADX cluster.
+  - Ingest data using one-click ingestion from Azure Blob Storage to your ADX cluster.
   
 ---
-#### Task 1: Create table and ingest data 
-Execute the below database script to
-  - Create a table - logsRaw
-  - Set retention policy to 100 years (Deeper learning in Lab 2 Challenge 6)
-  - Load data using .ingest commands from storage account
-
+#### Task 1: create the raw table - logsRaw
+Run the following command to create our table
 ```
-.execute database script with (ContinueOnErrors=true) <|
-//
-// Create raw table with defined schema
-//
 .create-merge table logsRaw(Timestamp:datetime, Source:string, Node:string, Level:string, Component:string, ClientRequestId:string, Message:string, Properties:dynamic) 
-//
-// Retention policy
-.alter-merge table logsRaw policy retention softdelete = 36500d recoverability = enabled
-//
-// Load data- On free cluster, it will take about 20 seconds; 
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/00/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T00:00:00Z')
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/01/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T01:00:00Z')
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/02/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T02:00:00Z')
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/03/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T03:00:00Z')
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/04/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T04:00:00Z')
-.ingest       into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/05/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T05:00:00Z')
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/06/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T06:00:00Z')
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/07/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T07:00:00Z')
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/08/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T08:00:00Z')
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/09/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T09:00:00Z')
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/10/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T10:00:00Z')
-.ingest       into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/11/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T11:00:00Z')
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/12/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T12:00:00Z')
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/13/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T13:00:00Z')
-```
 
----
-#### Task 1: Use the “One-click” UI (User Interfaces) to create a data connection to Azure blob storage
-  For the best user experience, we will use the Azure Data Explorer Web UI (aka: Kusto web Explorer/KWE). To open it, click "Query" in Free cluster page by going to [Kusto Web Explorer](https://dataexplorer.azure.com/freecluster).The web UI opens. 
+```
+#### Task 2: Use the “One-click” UI (User Interface) to create a data connection to Azure blob storage
+  For the best user experience, we will use the Azure Data Explorer Web UI (aka: Kusto web Explorer/KWE). To open it, go to [Kusto Web Explorer](https://dataexplorer.azure.com/freecluster).The web UI opens. 
   
-  We will ingest one dataset from an Azure Storage account. </br>
-  1 csv.gz files are avaialble for download in 'Data' folder in this github page.  </br> 
+  Select **Ingest** button on the Free Cluster Page
   
-  Go to the “Data management” tab, and select **Ingest data**
-  
-  ![Screen capture 1](/assets/images/Free-cluster-Ingestdata.png)
+  ![Screen capture 1](/assets/images/ingest_data.png)
   
   Make sure the cluster and the Database fields are correct. Select **New table**
   
   **Note**: We used an example table name as 'logsRaw' here. You can give any name to your table but be sure to use it in all your queries going forward.
 
-  ![Screen capture 1](/assets/images/IngestTable.png)
-
-  **Note**: If you do not have a storage account, follow the "Ingest from File" section below. Otherwise, follow the "Ingest from Storage" section.
-
-  **Ingest from File**: Select "File" as the source type in Ingest data window. Browse your system for the already downloaded Logistics_telemetry_Historical files
-
-  <img src="/assets/images/IngestFromFile.png" width="400">
+  ![Screen capture 1](/assets/images/ingest_table.png)
   
-  **Ingest from Storage**: Select "Blob container" as the source type in Ingest data window. In the **Link to source**, paste the SAS URL of the blob container. To get the SAS URL of the blob container, go to this storage account in the Azure portal. Once you're on the storage account page, go to the "Containers" menu and right-click on the container where you uploaded the 3 data files. Click "Generate SAS". A side pane opens. In the "permissions" dropdown, add "list" along with "read". Click "Generate SAS token and URL" and copy the "Blob SAS URL".
+  **Ingest from Storage**: Select "Blob container" as the source type in Ingest data window. In the **Link to source**, paste the following SAS URL.
+```
+https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D
+``` 
 
-  Go back to the ADX “One-click” UI. Paste the SAS URL and select one of the **Schema defining file** that start with "export_" (not all the files in that blob storage have the same schema) and click **Next**
+ Select one of the **Schema defining file** (one is autoselected unless you want to change that) and click **Next**
  
-  
-  ![Screen capture 1](/assets/images/IngestFromStorage.png)
+  ![Screen capture 1](/assets/images/ingest_from_storage.png)
   
   Make sure you use the **CSV Data format**
   
-  ![Screen capture 1](/assets/images/IngestFromStorage_schema.png)
+  ![Screen capture 1](/assets/images/ingest_from_storage_schema.png)
   
   Wait for the ingestion to be completed. For production modes, you could use Azure Event Grid for continuous Blob ingestion. The **Event Grid** link under **Continuous Ingestion** will create the Event Grid resource for that. We won't use this option in this Lab.
 
-   <img src="/assets/images/Ingestion-Complete.png" width="520">
+  ![Screen capture 1](/assets/images/ingestion_complete.png)
   
   Verify that data was ingested to the table. logsRaw table should have 3834012 records
 
@@ -183,9 +152,28 @@ logsRaw
 This query has a single tabular expression statement. The statement begins with a reference to the table githubraw and contains the operators where and count. Each operator is separated by a pipe. The data rows for the source table are filtered by the value of the Type column. In the last line, the query returns a table with a single column and a single row that contains the count of the remaining rows.
 
 References:
-- [SQL to Kusto cheat sheet](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sqlcheatsheet)
 - [KQL cheat sheets](https://github.com/marcusbakker/KQL/blob/master/kql_cheat_sheet.pdf)
 
+---
+#### Task 0 : The SQL Way!
+For all the SQL pros out there, Azure data explorer allows a subset of TSQL queries. Try running the following SQL query in web UI
+```
+select count(1) from logsRaw
+```
+With a growth mindset, ADX also supports translation of SQL to KQL using 'explain' operator.
+
+```
+explain select max(Timestamp) as MaxTimestamp from logsRaw where Level='Error'
+```
+Output of the above query will be a corresponsing KQL query
+```
+logsRaw
+| where (Level == "Error")
+| summarize MaxTimestamp=max(Timestamp)
+| project MaxTimestamp
+```
+References:
+- [SQL to KQL cheat sheets](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/sqlcheatsheet)
 ---
 #### Task 1: Basic KQL queries - explore the data
   
@@ -228,7 +216,7 @@ Write a query to get the schema of the table.
 Hint: Observe there are 2 new columns originalSize and compressedSize with datatype 'long'
 
 Example result:  
-<img src="/assets/images/Schema.png" width="400">
+![Screen capture 1](/assets/images/schema.png)
 
 [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
 
@@ -239,8 +227,8 @@ Example result:
 #### Task 3: Keep the columns of your interest 🎓
 Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records.
 
-Example result:</br>
-<img src="/assets/images/project.png" width="400">
+Example result:
+![Screen capture 1](/assets/images/project.png)
 
 [project-away operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectawayoperator)
 
@@ -321,11 +309,11 @@ Example result:<br>
 There are many keyboard shortcuts available in ADX Web UI and Kusto Explorer to increase productivity while working with KQL.
 Below are a few examples
 - You don't have to select a block of code. Based on current cursor position, code that is separated by empty lines is considered a single block of code.<br>
-<img src="/assets/images/codeBlock.png" width="650">
+<img src="/assets/images/code_block.png" width="650">
 
 - You can execute a block of code using Shift+Enter
 - You can directly insert filters based on data cells selections using Ctrl+Shift+Space <br>
-<img src="/assets/images/AddasFilters.png" width="650">
+<img src="/assets/images/add_as_filters.png" width="650">
 
 [Kusto Web UI shortcuts | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/web-ui-query-keyboard-shortcuts)
 
