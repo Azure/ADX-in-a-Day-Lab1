@@ -246,7 +246,7 @@ Hint: Extract rowCount from Properties column
 Write a query to extract format and row count from INGESTOR_EXECUTOR component. Rename the field to fileFormat and rowCount respectively. Also, Make Sure Timestamp, fileFormat and rowCount are the first 3 columns
 
 Example result:</br>
-<img src="/assets/images/rename_reorder.png" width="600">
+<img src="/assets/images/rename_reorder.png" width="500">
 
 [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
 
@@ -266,7 +266,7 @@ Write a query to find out how many records have 'ingestion' string in Message co
 
 Example result:
 
-<img src="/assets/images/count_by.png" width="250">
+<img src="/assets/images/count_by.png" width="500">
 
 [String operators - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/datatypes-string-operators)
 
@@ -287,7 +287,7 @@ Example result:
 Write a query to show a timechart of the number of records 30 minute bins (buckets). Each point on the timechart represent the number of logs on that bucket.
 
 Example result:<br>
-<img src="/assets/images/timeseries.png" width="400">
+<img src="/assets/images/timeseries.png" width="500">
 
 [bin() - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
 
@@ -299,7 +299,7 @@ Example result:<br>
 There are many keyboard shortcuts available in ADX Web UI and Kusto Explorer to increase productivity while working with KQL.
 Below are a few examples
 - You don't have to select a block of code. Based on current cursor position, code that is separated by empty lines is considered a single block of code.<br>
-<img src="/assets/images/code_block.png" width="400">
+<img src="/assets/images/code_block.png" width="500">
 
 - You can execute a block of code using Shift+Enter
 - You can directly insert filters based on data cells selections using Ctrl+Shift+Space <br>
