@@ -12,11 +12,12 @@ Each challenge has a set of tasks that need to be completed in order to move on 
 
 ---
 Earn a digital badge! In order to receive the "ADX In a Day" digital badge, you will need to complete the tasks marked with 🎓. Please submit the KQL queries/commands of these tasks in the following link: [Answer sheet - ADX Lab 1](https://forms.office.com/r/3V7yjXwAMD)
----
----
 
+<img src="/assets/images/badge.png" width="200">
+
+---
+---
 # [Go to ADX-In-A-Day HomePage](https://github.com/Azure/ADX-in-a-Day)
-
 ---
 ### Challenge 1: Create an ADX cluster
 To use Azure Data Explorer (ADX), you first have to create a free ADX cluster, and create one or more databases in that cluster. Each database has tables. Then you can ingest data into a database so that you can run queries against it.
@@ -31,18 +32,16 @@ In this Challenge, you will create a Free cluster and a database. You will run s
 Create your free cluster here: https://aka.ms/kustofree
 
 **Note**: The below screenshot is just an example 
-![Screen capture 1](/assets/images/onboarding-kusto-free.png)
-
-A Free cluster home page is added to Myclusters pane in UI
-![Screen capture 1](/assets/images/Free-cluster-page.png)
+![Screen capture 1](/assets/images/onboarding_kusto_free.png)
   
 #### Task 2: Create a database in the free cluster
-To create database, once the free cluster is created, you can use the "Create" button in the Create database window 
+A Free cluster home page is added to Myclusters pane in UI. To create database, once the free cluster is created, you can use the "Create" button in the Create database window 
 
-![Screen capture 1](/assets/images/Free-cluster-create-DB.png)
+![Screen capture 1](/assets/images/free_cluster_create_db.png)
 
 In the next page, enter the database name you want to use and click 'Next: Create Database"
-![Screen capture 1](/assets/images/Free-cluster-create-DB1.png)
+
+![Screen capture 1](/assets/images/free_cluster_create_db1.png)
 
   
 ---
@@ -53,15 +52,13 @@ In the next page, enter the database name you want to use and click 'Next: Creat
   In the next Challenge, we'll ingest data to the cluster, and then learn the most important concepts in KQL and write interesting queries. In this task, you will write a few basic queries to get an understanding of the environment.<br>
   In this example, you'll use the Azure Data Explorer web interface as a query editor (Kusto Query Language can also be used in Azure Monitor Logs, Azure Sentinel, and other services that are built on-top of Azure Data Explorer.)
   
-  
-  
   We can see our cluster and the database that we created.
-  To run KQL queries, you must select the query button on the Free Cluster page. <br>
-  ![Screen capture 1](/assets/images/Free-cluster-query.png)
+  To run KQL queries, you must select the **Query** button on the Free Cluster page. <br>
+  ![Screen capture 1](/assets/images/free_cluster_query.png)
   Now – you can write a simple KQL query: print ("hello world"),
   and hit the “Run” button. The query will be executed and its result can be seen in the result grid on the bottom of the page. 
   
-  ![Screen capture 1](/assets/images/Free-cluster-helloworld.png)
+  ![Screen capture 1](/assets/images/hello_world.png)
   
   Windows users can also download [Kusto Explorer](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer), a desktop client to run queries and benefit from advanced features available in the client.
 
@@ -73,86 +70,48 @@ In the next page, enter the database name you want to use and click 'Next: Creat
   ADX supports several ingestion methods. [These methods include ingestion tools, connectors and plugins, managed pipelines, programmatic ingestion using SDKs, and direct access to ingestion.]
 
   **Expected Learning Outcomes:**
-  - Ingest data using one-click ingestion from Azure Blob Storage(or local files) to your ADX cluster.
-
+  - Ingest data using one-click ingestion from Azure Blob Storage to your ADX cluster.
+  
 ---
-#### Task 1: Use the “One-click” UI (User Interfaces) to create a data connection to Azure blob storage
-  For the best user experience, we will use the Azure Data Explorer Web UI (aka: Kusto web Explorer/KWE). To open it, click "Query" in Free cluster page by going to [Kusto Web Explorer](https://dataexplorer.azure.com/freecluster).The web UI opens.
-  
-    
-   For this Lab,we use messages that are in JSON format. This is how a sample message looks like:
-  ```
-  {
-  "messageProperties": {
-    "iothub-creation-time-utc": "2021-12-22T11:16:58.668Z"
-  },
-  "enrichments": {},
-  "applicationId": "1b2f5f29-a78b-4012-bf31-2016473cadf6",
-  "deviceId": "13n5b9yiael",
-  "messageSource": "telemetry",
-  "telemetry": {
-    "Status": "Online",
-    "BatteryLife": 52,
-    "Light": 62602.66864777621,
-    "Tilt": 44.70275959833819,
-    "Shock": -6.381560743718394,
-    "ActiveTags": 164,
-    "Location": {
-      "lon": -68.4585,
-      "lat": 40.9633,
-      "alt": 1069.4617
-    },
-    "TransportationMode": "Train",
-    "LostTags": 5,
-    "Temp": 13.178830710467722,
-    "Humidity": 91.17280445807984,
-    "Pressure": 1033.3527307505506,
-    "TotalTags": 187
-  },
-  "schema": "default@v1",
-  "enqueuedTime": "2021-12-22T11:16:58.753Z",
-  "templateId": "dtmi:ltifbs50b:mecybcwqm"
-}
+#### Task 1: create the raw table - logsRaw
+Run the following command to create our table
 ```
+.create-merge table logsRaw(Timestamp:datetime, Source:string, Node:string, Level:string, Component:string, ClientRequestId:string, Message:string, Properties:dynamic) 
+```
+#### Task 2: Use the “One-click” UI (User Interface) to create a data connection to Azure blob storage
+  For the best user experience, we will use the Azure Data Explorer Web UI (aka: Kusto web Explorer/KWE). To open it, go to [Kusto Web Explorer](https://dataexplorer.azure.com/freecluster).The web UI opens. 
   
-  We will ingest one dataset from an Azure Storage account. </br>
-    1. 3 json.gz files are avaialble for download in 'Data/Logistics_telemetry_Historical' folder in this github page.  </br> 
+  Select **Ingest** button on the Free Cluster Page
   
-  Go to the “Data management” tab, and select **Ingest data**
-  
-  ![Screen capture 1](/assets/images/Free-cluster-Ingestdata.png)
-  
+  ![Screen capture 1](/assets/images/data_ingest.png)
+
   Make sure the cluster and the Database fields are correct. Select **New table**
   
-  **Note**: We used an example table name as LogisticsLifeCycle here. You can give any name to your table but be sure to use it in all your queries going forward.
+  **Note**: We used an example table name as 'logsRaw' here. You can give any name to your table but be sure to use it in all your queries going forward.
 
-  <img src="/assets/images/Challenge2-Task3-Pic2.png" width="450">
-
-  **Note**: If you do not have a storage account, follow the "Ingest from File" section below. Otherwise, follow the "Ingest from Storage" section.
-
-  **Ingest from File**: Select "File" as the source type in Ingest data window. Browse your system for the already downloaded Logistics_telemetry_Historical files
-
-  <img src="/assets/images/Free-cluster-ingestfromFile.png" width="400">
+  ![Screen capture 1](/assets/images/ingest_table.png)
   
-  **Ingest from Storage**: Select "Blob container" as the source type in Ingest data window. In the **Link to source**, paste the SAS URL of the blob container. To get the SAS URL of the blob container, go to this storage account in the Azure portal. Once you're on the storage account page, go to the "Containers" menu and right-click on the container where you uploaded the 3 data files. Click "Generate SAS". A side pane opens. In the "permissions" dropdown, add "list" along with "read". Click "Generate SAS token and URL" and copy the "Blob SAS URL".
+  **Ingest from Storage**: Select "Blob container" as the source type in Ingest data window. In the **Link to source**, paste the following SAS URL.
+```
+https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D
+``` 
 
-  Go back to the ADX “One-click” UI. Paste the SAS URL and select one of the **Schema defining file** that start with "export_" (not all the files in that blob storage have the same schema) and click **Next**
+ Select one of the **Schema defining file** (one is autoselected unless you want to change that) and click **Next**
  
+  ![Screen capture 1](/assets/images/ingest_from_storage.png)
   
-  ![Screen capture 1](/assets/images/Challenge2-Task3-Pic3.png)
+  Make sure you select 'Keep current table schema' under Data format
   
-  Make sure you use the **JSON Data format**
+  ![Screen capture 1](/assets/images/ingest_from_storage_schema.png)
   
-  ![Screen capture 1](/assets/images/Challenge2-Task3-Pic4.png)
-  
-  Wait for the ingestion to be completed. For production modes, you could use Azure Event Grid for continuous Blob ingestion. The **Event Grid** link under **Continuous Ingestion** will create the Event Grid resource for that. We won't use this option in this Lab.
+  Wait for the ingestion to be completed.
 
-   <img src="/assets/images/ingestion-completed.png" width="520">
+  ![Screen capture 1](/assets/images/ingestion_completed.png)
   
-  Verify that data was ingested to the table
+  Verify that data was ingested to the table. logsRaw table should have 3834012 records
 
 ```
-  LogisticsTelemetryHistorical
+  logsRaw
   | count 
 ```
 ---
@@ -176,73 +135,78 @@ It's like a funnel, where you start out with an entire data table. Each time the
 Let's look at an example query:
 
 ```
-LogisticsTelemetryHistorical
-| where messageSource == "telemetry"
-| count 
+logsRaw
+| take 10 
 ```
 
-This query has a single tabular expression statement. The statement begins with a reference to the table LogisticsTelemetry and contains the operators where and count. Each operator is separated by a pipe. The data rows for the source table are filtered by the value of the messageSource column. In the last line, the query returns a table with a single column and a single row that contains the count of the remaining rows.
+This query has a single tabular expression statement. The statement begins with a reference to the table githubraw and contains the operators where and count. Each operator is separated by a pipe. The data rows for the source table are filtered by the value of the Type column. In the last line, the query returns a table with a single column and a single row that contains the count of the remaining rows.
 
 References:
-- [SQL to Kusto cheat sheet](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sqlcheatsheet)
 - [KQL cheat sheets](https://github.com/marcusbakker/KQL/blob/master/kql_cheat_sheet.pdf)
 
-<!--
-#### Task 0: Connect to the cluster
+---
+#### Task 0 : The SQL Way!
+For all the SQL pros out there, Azure data explorer allows a subset of TSQL queries. Try running the following SQL query in web UI
+```
+select count(1) from logsRaw
+```
+The primary language to interact with Kusto is KQL (Kusto Query Language). To make the transition and learning experience easier, you can use 'explain' operator to translate SQL queries to KQL.
 
-For the following tasks, connect to the cluster [ADX Lab Cluster](https://adxLabcluster.eastus.kusto.windows.net/)
-
-![Screen capture 1](/assets/images/task5-Task0-Pic1.png)
-
-![Screen capture 1](/assets/images/task5-Task0-Pic2.png)
-
--->
-
+```
+explain select max(Timestamp) as MaxTimestamp from logsRaw where Level='Error'
+```
+Output of the above query will be a corresponsing KQL query
+```
+logsRaw
+| where (Level == "Error")
+| summarize MaxTimestamp=max(Timestamp)
+| project MaxTimestamp
+```
+References:
+- [SQL to KQL cheat sheets](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/sqlcheatsheet)
 ---
 #### Task 1: Basic KQL queries - explore the data
   
-In this task, you will see some KQL examples. For this task, we will use the table LogisticsTelemetryHistorical, which has data we loaded in previous challenge from storage account. </br> 
+In this task, you will see some KQL examples. For this task, we will use the table logsRaw, which has data we loaded in previous challenge from storage account. </br> 
 Execute the queries and view the results. KQL queries can be used to filter data and return specific information. Now, you'll learn how to choose specific rows of the data. The where operator filters results that satisfy a certain condition. 
 
-For the following tasks, we will use the table LogisticsTelemetryHistorical.
-
 ```
-LogisticsTelemetryHistorical
+logsRaw
+| where Level=="Error"
 | take 10
 ```
-
-Similarly, you can filter where the time of an event occurred more than a certain number of years/days/minutes ago. For example, run the following query, where 2m means 2 minutes:
+'take' operator samples any number of records from our table without any order. In the above example, we asked to provide 10 random records.
 
  Find out how many records are in the table
 
   ```
-LogisticsTelemetryHistorical
+logsRaw
 | summarize count() // or: count
   ```
 
-Find out how many records have enqueuedTime bigger than the last 180 days.
+Find out the minimum and maximum Timestamp
 
   ```
-LogisticsTelemetryHistorical
-| where enqueuedTime > ago(180d) // You might get 0 records if data is old. Take any timespan based on enqueuedTime in data
-| summarize count()
+logsRaw
+| summarize min(Timestamp), max(Timestamp)
  ``` 
 
 KQL makes it simple to access fields in JSON and treat them like an independent column:
 
 ```
-LogisticsTelemetryHistorical
-| extend humidity = telemetry.Humidity, shock = telemetry.Shock
+logsRaw
+| where Component == "DOWNLOADER"
+| take 100
+| extend originalSize=Properties.OriginalSize, compressedSize=Properties.compressedSize
 ```
 
 ---
 #### Task 2: Explore the table and columns 🎓
 Write a query to get the schema of the table. 
-
-Hint 1: Your table will already contain Shock and Temp columns.But, try to extract both Shock and Temp again from 'telemetry' column using extend for this exercise.
+Hint: Observe there are 2 new columns originalSize and compressedSize with datatype 'long'
 
 Example result:  
-<img src="/assets/images/Schema.png" width="400">
+![Screen capture 1](/assets/images/get_schema.png)
 
 [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
 
@@ -251,10 +215,10 @@ Example result:
 
 ---
 #### Task 3: Keep the columns of your interest 🎓
-Write a query to get only specific desired columns: deviceId, enqueuedTime, Temp. Take arbitrary 10 records.
+Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records.
 
-Example result:</br>
-<img src="/assets/images/project.png" width="400">
+Example result:
+![Screen capture 1](/assets/images/project.png)
 
 [project-away operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectawayoperator)
 
@@ -262,48 +226,47 @@ Example result:</br>
 
 ---
 #### Task 4: Filter the output 🎓
-Write a query to get only specific desired columns: deviceId, enqueuedTime, Temp. Take arbitrary 10 records from the past 'n' days. Ex: Based on enqueuedTime timestamps in your data, any timespan that can fetch some records will be marked valid. Ex: 180 days
+Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records. between 2014-03-08 01:00 and 2014-03-08 10:00.
 
-Hint 1: “ago” </br>
-Hint 2: In case you see 0 records, remember that operators are sequenced by a pipe (|). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
+Hint 1: In case you see 0 records, remember that operators are sequenced by a pipe (|). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
 
 [where operator in Kusto query language - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/whereoperator)
 
 ---
 #### Task 5: Sorting the results 🎓
-Write a query to get the 5 records which have the highest temperature. Write another query get the 5 records which have the lowest temperature.
+Write a query to get top 10 records with highest rowcount for INGESTOR_EXECUTER Component field.
+
+Hint: Extract rowCount from Properties column 
 
 [sort operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sortoperator)
 [top operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/topoperator)
 
-
 ---
 #### Task 6: Reorder, rename, add columns 🎓
-Current temperature is in Fahrenheit.Write a query to convert Fahrenheit temperatures to Celsius temperatures. For readability, show the Fahrenheit temperature and the Celsius temperaturesa as the 2 left-most columns. You can use the following formula: 
-C = (F – 32) * (5.0/9.0) <br>
-Take 5 random records. Make sure columns are in this order C_Temp, F_Temp, deviceId, messageSource, enqueuedTime, messageProperties
-Hint 1: 'project' operator provides lot more features
-Hint 2: We used 5.0 and 9.0, rather than 5 and 9 to ensure these numbers were to the 'real' data type (double-precision floating-point format), rather than 'long' (a signed integer, Int64)
+Write a query to extract format and row count from INGESTOR_EXECUTOR component. Rename the field to fileFormat and rowCount respectively. Also, Make Sure Timestamp, fileFormat and rowCount are the first 3 columns
 
 Example result:</br>
-<img src="/assets/images/temp.png" width="600">
+<img src="/assets/images/rename_reorder.png" width="700">
 
 [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
+
 [project-rename operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectrenameoperator)
+
 [project-reorder operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectreorderoperator)
 
 ---
 #### Task 7: Total number of records 🎓
-Write a query to find out how many records are in the table. 
+Write a query to find out how many records are in the table by Component. 
 
 [count operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/countoperator)
 
 ---
 #### Task 8: Aggregations and string operations 🎓
-Write a query to find out how many records have deviceId starting with 'x'. <br>
-Write another query to find out how many records have deviceId starting with 'x', per device ID (aggregated by deviceId).</br>
-Example result for the second query:</br>
-<img src="/assets/images/count_by.png" width="250">
+Write a query to find out how many records have 'ingestion' string in Message column. Aggregate the results by Level.
+
+Example result:
+
+<img src="/assets/images/count_by.png" width="300">
 
 [String operators - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/datatypes-string-operators)
 
@@ -311,30 +274,41 @@ Example result for the second query:</br>
 
 ---
 #### Task 9: Render a chart 🎓
-Write a query to find out how many records startswith "x" , per device ID (aggregated by device ID) and render a piechart.
+Write a query to find out how many records are present per Level (aggregated by Level) and render a piechart.
 
-Example result:</br>
+Example result:
+
 <img src="/assets/images/pie.png" width="500">
 
 [render operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/renderoperator?pivots=azuredataexplorer)
 
 ---
 #### Task 10: Create bins and visualize time series 🎓
-Write a query to show a timechart of the number of records over time. Use 10 minute bins (buckets). Each point on the timechart represent the number of devices on that bucket.
+Write a query to show a timechart of the number of records 30 minute bins (buckets). Each point on the timechart represent the number of logs on that bucket.
 
-Example result:</br>
-<img src="/assets/images/chart.png" width="650">
+Example result:<br>
+<img src="/assets/images/timeseries.png" width="500">
 
 [bin() - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
 
----
-#### Task 11: Aggregations with time series visualizations 🎓
-Write a query to show a timechart of the **average temperature** over time. Use 30 minute bins (buckets) Each point on the timechart represent the average temperature in that 30 min period.
-
-Example result:</br>
-<img src="/assets/images/timeseries.png" width="650">
 
 [summarize operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
+
+---
+#### Task 11: Shortcuts
+There are many keyboard shortcuts available in ADX Web UI and Kusto Explorer to increase productivity while working with KQL.
+Below are a few examples
+- You don't have to select a block of code. Based on current cursor position, code that is separated by empty lines is considered a single block of code.<br>
+<img src="/assets/images/code_block.png" width="500">
+
+- You can execute a block of code using Shift+Enter
+- You can directly insert filters based on data cells selections using Ctrl+Shift+Space <br>
+
+![Screen capture 1](/assets/images/add_as_filters.gif)
+
+[Kusto Web UI shortcuts | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/web-ui-query-keyboard-shortcuts)
+
+[Kusto Explorer shortcuts | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer-shortcuts)
 
 ---
 ### Challenge 4: Explore and Transform Data
@@ -344,65 +318,31 @@ In this challenge we will explore 3 capabilities of Data Explorer
 - **Update Policy** is like an internal ETL. It can help you manipulate or enrich the data as it gets ingested into the source table (e.g. extracting JSON into separate columns, creating a new calculated column, joining the new records with a static dimension table that is already in your database, etc). For these cases, using an update policy is a very common and powerful practice.
 Each time records get ingested into the source table, the update policy's query (which we'll define in the update policy) will run on them (and only on newly ingested records - other existing records in the source table aren’t visible to the update policy when it runs), and the results of the query will be appended to the target table. This function output schema and target table schema should exactly match.
 
-- **Materialized views** expose an aggregation query over a source table, or over another materialized view. Materialized views always return an up-to-date result of the aggregation query (always fresh). Querying a materialized view is more performant than running the aggregation directly over the source table.
-
 - **User-defined functions** are reusable subqueries that can be defined as part of the query itself (ad-hoc functions), or persisted as part of the database metadata (stored functions). User-defined functions are invoked through a name, are provided with zero or more input arguments (which can be scalar or tabular), and produce a single value (which can be scalar or tabular) based on the function body.
 
 Expected Learning Outcomes:
 - Create user defined functions to use repeatable logic
 - Create an update policy to transform the data at ingestion time
-- Create Materialized view to create a performant way to query source table with an aggregate 
 
-For the next task, we will use the LogisticsTelemetryHistorical table .
+For the next task, we will use the githubraw table .
 
-#### Task 1: User defined Functions (Stored Functions) 🎓
+#### Task 1: User defined Function (Stored Functions) 🎓
 
-Create a stored function that will contain the code of the following logic. Make sure the function works.
+Create a stored functions that will contain the code of the following logic. Make sure the function works.
 
-- Creates a calculated column NumofTagsCalculated = TotalTags - LostTags
-- Projects only 4 columns - deviceId, enqueuedTime, NumofTagsCalculated, Temp
+Function: Filter records by Ingestion Components -INGESTOR_EXECUTER, INGESTOR_GATEWAY, INTEGRATIONDATABASE,INTEGRATIONSERVICEFLOWS, INTEGRATIONSERVICETRACE, DOWNLOADER
 
-Hint 1: Even if NumofTagsCalculated field is present, try to extract the required columns TotalTags and LostTags from 'telemetry' column and recalculate NumofTagsCalculated for this exercise.
 
 See the [create function](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/functions) article.
 
 ---
 
 #### Task 2: Create an update policy 🎓
-By taking 10 records, we can see that the telemetry column has a JSON structure. In this task, we will use an 'update policy' to manipulate the raw data in the LogisticsTelemetryHistorical table (the source table) and transform the JSON data into separate columns, that will be ingested into a new table that we’ll create (“target table”).
-We want to create a new table, with a calculated column (we will call it: NumOfTagsCalculated) that contains the following value: telemetry.TotalTags - telemetry.LostTags.
+In this task, we will use an 'update policy' to filter the raw data in the logsRaw table (the source table) for ingestion logs, that will be ingested into new tables that we’ll create (“ingestionLogs”).
 
-The schema of the new (destination) table would be:
+**Build the target tables**
 ```
-  ( deviceId:string, enqueuedTime:datetime, NumOfTagsCalculated:int, Temp:real)
-```
-```
-Example (note that the order of the keys may be different):
-
-{
-  "BatteryLife": 73,
-  "Light": "70720.236143472212",
-  "Tilt": "18.608539012789223",
-  "Humidity": "60.178854625386215",
-  "Shock": "-4.6141182265359628",
-  "Pressure": "529.61165751122712",
-  "ActiveTags": 165,
-  "TransportationMode": "Ocean",
-  "Status": "Online",
-  "LostTags": 9,
-  "Temp": "7.5054504554744765",
-  "TotalTags": 185,
-  "Location": {
-      "alt": 1361.0469,
-      "lon": -107.7473,
-      "lat": 36.0845
-  }
-}
-```
-
-**Build the target table**
-```
-.create table LogisticsTelemetryManipulated  (deviceId:string, enqueuedTime:datetime, NumOfTagsCalculated:long, Temp:real) 
+.create table ingestionLogs (Timestamp: datetime, Source: string, Properties: dynamic, Node: string, Message: string, Level: string, Component: string, ClientRequestId: string)
 ```
 Create a function for the update policy 🎓
  ```
@@ -416,40 +356,21 @@ Create the update policy 🎓
 Update policy can transform and move the data from source table from the time it is created. It cannot look back at already existing data in source table. In order to mimic new data ingesting into source table we will use ".set-or-append" control commnd to ingest 1000 rows into source table (sample data from source table)
 
 ```
-  .set-or-append LogisticsTelemetryHistorical <| LogisticsTelemetryHistorical | take 1000
+  .set-or-append logsRaw <| logsRaw | take 1000
 ```
 - [Kusto Ingest from Query | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/data-ingestion/ingest-from-query)
 
 
-Make sure the data is transformed correctly in the destination table
+Make sure the data is transformed correctly in the destination tables
 ```
-    LogisticsTelemetryManipulated
-   | take 10
+ingestionLogs
+| take 10
 ```
 
 **Relevant docs for this challenge:**
   - [Kusto update policy - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/updatepolicy)
 
 ---
----
-#### Task 3: Create a materialized view 🎓
-
-Instead of writing a query every time to retrieve the last known value for every device, create a materialized view on LogisticsTelemetryManipulate containing the last known value for every device (the last record for each deviceId, based on the enqueuedTime column)
-
-Hint: Materialized View only starts materializeing from the time you create it. In order to lookback and materiazlize data alraedy present in source, you can use 'backfill=true' property when creating Materialized view
-
-[Materialized views - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/materialized-views/materialized-view-overview) </br>
-[.create materialized view - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/materialized-views/materialized-view-create) </br>
-Use arg_max(). See examples of [arg_max() (aggregation function) - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/arg-max-aggfunction)
-
------
-#### Task 4: Materialized views queries 🎓
-
-There are 2 ways to query a materialized view: query the entire view or query the materialized part only. Try both of them.<br>
-
-[Materialized views queries
-](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/materialized-views/materialized-view-overview#materialized-views-queries)
-
 ---
 
 🎉 Congrats! You've completed ADX in a Day Lab 1. Keep going with [**Lab 2: Advanced KQL, Policies and Visualization**](https://github.com/Azure/ADX-in-a-Day-Lab2)
