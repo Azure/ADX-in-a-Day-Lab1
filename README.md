@@ -287,7 +287,7 @@ Example result:
 Write a query to show a timechart of the number of records 30 minute bins (buckets). Each point on the timechart represent the number of logs on that bucket.
 
 Example result:<br>
-<img src="/assets/images/timeseries.png" width="650">
+<img src="/assets/images/timeseries.png" width="400">
 
 [bin() - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
 
@@ -299,11 +299,12 @@ Example result:<br>
 There are many keyboard shortcuts available in ADX Web UI and Kusto Explorer to increase productivity while working with KQL.
 Below are a few examples
 - You don't have to select a block of code. Based on current cursor position, code that is separated by empty lines is considered a single block of code.<br>
-<img src="/assets/images/code_block.png" width="650">
+<img src="/assets/images/code_block.png" width="400">
 
 - You can execute a block of code using Shift+Enter
 - You can directly insert filters based on data cells selections using Ctrl+Shift+Space <br>
-<img src="/assets/images/add_as_filters.png" width="650">
+
+![Screen capture 1](/assets/images/add_as_filters.gif)
 
 [Kusto Web UI shortcuts | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/web-ui-query-keyboard-shortcuts)
 
