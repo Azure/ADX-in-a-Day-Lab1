@@ -13,13 +13,12 @@ Each challenge has a set of tasks that need to be completed in order to move on 
 ---
 Earn a digital badge! In order to receive the "ADX In a Day" digital badge, you will need to complete the tasks marked with 🎓. Please submit the KQL queries/commands of these tasks in the following link: [Answer sheet - ADX Lab 1](https://forms.office.com/r/3V7yjXwAMD)
 
-<img style="display: block; 
-           margin-left: auto;
-           margin-right: auto;
-           width: 30%;"
-           src="/assets/images/badge_transparent.png" width="100">
-</img>
+<div style="text-align: center;">
 
+![Screen capture 1](/assets/images/badge_transparent.png)
+</div>
+
+<img style="display: block;margin-left: auto;margin-right: auto;width: 30%;"src="/assets/images/badge_transparent.png"></img>
 ---
 ---
 
@@ -40,11 +39,9 @@ Create your free cluster here: https://aka.ms/kustofree
 
 **Note**: The below screenshot is just an example 
 ![Screen capture 1](/assets/images/onboarding_kusto_free.png)
-
-A Free cluster home page is added to Myclusters pane in UI
   
 #### Task 2: Create a database in the free cluster
-To create database, once the free cluster is created, you can use the "Create" button in the Create database window 
+A Free cluster home page is added to Myclusters pane in UI. To create database, once the free cluster is created, you can use the "Create" button in the Create database window 
 
 ![Screen capture 1](/assets/images/free_cluster_create_db.png)
 
@@ -86,7 +83,6 @@ In the next page, enter the database name you want to use and click 'Next: Creat
 Run the following command to create our table
 ```
 .create-merge table logsRaw(Timestamp:datetime, Source:string, Node:string, Level:string, Component:string, ClientRequestId:string, Message:string, Properties:dynamic) 
-
 ```
 #### Task 2: Use the “One-click” UI (User Interface) to create a data connection to Azure blob storage
   For the best user experience, we will use the Azure Data Explorer Web UI (aka: Kusto web Explorer/KWE). To open it, go to [Kusto Web Explorer](https://dataexplorer.azure.com/freecluster).The web UI opens. 
@@ -94,7 +90,7 @@ Run the following command to create our table
   Select **Ingest** button on the Free Cluster Page
   
   ![Screen capture 1](/assets/images/ingest_data.png)
-  
+
   Make sure the cluster and the Database fields are correct. Select **New table**
   
   **Note**: We used an example table name as 'logsRaw' here. You can give any name to your table but be sure to use it in all your queries going forward.
@@ -110,11 +106,11 @@ https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st
  
   ![Screen capture 1](/assets/images/ingest_from_storage.png)
   
-  Make sure you use the **CSV Data format**
+  Make sure you select 'Keep current table schema' under Data format
   
   ![Screen capture 1](/assets/images/ingest_from_storage_schema.png)
   
-  Wait for the ingestion to be completed. For production modes, you could use Azure Event Grid for continuous Blob ingestion. The **Event Grid** link under **Continuous Ingestion** will create the Event Grid resource for that. We won't use this option in this Lab.
+  Wait for the ingestion to be completed.
 
   ![Screen capture 1](/assets/images/ingestion_complete.png)
   
@@ -160,7 +156,7 @@ For all the SQL pros out there, Azure data explorer allows a subset of TSQL quer
 ```
 select count(1) from logsRaw
 ```
-With a growth mindset, ADX also supports translation of SQL to KQL using 'explain' operator.
+The primary language to interact with Kusto is KQL (Kusto Query Language). To make the transition and learning experience easier, you can use 'explain' operator to translate SQL queries to KQL.
 
 ```
 explain select max(Timestamp) as MaxTimestamp from logsRaw where Level='Error'
