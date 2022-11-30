@@ -13,12 +13,7 @@ Each challenge has a set of tasks that need to be completed in order to move on 
 ---
 Earn a digital badge! In order to receive the "ADX In a Day" digital badge, you will need to complete the tasks marked with 🎓. Please submit the KQL queries/commands of these tasks in the following link: [Answer sheet - ADX Lab 1](https://forms.office.com/r/3V7yjXwAMD)
 
-<div style="text-align: center;">
-
-![Screen capture 1](/assets/images/badge.png)
-</div>
-
-<img style="display: block;margin-left: auto;margin-right: auto;width: 30%;"src="/assets/images/badge.png"></img>
+<img src="/assets/images/badge.png" width="100">
 ---
 ---
 
@@ -89,7 +84,7 @@ Run the following command to create our table
   
   Select **Ingest** button on the Free Cluster Page
   
-  ![Screen capture 1](/assets/images/ingest_data.png)
+  ![Screen capture 1](/assets/images/data_ingest.png)
 
   Make sure the cluster and the Database fields are correct. Select **New table**
   
