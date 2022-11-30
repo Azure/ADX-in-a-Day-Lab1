@@ -13,12 +13,11 @@ Each challenge has a set of tasks that need to be completed in order to move on 
 ---
 Earn a digital badge! In order to receive the "ADX In a Day" digital badge, you will need to complete the tasks marked with 🎓. Please submit the KQL queries/commands of these tasks in the following link: [Answer sheet - ADX Lab 1](https://forms.office.com/r/3V7yjXwAMD)
 
-<img src="/assets/images/badge.png" width="100">
----
----
+<img src="/assets/images/badge.png" width="200">
 
+---
+---
 # [Go to ADX-In-A-Day HomePage](https://github.com/Azure/ADX-in-a-Day)
-
 ---
 ### Challenge 1: Create an ADX cluster
 To use Azure Data Explorer (ADX), you first have to create a free ADX cluster, and create one or more databases in that cluster. Each database has tables. Then you can ingest data into a database so that you can run queries against it.
@@ -207,7 +206,7 @@ Write a query to get the schema of the table.
 Hint: Observe there are 2 new columns originalSize and compressedSize with datatype 'long'
 
 Example result:  
-![Screen capture 1](/assets/images/schema.png)
+![Screen capture 1](/assets/images/get_schema.png)
 
 [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
 
