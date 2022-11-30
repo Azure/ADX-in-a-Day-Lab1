@@ -246,7 +246,7 @@ Hint: Extract rowCount from Properties column
 Write a query to extract format and row count from INGESTOR_EXECUTOR component. Rename the field to fileFormat and rowCount respectively. Also, Make Sure Timestamp, fileFormat and rowCount are the first 3 columns
 
 Example result:</br>
-<img src="/assets/images/rename_reorder.png" width="500">
+<img src="/assets/images/rename_reorder.png" width="700">
 
 [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
 
@@ -266,7 +266,7 @@ Write a query to find out how many records have 'ingestion' string in Message co
 
 Example result:
 
-<img src="/assets/images/count_by.png" width="500">
+<img src="/assets/images/count_by.png" width="300">
 
 [String operators - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/datatypes-string-operators)
 
