@@ -15,10 +15,10 @@ Earn a digital badge! In order to receive the "ADX In a Day" digital badge, you 
 
 <div style="text-align: center;">
 
-![Screen capture 1](/assets/images/badge_transparent.png)
+![Screen capture 1](/assets/images/badge.png)
 </div>
 
-<img style="display: block;margin-left: auto;margin-right: auto;width: 30%;"src="/assets/images/badge_transparent.png"></img>
+<img style="display: block;margin-left: auto;margin-right: auto;width: 30%;"src="/assets/images/badge.png"></img>
 ---
 ---
 
@@ -112,7 +112,7 @@ https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st
   
   Wait for the ingestion to be completed.
 
-  ![Screen capture 1](/assets/images/ingestion_complete.png)
+  ![Screen capture 1](/assets/images/ingestion_completed.png)
   
   Verify that data was ingested to the table. logsRaw table should have 3834012 records
 
