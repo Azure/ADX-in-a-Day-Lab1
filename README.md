@@ -11,7 +11,7 @@ This Lab is organized into the following 4 Challenges:
 Each challenge has a set of tasks that need to be completed in order to move on to the next challenge. It is advisable to complete the challenges and tasks in the prescribed order.
 
 ---
-Earn a digital badge! In order to receive the "ADX In a Day" digital badge, you will need to complete the tasks marked with 🎓. Please submit the KQL queries/commands of these tasks in the following link: [Answer sheet - ADX Lab 1](https://forms.office.com/r/3V7yjXwAMD)
+Earn a digital badge! In order to receive the "ADX-In-A-Day" digital badge, you will need to complete the tasks marked with 🎓. Please submit the KQL queries/commands of these tasks in the following link: [Answer sheet - ADX Lab 1](https://forms.office.com/r/3V7yjXwAMD)
 
 <img src="/assets/images/badge.png" width="200">
 
@@ -55,7 +55,7 @@ In the next page, enter the database name you want to use and click 'Next: Creat
   We can see our cluster and the database that we created.
   To run KQL queries, you must select the **Query** button on the Free Cluster page. <br>
   ![Screen capture 1](/assets/images/free_cluster_query.png)
-  Now – you can write a simple KQL query: print ("hello world"),
+  Now – you can write a simple KQL query: print "Hello World"),
   and hit the “Run” button. The query will be executed and its result can be seen in the result grid on the bottom of the page. 
   
   ![Screen capture 1](/assets/images/hello_world.png)
@@ -73,7 +73,7 @@ In the next page, enter the database name you want to use and click 'Next: Creat
   - Ingest data using one-click ingestion from Azure Blob Storage to your ADX cluster.
   
 ---
-#### Task 1: create the raw table - logsRaw
+#### Task 1: Create the raw table - logsRaw
 Run the following command to create our table
 ```
 .create-merge table logsRaw(Timestamp:datetime, Source:string, Node:string, Level:string, Component:string, ClientRequestId:string, Message:string, Properties:dynamic) 
@@ -85,7 +85,7 @@ Run the following command to create our table
   
   ![Screen capture 1](/assets/images/data_ingest.png)
 
-  Make sure the cluster and the Database fields are correct. Select **New table**
+  Make sure the cluster and the Database fields are correct. Select **Existing table**
   
   **Note**: We used an example table name as 'logsRaw' here. You can give any name to your table but be sure to use it in all your queries going forward.
 
@@ -139,13 +139,13 @@ logsRaw
 | take 10 
 ```
 
-This query has a single tabular expression statement. The statement begins with a reference to the table githubraw and contains the operators where and count. Each operator is separated by a pipe. The data rows for the source table are filtered by the value of the Type column. In the last line, the query returns a table with a single column and a single row that contains the count of the remaining rows.
+This query has a single tabular expression statement. The statement begins with a reference to the table logsRaw and contains the operators take. Each operator is separated by a pipe.
 
 References:
 - [KQL cheat sheets](https://github.com/marcusbakker/KQL/blob/master/kql_cheat_sheet.pdf)
 
 ---
-#### Task 0 : The SQL Way!
+#### Task 0 : Journey from SQL to KQL!
 For all the SQL pros out there, Azure data explorer allows a subset of TSQL queries. Try running the following SQL query in web UI
 ```
 select count(1) from logsRaw
@@ -226,7 +226,7 @@ Example result:
 
 ---
 #### Task 4: Filter the output 🎓
-Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records. between 2014-03-08 01:00 and 2014-03-08 10:00.
+Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records between 2014-03-08 01:00 and 2014-03-08 10:00.
 
 Hint 1: In case you see 0 records, remember that operators are sequenced by a pipe (|). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
 
@@ -284,7 +284,7 @@ Example result:
 
 ---
 #### Task 10: Create bins and visualize time series 🎓
-Write a query to show a timechart of the number of records 30 minute bins (buckets). Each point on the timechart represent the number of logs on that bucket.
+Write a query to show a timechart of the number of records in 30 minute bins (buckets). Each point on the timechart represent the number of logs in that bucket.
 
 Example result:<br>
 <img src="/assets/images/timeseries.png" width="500">
@@ -353,7 +353,7 @@ Create the update policy 🎓
      <Complete the command>
 ```
 
-Update policy can transform and move the data from source table from the time it is created. It cannot look back at already existing data in source table. In order to mimic new data ingesting into source table we will use ".set-or-append" control commnd to ingest 1000 rows into source table (sample data from source table)
+Update policy can transform and move the data from source table from the time it is created. It cannot look back at already existing data in source table. In order to mimic new data ingesting into source table we will use ".set-or-append" control commnd to ingest 100000 rows into source table (sample data from source table)
 
 ```
   .set-or-append logsRaw <| logsRaw | take 100000
