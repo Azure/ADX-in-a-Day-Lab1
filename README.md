@@ -11,7 +11,7 @@ This Lab is organized into the following 4 Challenges:
 Each challenge has a set of tasks that need to be completed in order to move on to the next challenge. It is advisable to complete the challenges and tasks in the prescribed order.
 
 ---
-Earn a digital badge! In order to receive the "ADX-In-A-Day" digital badge, you will need to complete the tasks marked with 🎓. **Please submit the KQL queries/commands of these tasks in the following link**: [Answer sheet - ADX Lab 1](https://forms.office.com/r/3V7yjXwAMD)
+Earn a digital badge! In order to receive the "ADX-In-A-Day" digital badge, you will need to complete the tasks marked with 🎓. **Please submit the KQL queries/commands of these tasks in the following link**: [Answer sheet - ADX Lab 1](https://forms.office.com/r/9GwkwHs9hv)
 
 <img src="/assets/images/badge.png" width="200">
 
