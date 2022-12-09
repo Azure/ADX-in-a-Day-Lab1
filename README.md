@@ -230,13 +230,15 @@ Write a query to get only specific desired columns: Timestamp, ClientRequestId, 
 
 Hint 1: In case you see 0 records, remember that operators are sequenced by a pipe (|). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
 
-[where operator in Kusto query language - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/whereoperator)
+[where operator in Kusto Query Language - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/whereoperator)<br>
+[between operator in Kusto Query Language - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/betweenoperator)
 
 ---
 #### Challenge 3, Task 5: Sorting the results 🎓
 Write a query to get top 10 records with highest rowcount for INGESTOR_EXECUTER Component field.
 
-Hint: Extract rowCount from Properties column 
+Hint 1: Extract rowCount from Properties column
+Hint 2: Think about the datatype and conversion
 
 [sort operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sortoperator)
 [top operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/topoperator)
