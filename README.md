@@ -330,7 +330,7 @@ For the next task, we will use the githubraw table .
 
 Create a stored functions that will contain the code of the following logic. Make sure the function works.
 
-Function: Filter records by Ingestion Components -INGESTOR_EXECUTER, INGESTOR_GATEWAY, INTEGRATIONDATABASE,INTEGRATIONSERVICEFLOWS, INTEGRATIONSERVICETRACE, DOWNLOADER
+Function: Filter records by Ingestion Components - INGESTOR_EXECUTER, INGESTOR_GATEWAY, INTEGRATIONDATABASE,INTEGRATIONSERVICEFLOWS, INTEGRATIONSERVICETRACE, DOWNLOADER
 
 
 See the [create function](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/functions) article.
