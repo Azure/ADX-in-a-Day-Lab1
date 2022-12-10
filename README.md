@@ -298,6 +298,9 @@ Example result:<br>
 
 ---
 #### Challenge 3, Task 11: Shortcuts
+
+Purpose of this task is to expose some cool productivity features of Azure Data Explorer Web Interface. This task is not evaluated.
+
 There are many keyboard shortcuts available in ADX Web UI and Kusto Explorer to increase productivity while working with KQL.
 Below are a few examples
 - You don't have to select a block of code. Based on current cursor position, code that is separated by empty lines is considered a single block of code.<br>
