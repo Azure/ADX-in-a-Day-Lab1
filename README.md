@@ -329,7 +329,7 @@ Expected Learning Outcomes:
 - Create user defined functions to use repeatable logic
 - Create an update policy to transform the data at ingestion time
 
-For the next task, we will use the githubraw table .
+For the next task, we will use the logsRaw table .
 
 #### Challenge 4, Task 1: User defined Function (Stored Functions) 🎓
 
