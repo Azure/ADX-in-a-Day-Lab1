@@ -100,7 +100,7 @@ https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st
  
   ![Screen capture 1](/assets/images/ingest_from_storage.png)
   
-  Under **Data formar**, make sure 'Keep current table schema' is checked and 'Ignore the first record' is unchecked, and click **Next: Start ingestion**.
+  Under **Data format**, make sure 'Keep current table schema' is checked and 'Ignore the first record' is unchecked, and click **Next: Start ingestion**.
   
   ![Screen capture 1](/assets/images/ingest_from_storage_schema.png)
   
