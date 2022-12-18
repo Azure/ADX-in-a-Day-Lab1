@@ -96,11 +96,11 @@ Run the following command to create our table
 https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D
 ``` 
 
- Select one of the **Schema defining file** (one is autoselected unless you want to change that) and click **Next**
+ Select one of the **Schema defining file** (one is autoselected unless you want to change that) and click **Next: Schema**.
  
   ![Screen capture 1](/assets/images/ingest_from_storage.png)
   
-  Make sure you select 'Keep current table schema' under Data format
+  Under **Data formar**, make sure 'Keep current table schema' is checked and 'Ignore the first record' is unchecked, and click **Next: Start ingestion**.
   
   ![Screen capture 1](/assets/images/ingest_from_storage_schema.png)
   
