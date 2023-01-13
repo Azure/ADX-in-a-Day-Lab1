@@ -210,6 +210,8 @@ Example result:
 
 [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
 
+[tolong()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/tolongfunction)
+
 [getschema operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/getschemaoperator)
 
 
@@ -220,7 +222,7 @@ Write a query to get only specific desired columns: Timestamp, ClientRequestId, 
 Example result:
 ![Screen capture 1](/assets/images/project.png)
 
-[Project operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectoperator)
+[project operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectoperator)
 
 ---
 #### Challenge 3, Task 4: Filter the output 🎓
