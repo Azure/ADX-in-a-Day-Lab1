@@ -100,7 +100,7 @@ https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st
  
   ![Screen capture 1](/assets/images/ingest_from_storage.png)
   
-  Make sure you select 'Keep current table schema' under Data format
+  Under Data format, make sure you select 'Keep current table schema' and deselect 'Ignore the first record'
   
   ![Screen capture 1](/assets/images/ingest_from_storage_schema.png)
   
@@ -220,8 +220,6 @@ Write a query to get only specific desired columns: Timestamp, ClientRequestId, 
 Example result:
 ![Screen capture 1](/assets/images/project.png)
 
-[project-away operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectawayoperator)
-
 [Project operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectoperator)
 
 ---
@@ -230,6 +228,7 @@ Write a query to get only specific desired columns: Timestamp, ClientRequestId, 
 
 Hint 1: In case you see 0 records, remember that operators are sequenced by a pipe (|). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
 
+[datetime data type in Kusto Query Language - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/scalar-data-types/datetime)
 [where operator in Kusto Query Language - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/whereoperator)<br>
 [between operator in Kusto Query Language - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/betweenoperator)
 
@@ -245,7 +244,7 @@ Hint 2: Think about the datatype and conversion
 
 ---
 #### Challenge 3, Task 6: Reorder, rename, add columns 🎓
-Write a query to extract format and row count from INGESTOR_EXECUTOR component. Rename the field to fileFormat and rowCount respectively. Also, Make Sure Timestamp, fileFormat and rowCount are the first 3 columns
+Write a query to extract format and row count from INGESTOR_EXECUTER component. Rename the field to fileFormat and rowCount respectively. Also, Make Sure Timestamp, fileFormat and rowCount are the first 3 columns
 
 Example result:</br>
 <img src="/assets/images/rename_reorder.png" width="700">
@@ -357,13 +356,14 @@ Create the update policy 🎓
 ```
      <Complete the command>
 ```
-
+ [Kusto update policy - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/updatepolicy)
+ 
 Update policy can transform and move the data from source table from the time it is created. It cannot look back at already existing data in source table. In order to mimic new data ingesting into source table we will use ".set-or-append" control commnd to ingest 100000 rows into source table (sample data from source table)
 
 ```
   .set-or-append logsRaw <| logsRaw | take 100000
 ```
-- [Kusto Ingest from Query | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/data-ingestion/ingest-from-query)
+[Kusto Ingest from Query | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/data-ingestion/ingest-from-query)
 
 
 Make sure the data is transformed correctly in the destination tables
@@ -371,9 +371,6 @@ Make sure the data is transformed correctly in the destination tables
 ingestionLogs
 | take 10
 ```
-
-**Relevant docs for this challenge:**
-  - [Kusto update policy - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/updatepolicy)
 
 ---
 ---
