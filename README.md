@@ -239,7 +239,9 @@ Hint 1: In case you see 0 records, remember that operators are sequenced by a pi
 Write a query to get top 10 records with highest rowcount for [sic]INGESTOR_EXECUTER Component field.
 
 Hint 1: Extract rowCount from Properties column
+
 Hint 2: Think about the datatype and conversion
+
 Hint 3: Note the [sic]"Executer" spelling
 
 [sort operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sortoperator)
