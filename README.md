@@ -236,17 +236,18 @@ Hint 1: In case you see 0 records, remember that operators are sequenced by a pi
 
 ---
 #### Challenge 3, Task 5: Sorting the results 🎓
-Write a query to get top 10 records with highest rowcount for INGESTOR_EXECUTER Component field.
+Write a query to get top 10 records with highest rowcount for [sic]INGESTOR_EXECUTER Component field.
 
 Hint 1: Extract rowCount from Properties column
 Hint 2: Think about the datatype and conversion
+Hint 3: Note the [sic]"Executer" spelling
 
 [sort operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sortoperator)
 [top operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/topoperator)
 
 ---
 #### Challenge 3, Task 6: Reorder, rename, add columns 🎓
-Write a query to extract format and row count from INGESTOR_EXECUTER component. Rename the field to fileFormat and rowCount respectively. Also, Make Sure Timestamp, fileFormat and rowCount are the first 3 columns
+Write a query to extract format and row count from [sic]INGESTOR_EXECUTER component. Rename the field to fileFormat and rowCount respectively. Also, Make Sure Timestamp, fileFormat and rowCount are the first 3 columns
 
 Example result:</br>
 <img src="/assets/images/rename_reorder.png" width="700">
@@ -336,7 +337,7 @@ For the next task, we will use the logsRaw table .
 
 Create a stored functions that will contain the code of the following logic. Make sure the function works.
 
-Function: Filter records by Ingestion Components - INGESTOR_EXECUTER, INGESTOR_GATEWAY, INTEGRATIONDATABASE,INTEGRATIONSERVICEFLOWS, INTEGRATIONSERVICETRACE, DOWNLOADER
+Function: Filter records by Ingestion Components - [sic]INGESTOR_EXECUTER, INGESTOR_GATEWAY, INTEGRATIONDATABASE,INTEGRATIONSERVICEFLOWS, INTEGRATIONSERVICETRACE, DOWNLOADER
 
 
 See the [create function](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/functions) article.
