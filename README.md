@@ -244,7 +244,7 @@ Hint 2: Think about the datatype and conversion
 
 Hint 3: Note the [sic]"Executer" spelling
 
-[sort operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sortoperator)
+[sort operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sort-operator)
 [top operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/topoperator)
 
 ---
@@ -264,7 +264,7 @@ Example result:</br>
 #### Challenge 3, Task 7: Total number of records 🎓
 Write a query to find out how many records are in the table by Component. 
 
-[count operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/countoperator)
+[count aggregation function - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/count-aggfunction)
 
 ---
 #### Challenge 3, Task 8: Aggregations and string operations 🎓
