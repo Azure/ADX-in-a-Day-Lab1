@@ -60,8 +60,6 @@ If you already have a free cluster and just want to create a new database for th
   ```
   print "Hello World"
   ```
-  ![Screen capture 1](/assets/images/hello_world.png)
-  
   Hit the “Run” button. The query will be executed and its result can be seen in the result grid at the bottom of the page. 
   
   ![Screen capture 1](/assets/images/hello_world.png)
@@ -94,7 +92,7 @@ Run the following command to create our table:
   
   **Note**: We used an example table name as 'logsRaw' here. You can give any name to your table but be sure to use it in all your queries going forward.
 
-  ![Screen capture 1](/assets/images/ingest_table.png)
+  <img src="/assets/images/ingest_table.png" width="500">
   
   **Ingest from Storage**: Select "Blob container" as the source type in Ingest data window. In the **Link to source**, paste the following SAS URL.
 ```
@@ -103,7 +101,7 @@ https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st
 
  Select one of the **Schema defining file** (one is autoselected unless you want to change that) and click **Next**
  
-  ![Screen capture 1](/assets/images/ingest_from_storage.png)
+    <img src="/assets/images/ingest_from_storage.png" width="500">
   
   Under Data format, make sure you select 'Keep current table schema' and deselect 'Ignore the first record'
   
@@ -260,7 +258,7 @@ Hint 2: Think about the datatype and conversion
 Hint 3: Note the "Executer" [sic] spelling
 
 Example result:</br>
-<img src="/assets/images/top_10_rowCount.png" width="700">
+<img src="/assets/images/top_10_rowCount.png" width="950">
 
 [sort operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sort-operator)
 [top operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/topoperator)
@@ -270,7 +268,7 @@ Example result:</br>
 Write a query to extract format and row count from INGESTOR_EXECUTER [sic] component. Rename the fields to fileFormat and rowCount respectively. Also, Make Sure *Timestamp*, *fileFormat* and *rowCount* are the first 3 columns
 
 Example result:</br>
-<img src="/assets/images/rename_reorder.png" width="700">
+<img src="/assets/images/rename_reorder.png" width="950">
 
 [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
 
@@ -282,7 +280,7 @@ Example result:</br>
 #### Challenge 3, Task 7: Total number of records 🎓
 Write a query to find out how many records are in the table by *Component*. 
 
-[count aggregation function - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/count-aggfunction)
+[count aggregation function](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/count-aggfunction)
 
 ---
 #### Challenge 3, Task 8: Aggregations and string operations 🎓
@@ -304,7 +302,7 @@ Example result:
 
 <img src="/assets/images/pie.png" width="500">
 
-[render operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/renderoperator?pivots=azuredataexplorer)
+[render operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/renderoperator?pivots=azuredataexplorer)
 
 ---
 #### Challenge 3, Task 10: Create bins and visualize time series 🎓
