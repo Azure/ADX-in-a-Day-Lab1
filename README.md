@@ -31,7 +31,7 @@ In this Challenge, you will create a Free cluster and a database. You will run s
 #### Challenge 1, Task 1: Create an ADX cluster and Database
 Create your free cluster and database here: https://aka.ms/kustofree.
 
-![Screen capture 1](/assets/images/CreateNewCluster.png.png)
+![Screen capture 1](/assets/images/CreateNewCluster.png)
   
 #### Challenge 1, Task 2: Review the free cluster home page and the Azure Data Explorer Web UI 
 On your **My Cluster** page, you'll see ysee the following:
