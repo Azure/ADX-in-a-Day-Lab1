@@ -28,60 +28,65 @@ In this Challenge, you will create a Free cluster and a database. You will run s
 - Create and work with Free ADX cluster.
 
 ---
-#### Challenge 1, Task 1: Create an ADX cluster
-Create your free cluster here: https://aka.ms/kustofree
+#### Challenge 1, Task 1: Create an ADX cluster and Database
+Create your free cluster and database here: https://aka.ms/kustofree.
 
-**Note**: The below screenshot is just an example 
-![Screen capture 1](/assets/images/onboarding_kusto_free.png)
+![Screen capture 1](/assets/images/CreateNewCluster.png.png)
   
-#### Challenge 1, Task 2: Create a database in the free cluster
-A Free cluster home page is added to Myclusters pane in UI. To create database, once the free cluster is created, you can use the "Create" button in the Create database window 
+#### Challenge 1, Task 2: Review the free cluster home page and the Azure Data Explorer Web UI 
+On your **My Cluster** page, you'll see ysee the following:
+* Your cluster's name, the option to upgrade to a full cluster, and the option to delete the cluster.
+* Cluster details like: cluster's location, and URI links for connecting to your cluster via APIs or other tools.
+* Quick actions you can take to get started with your cluster.
+* A list of databases in your cluster.
+
+If you already have a free cluster and just want to create a new database for this lab, use the **Create** button in the Create database tile.
 
 ![Screen capture 1](/assets/images/free_cluster_create_db.png)
-
-In the next page, enter the database name you want to use and click 'Next: Create Database"
-
-![Screen capture 1](/assets/images/free_cluster_create_db1.png)
-
   
 ---
 #### Challenge 1, Task 3: Write your first Kusto Query Language (KQL) query
-  What is a Kusto query?
-  Azure Data Explorer provides a web experience that enables you to connect to your Azure Data Explorer clusters and write and run Kusto Query Language queries. The web experience is available in the Azure portal and as a stand-alone web application, the Azure Data Explorer Web UI, that we will use later.<br>
-  A Kusto query is a read-only request to process data and return results. The request is stated in plain text that's easy to read. A Kusto query has one or more query statements and returns data in a tabular or graph format.<br>
-  In the next Challenge, we'll ingest data to the cluster, and then learn the most important concepts in KQL and write interesting queries. In this task, you will write a few basic queries to get an understanding of the environment.<br>
-  In this example, you'll use the Azure Data Explorer web interface as a query editor (Kusto Query Language can also be used in Azure Monitor Logs, Azure Sentinel, and other services that are built on-top of Azure Data Explorer.)
+  What is a Kusto query? </br>
+  Azure Data Explorer provides a web experience that enables you to connect to your Azure Data Explorer clusters and write and run Kusto Query Language queries. The web experience is available in the Azure portal and as a stand-alone web application, the Azure Data Explorer Web UI, that we will use later.<br></br>
+  
+ A Kusto query is a read-only request to process data and return results. The request is stated in plain text that's easy to read. A Kusto query has one or more query statements and returns data in a tabular or graph format.<br><br>
+  In the next Challenge, we'll ingest data to the cluster, and then learn the most important concepts in KQL and write interesting queries. In this task, you will write a few basic queries to get an understanding of the environment.<br><br>
+  In this example, you'll use the Azure Data Explorer web interface as a query editor (Kusto Query Language can also be used in other services that are built on-top of Azure Data Explorer, like: Azure Monitor Logs, Azure Sentinel, Microsoft Defender for IoT, Endpoint and Cloud, and Application Insights).
   
   We can see our cluster and the database that we created.
   To run KQL queries, you must select the **Query** button on the Free Cluster page. <br>
   ![Screen capture 1](/assets/images/free_cluster_query.png)
-  Now – you can write a simple KQL query: print "Hello World"),
-  and hit the “Run” button. The query will be executed and its result can be seen in the result grid on the bottom of the page. 
+  Now – you can write a simple KQL query: 
+  ```
+  print "Hello World"
+  ```
+  ![Screen capture 1](/assets/images/hello_world.png)
+  
+  Hit the “Run” button. The query will be executed and its result can be seen in the result grid on the bottom of the page. 
   
   ![Screen capture 1](/assets/images/hello_world.png)
   
-  Windows users can also download [Kusto Explorer](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer), a desktop client to run queries and benefit from advanced features available in the client.
+  Windows users can also download [Kusto Explorer](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer), a desktop client to run the queries and benefit from advanced features available in the client.
 
 ---
 ### Challenge 2: Ingest data from Storage Account
   
   Data ingestion to ADX is the process used to load data records from one or more sources into a table in your ADX cluster. Once ingested, the data becomes available for query.
 
-  ADX supports several ingestion methods. [These methods include ingestion tools, connectors and plugins, managed pipelines, programmatic ingestion using SDKs, and direct access to ingestion.]
+  ADX supports several ingestion methods, including ingestion tools, connectors and plugins, Azure managed pipelines, programmatic ingestion using SDKs, and direct access to ingestion.
 
   **Expected Learning Outcomes:**
   - Ingest data using one-click ingestion from Azure Blob Storage to your ADX cluster.
   
 ---
 #### Challenge 2, Task 1: Create the raw table - logsRaw
-Run the following command to create our table
+Run the following command to create our table:
 ```
-.create-merge table logsRaw(Timestamp:datetime, Source:string, Node:string, Level:string, Component:string, ClientRequestId:string, Message:string, Properties:dynamic) 
+.create table logsRaw(Timestamp:datetime, Source:string, Node:string, Level:string, Component:string, ClientRequestId:string, Message:string, Properties:dynamic) 
 ```
 #### Challenge 2, Task 2: Use the “One-click” UI (User Interface) to create a data connection to Azure blob storage
-  For the best user experience, we will use the Azure Data Explorer Web UI (aka: Kusto web Explorer/KWE). To open it, go to [Kusto Web Explorer](https://dataexplorer.azure.com/freecluster).The web UI opens. 
   
-  Select **Ingest** button on the Free Cluster Page
+  Go back to the **My Cluster** page, select **Ingest** button
   
   ![Screen capture 1](/assets/images/data_ingest.png)
 
@@ -104,11 +109,11 @@ https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st
   
   ![Screen capture 1](/assets/images/ingest_from_storage_schema.png)
   
-  Wait for the ingestion to be completed.
+  Wait for the ingestion to be completed, and click **Close**.
 
   ![Screen capture 1](/assets/images/ingestion_completed.png)
   
-  Verify that data was ingested to the table. logsRaw table should have 3834012 records
+  Go to the **Query** page. Run the following query to verify that data was ingested to the table. The *logsRaw* table should have 3834012 records
 
 ```
   logsRaw
@@ -148,7 +153,7 @@ References:
 #### Challenge 3, Task 0 : Journey from SQL to KQL!
 For all the SQL pros out there, Azure data explorer allows a subset of TSQL queries. Try running the following SQL query in web UI
 ```
-select count(1) from logsRaw
+select count() from logsRaw
 ```
 The primary language to interact with Kusto is KQL (Kusto Query Language). To make the transition and learning experience easier, you can use 'explain' operator to translate SQL queries to KQL.
 
@@ -190,8 +195,13 @@ Find out the minimum and maximum Timestamp
 logsRaw
 | summarize min(Timestamp), max(Timestamp)
  ``` 
+ 
+Azure Data Explorer supplies a set of system data types that define all the types of data that can be stored. <br>
+Some data types for examples are: string, int, decimal, GUID, bool, datetime.
+Note, that the data type of the *Properties* column is *dynamic*. The *dynamic* data type is special in that it can take on any value of other data types, as well as arrays and property bags (dictionary). <br>
 
-KQL makes it simple to access fields in JSON and treat them like an independent column:
+The *dynamic* type is extremely beneficial when it comes to storing JSON data, since KQL makes it simple to access fields in JSON and treat them like an independent column: just use either the dot notation (*dict.key*) or the brackets notation (*dict["key"]*).
+
 
 ```
 logsRaw
@@ -200,10 +210,15 @@ logsRaw
 | extend originalSize=Properties.OriginalSize, compressedSize=Properties.compressedSize
 ```
 
+Note that although the dynamic type appears JSON-like, it can hold values that the JSON model does not represent because they don't exist in JSON (e.g., long, real, datetime, timespan, and guid). 
+
 ---
 #### Challenge 3, Task 2: Explore the table and columns 🎓
-Write a query to get the schema of the table. 
-Hint: Observe there are 2 new columns originalSize and compressedSize with datatype 'long'
+Write a query to get table that shown in the image below.
+<br>
+Hint 1: Observe there are 2 new columns originalSize and compressedSize with datatype 'long' <br>
+Hint 2: Accessing a sub-object of a dynamic value yields another dynamic value, even if the sub-object has a different underlying type. <br>
+Hint 3: After subscripting a dynamic object, you must cast the value to a simple type.
 
 Example result:  
 ![Screen capture 1](/assets/images/get_schema.png)
@@ -213,7 +228,6 @@ Example result:
 [tolong()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/tolongfunction)
 
 [getschema operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/getschemaoperator)
-
 
 ---
 #### Challenge 3, Task 3: Keep the columns of your interest 🎓
@@ -230,26 +244,30 @@ Write a query to get only specific desired columns: Timestamp, ClientRequestId, 
 
 Hint 1: In case you see 0 records, remember that operators are sequenced by a pipe (|). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
 
-[datetime data type in Kusto Query Language - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/scalar-data-types/datetime)
-[where operator in Kusto Query Language - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/whereoperator)<br>
-[between operator in Kusto Query Language - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/betweenoperator)
+[datetime data type](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/scalar-data-types/datetime)<br>
+[where operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/whereoperator)<br>
+[between operator](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/betweenoperator#filter-datetime)
 
 ---
 #### Challenge 3, Task 5: Sorting the results 🎓
-Write a query to get top 10 records with highest rowcount for [sic]INGESTOR_EXECUTER Component field.
+Write a query that returns 20 sample records in which the *Component* column equals the word "INGESTOR_EXECUTER" [sic].
+Once done, rewrite the query to take top 10 records by the values of *rowCount* (for the "INGESTOR_EXECUTER" [sic] records).
 
 Hint 1: Extract rowCount from Properties column
 
 Hint 2: Think about the datatype and conversion
 
-Hint 3: Note the [sic]"Executer" spelling
+Hint 3: Note the "Executer" [sic] spelling
 
-[sort operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sort-operator)
-[top operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/topoperator)
+Example result:</br>
+<img src="/assets/images/top_10_rowCount.png" width="700">
+
+[sort operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sort-operator)
+[top operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/topoperator)
 
 ---
 #### Challenge 3, Task 6: Reorder, rename, add columns 🎓
-Write a query to extract format and row count from [sic]INGESTOR_EXECUTER component. Rename the field to fileFormat and rowCount respectively. Also, Make Sure Timestamp, fileFormat and rowCount are the first 3 columns
+Write a query to extract format and row count from INGESTOR_EXECUTER [sic] component. Rename the field to fileFormat and rowCount respectively. Also, Make Sure *Timestamp*, *fileFormat* and *rowCount* are the first 3 columns
 
 Example result:</br>
 <img src="/assets/images/rename_reorder.png" width="700">
@@ -262,25 +280,25 @@ Example result:</br>
 
 ---
 #### Challenge 3, Task 7: Total number of records 🎓
-Write a query to find out how many records are in the table by Component. 
+Write a query to find out how many records are in the table by *Component*. 
 
 [count aggregation function - Azure Data Explorer | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/count-aggfunction)
 
 ---
 #### Challenge 3, Task 8: Aggregations and string operations 🎓
-Write a query to find out how many records have 'ingestion' string in Message column. Aggregate the results by Level.
+Write a query to find out how many records contain 'ingestion' string in *Message* column. Aggregate the results by Level.
 
 Example result:
 
 <img src="/assets/images/count_by.png" width="300">
 
-[String operators - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/datatypes-string-operators)
+[String operators](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/datatypes-string-operators)
 
-[summarize operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
+[summarize operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
 
 ---
 #### Challenge 3, Task 9: Render a chart 🎓
-Write a query to find out how many records are present per Level (aggregated by Level) and render a piechart.
+Write a query to find out how many records are present per *Level* (aggregated by Level) and render a piechart.
 
 Example result:
 
@@ -324,25 +342,29 @@ Below are a few examples
 
 In this challenge we will explore 3 capabilities of Data Explorer
 
-- **Update Policy** is like an internal ETL. It can help you manipulate or enrich the data as it gets ingested into the source table (e.g. extracting JSON into separate columns, creating a new calculated column, joining the new records with a static dimension table that is already in your database, etc). For these cases, using an update policy is a very common and powerful practice.
-Each time records get ingested into the source table, the update policy's query (which we'll define in the update policy) will run on them (and only on newly ingested records - other existing records in the source table aren’t visible to the update policy when it runs), and the results of the query will be appended to the target table. This function output schema and target table schema should exactly match.
+- **Update Policy** is like an internal ETL. It can help you manipulate or enrich the data as it gets ingested into the source table (e.g. extracting JSON into separate columns, creating a new calculated column, joining the new records with a static dimension table that is already in your database, etc). For these cases, using an update policy is a very common and powerful practice.<br>
+Each time records get ingested into the source table, the update policy's query (which we'll define in the update policy) will run on them (and **only on newly ingested records** - other existing records in the source table aren’t visible to the update policy when it runs), and the results of the query will be appended to the target table. This function output schema and target table schema should exactly match.
 
-- **User-defined functions** are reusable subqueries that can be defined as part of the query itself (ad-hoc functions), or persisted as part of the database metadata (stored functions). User-defined functions are invoked through a name, are provided with zero or more input arguments (which can be scalar or tabular), and produce a single value (which can be scalar or tabular) based on the function body.
+- **User-defined functions** are reusable KQL subqueries that can be defined as part of the query itself (ad-hoc functions), or persisted as part of the database metadata (stored functions - reusable KQL query, with the given name). Stored functions are invoked through a name, are provided with zero or more input arguments (which can be scalar or tabular), and produce a single value (which can be scalar or tabular) based on the function body.
 
 Expected Learning Outcomes:
 - Create user defined functions to use repeatable logic
 - Create an update policy to transform the data at ingestion time
 
-For the next task, we will use the logsRaw table .
+For the next task, we will use the *logsRaw* table.
+
+---
 
 #### Challenge 4, Task 1: User defined Function (Stored Functions) 🎓
 
-Create a stored functions that will contain the code of the following logic. Make sure the function works.
+Create a stored functions, named *ManiputatelogsRaw*, that will contain the code below. Make sure the function works.
 
-Function: Filter records by Ingestion Components - [sic]INGESTOR_EXECUTER, INGESTOR_GATEWAY, INTEGRATIONDATABASE,INTEGRATIONSERVICEFLOWS, INTEGRATIONSERVICETRACE, DOWNLOADER
+ ```
+logsRaw
+| where Component in ('INGESTOR_EXECUTER', 'INGESTOR_GATEWAY', 'INTEGRATIONDATABASE','INTEGRATIONSERVICEFLOWS', 'INTEGRATIONSERVICETRACE', 'DOWNLOADER')
+ ```
 
-
-See the [create function](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/functions) article.
+See the [create function](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/create-function) article.
 
 ---
 
@@ -374,7 +396,7 @@ Update policy can transform and move the data from source table from the time it
 Make sure the data is transformed correctly in the destination tables
 ```
 ingestionLogs
-| take 10
+| count
 ```
 
 ---
