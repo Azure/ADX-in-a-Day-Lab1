@@ -47,7 +47,7 @@ If you already have a free cluster and just want to create a new database for th
 ---
 #### Challenge 1, Task 3: Write your first Kusto Query Language (KQL) query
   What is a Kusto query? </br>
-  Azure Data Explorer provides a web experience that enables you to connect to your Azure Data Explorer clusters and write and run Kusto Query Language queries. The web experience is available in the Azure portal and as a stand-alone web application, the Azure Data Explorer Web UI, that we will use later.<br></br>
+  Azure Data Explorer provides a web experience that enables you to connect to your Azure Data Explorer clusters and write and run Kusto Query Language queries. The web experience is available in the Azure portal and as a stand-alone web application, the Azure Data Explorer Web UI, which we will use later.<br></br>
   
  A Kusto query is a read-only request to process data and return results. The request is stated in plain text that's easy to read. A Kusto query has one or more query statements and returns data in a tabular or graph format.<br><br>
   In the next Challenge, we'll ingest data to the cluster, and then learn the most important concepts in KQL and write interesting queries. In this task, you will write a few basic queries to get an understanding of the environment.<br><br>
@@ -62,7 +62,7 @@ If you already have a free cluster and just want to create a new database for th
   ```
   ![Screen capture 1](/assets/images/hello_world.png)
   
-  Hit the “Run” button. The query will be executed and its result can be seen in the result grid on the bottom of the page. 
+  Hit the “Run” button. The query will be executed and its result can be seen in the result grid at the bottom of the page. 
   
   ![Screen capture 1](/assets/images/hello_world.png)
   
@@ -86,7 +86,7 @@ Run the following command to create our table:
 ```
 #### Challenge 2, Task 2: Use the “One-click” UI (User Interface) to create a data connection to Azure blob storage
   
-  Go back to the **My Cluster** page, select **Ingest** button
+  Go back to the **My Cluster** page, click the **Ingest** button
   
   ![Screen capture 1](/assets/images/data_ingest.png)
 
@@ -196,11 +196,11 @@ logsRaw
 | summarize min(Timestamp), max(Timestamp)
  ``` 
  
-Azure Data Explorer supplies a set of system data types that define all the types of data that can be stored. <br>
-Some data types for examples are: string, int, decimal, GUID, bool, datetime.
-Note, that the data type of the *Properties* column is *dynamic*. The *dynamic* data type is special in that it can take on any value of other data types, as well as arrays and property bags (dictionary). <br>
+Azure Data Explorer provides a set of system data types that define all the types of data that can be stored. <br>
+Some data types for example are: string, int, decimal, GUID, bool, datetime. <br>
+Note, that the data type of the *Properties* column is *dynamic*. The *dynamic* data type is special in that it can take on any value of other data types, as well as arrays and property bags (dictionaries). <br>
 
-The *dynamic* type is extremely beneficial when it comes to storing JSON data, since KQL makes it simple to access fields in JSON and treat them like an independent column: just use either the dot notation (*dict.key*) or the brackets notation (*dict["key"]*).
+The *dynamic* type is extremely beneficial when it comes to storing JSON data, since KQL makes it simple to access fields in JSON and treat them like an independent column: just use either the dot notation (*dict.key*) or the bracket notation (*dict["key"]*).
 
 
 ```
@@ -210,7 +210,7 @@ logsRaw
 | extend originalSize=Properties.OriginalSize, compressedSize=Properties.compressedSize
 ```
 
-Note that although the dynamic type appears JSON-like, it can hold values that the JSON model does not represent because they don't exist in JSON (e.g., long, real, datetime, timespan, and guid). 
+Note that although the dynamic type appears JSON-like, it can hold values that the JSON model does not represent because they don't exist in JSON (e.g., long, real, datetime, timespan, and GUID). 
 
 ---
 #### Challenge 3, Task 2: Explore the table and columns 🎓
@@ -251,7 +251,7 @@ Hint 1: In case you see 0 records, remember that operators are sequenced by a pi
 ---
 #### Challenge 3, Task 5: Sorting the results 🎓
 Write a query that returns 20 sample records in which the *Component* column equals the word "INGESTOR_EXECUTER" [sic].
-Once done, rewrite the query to take top 10 records by the values of *rowCount* (for the "INGESTOR_EXECUTER" [sic] records).
+Once done, rewrite the query to take the top 10 records by the value of *rowCount* (for the "INGESTOR_EXECUTER" [sic] records).
 
 Hint 1: Extract rowCount from Properties column
 
@@ -267,7 +267,7 @@ Example result:</br>
 
 ---
 #### Challenge 3, Task 6: Reorder, rename, add columns 🎓
-Write a query to extract format and row count from INGESTOR_EXECUTER [sic] component. Rename the field to fileFormat and rowCount respectively. Also, Make Sure *Timestamp*, *fileFormat* and *rowCount* are the first 3 columns
+Write a query to extract format and row count from INGESTOR_EXECUTER [sic] component. Rename the fields to fileFormat and rowCount respectively. Also, Make Sure *Timestamp*, *fileFormat* and *rowCount* are the first 3 columns
 
 Example result:</br>
 <img src="/assets/images/rename_reorder.png" width="700">
@@ -286,7 +286,7 @@ Write a query to find out how many records are in the table by *Component*.
 
 ---
 #### Challenge 3, Task 8: Aggregations and string operations 🎓
-Write a query to find out how many records contain 'ingestion' string in *Message* column. Aggregate the results by Level.
+Write a query to find out how many records contain the string 'ingestion' in the *Message* column. Aggregate the results by Level.
 
 Example result:
 
@@ -342,8 +342,8 @@ Below are a few examples
 
 In this challenge we will explore 3 capabilities of Data Explorer
 
-- **Update Policy** is like an internal ETL. It can help you manipulate or enrich the data as it gets ingested into the source table (e.g. extracting JSON into separate columns, creating a new calculated column, joining the new records with a static dimension table that is already in your database, etc). For these cases, using an update policy is a very common and powerful practice.<br>
-Each time records get ingested into the source table, the update policy's query (which we'll define in the update policy) will run on them (and **only on newly ingested records** - other existing records in the source table aren’t visible to the update policy when it runs), and the results of the query will be appended to the target table. This function output schema and target table schema should exactly match.
+- **Update Policy** is like an internal ETL. It can help you manipulate or enrich the data as it gets ingested into the source table (e.g. extracting JSON into separate columns, creating a new calculated column, joining the newly ingested records with a static dimension table that is already in your database, etc). For these cases, using an update policy is a very common and powerful practice.<br>
+Each time records get ingested into the source table, the update policy's query (which we'll define in the update policy) will run on them (and **only on newly ingested records** - other existing records in the source table aren’t visible to the update policy when it runs), and the results of the query will be appended to the target table. This function's output schema and target table schema should exactly match.
 
 - **User-defined functions** are reusable KQL subqueries that can be defined as part of the query itself (ad-hoc functions), or persisted as part of the database metadata (stored functions - reusable KQL query, with the given name). Stored functions are invoked through a name, are provided with zero or more input arguments (which can be scalar or tabular), and produce a single value (which can be scalar or tabular) based on the function body.
 
