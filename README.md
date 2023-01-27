@@ -171,14 +171,15 @@ References:
 #### Challenge 3, Task 1: Basic KQL queries - explore the data
   
 In this task, you will see some KQL examples. For this task, we will use the table logsRaw, which has data we loaded in previous challenge from storage account. </br> 
-Execute the queries and view the results. KQL queries can be used to filter data and return specific information. Now, you'll learn how to choose specific rows of the data. The where operator filters results that satisfy a certain condition. 
+Execute the queries and view the results. KQL queries can be used to filter data and return specific information. Now, you'll learn how to choose specific rows of the data. <br>
+The where operator filters results that satisfy a certain condition. 
 
 ```
 logsRaw
 | where Level=="Error"
 | take 10
 ```
-'take' operator samples any number of records from our table without any order. In the above example, we asked to provide 10 random records.
+The 'take' operator samples any number of records from our table without any order. In the above example, we asked to provide 10 random records.
 
  Find out how many records are in the table
 
@@ -197,9 +198,19 @@ logsRaw
 Azure Data Explorer provides a set of system data types that define all the types of data that can be stored. <br>
 Some data types for example are: string, int, decimal, GUID, bool, datetime. <br>
 Note, that the data type of the *Properties* column is *dynamic*. The *dynamic* data type is special in that it can take on any value of other data types, as well as arrays and property bags (dictionaries). <br>
+Our dataset has trace records written by Contoso's DOWNLOADER program (*| where Component == "DOWNLOADER"*), which downloads files from blob storage as part of its business operations. This is how a typical *Properties* column looks like:
 
-The *dynamic* type is extremely beneficial when it comes to storing JSON data, since KQL makes it simple to access fields in JSON and treat them like an independent column: just use either the dot notation (*dict.key*) or the bracket notation (*dict["key"]*).
+```
+{
+	"compressedSize": 2096219754,
+	"OriginalSize": 16769758032,
+	"downloadDuration": "00:02:19.2740627"
+}
+```
 
+The *dynamic* type is extremely beneficial when it comes to storing JSON data, since KQL makes it simple to access fields in JSON and treat them like an independent column: just use either the dot notation (*dict.key*) or the bracket notation (*dict["key"]*). <br>
+
+The *extend* operator adds a new calculated column to the result set. This allows for the creation of new standalone columns from the JSON data in *dynamic* columns.
 
 ```
 logsRaw
@@ -212,8 +223,10 @@ Note that although the dynamic type appears JSON-like, it can hold values that t
 
 ---
 #### Challenge 3, Task 2: Explore the table and columns 🎓
-Write a query to get table that shown in the image below.
-<br>
+After subscripting a dynamic object, it is necessary to cast (convert) the value to a simple type in order to utilize them (for example, if you want to summarize the sizes of all the *OriginalSize*, you should convert the *dynamic* type to a numeric type, like *long*).<br><br>
+
+Write a query to get table that shown in the image below (we want to convert the *OriginalSize* and *CompressedSize* columns to *long*).
+<br><br>
 Hint 1: Observe there are 2 new columns originalSize and compressedSize with datatype 'long' <br>
 Hint 2: Accessing a sub-object of a dynamic value yields another dynamic value, even if the sub-object has a different underlying type. <br>
 Hint 3: After subscripting a dynamic object, you must cast the value to a simple type.
@@ -238,7 +251,7 @@ Example result:
 
 ---
 #### Challenge 3, Task 4: Filter the output 🎓
-Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records between 2014-03-08 01:00 and 2014-03-08 10:00.
+You wish to look into an incident that occurred within a specific time frame. <br> Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records between 2014-03-08 01:00 and 2014-03-08 10:00.
 
 Hint 1: In case you see 0 records, remember that operators are sequenced by a pipe (|). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
 
