@@ -171,7 +171,7 @@ References:
 #### Challenge 3, Task 1: Basic KQL queries - explore the data
   
 In this task, you will see some KQL examples. For this task, we will use the table logsRaw, which has data we loaded in previous challenge from storage account. </br> 
-Execute the queries and view the results. KQL queries can be used to filter data and return specific information. Now, you'll learn how to choose specific rows of the data. <br>
+Execute the queries and view the results. KQL queries can be used to filter data and return specific information. Now, you'll learn how to choose specific rows of data. <br>
 The where operator filters results that satisfy a certain condition. 
 
 ```
@@ -225,7 +225,7 @@ Note that although the dynamic type appears JSON-like, it can hold values that t
 #### Challenge 3, Task 2: Explore the table and columns 🎓
 After subscripting a dynamic object, it is necessary to cast (convert) the value to a simple type in order to utilize them (for example, if you want to summarize the sizes of all the *OriginalSize*, you should convert the *dynamic* type to a numeric type, like *long*).<br><br>
 
-Write a query to get table that shown in the image below (we want to convert the *OriginalSize* and *CompressedSize* columns to *long*).
+Write a query to get the table that is shown in the image below (we want to convert the *OriginalSize* and *CompressedSize* columns to *long*).
 <br><br>
 Hint 1: Observe there are 2 new columns originalSize and compressedSize with datatype 'long' <br>
 Hint 2: Accessing a sub-object of a dynamic value yields another dynamic value, even if the sub-object has a different underlying type. <br>
@@ -242,6 +242,7 @@ Example result:
 
 ---
 #### Challenge 3, Task 3: Keep the columns of your interest 🎓
+You are investigating an incident and wish to review only several columns of the dataset. <br>
 Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records.
 
 Example result:
@@ -251,7 +252,7 @@ Example result:
 
 ---
 #### Challenge 3, Task 4: Filter the output 🎓
-You wish to look into an incident that occurred within a specific time frame. <br> Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records between 2014-03-08 01:00 and 2014-03-08 10:00.
+You are investigating an incident that occurred within a specific time frame. <br> Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records between 2014-03-08 01:00 and 2014-03-08 10:00.
 
 Hint 1: In case you see 0 records, remember that operators are sequenced by a pipe (|). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
 
@@ -261,6 +262,7 @@ Hint 1: In case you see 0 records, remember that operators are sequenced by a pi
 
 ---
 #### Challenge 3, Task 5: Sorting the results 🎓
+Your system generated an alert indicating a significant decrease in incoming data. You want to check the traces of the "INGESTOR_EXECUTER" [sic] component of the program. <br>
 Write a query that returns 20 sample records in which the *Component* column equals the word "INGESTOR_EXECUTER" [sic].
 Once done, rewrite the query to take the top 10 records by the value of *rowCount* (for the "INGESTOR_EXECUTER" [sic] records).
 
@@ -278,7 +280,7 @@ Example result:</br>
 
 ---
 #### Challenge 3, Task 6: Reorder, rename, add columns 🎓
-Write a query to extract format and row count from INGESTOR_EXECUTER [sic] component. Rename the fields to fileFormat and rowCount respectively. Also, Make Sure *Timestamp*, *fileFormat* and *rowCount* are the first 3 columns
+As part of the incident investigation, you want to extract *format* and *rowCount* from INGESTOR_EXECUTER [sic] component. Rename the calculated fields to fileFormat and rowCount respectively. Also, Make Sure *Timestamp*, *fileFormat* and *rowCount* are the first 3 columns
 
 Example result:</br>
 <img src="/assets/images/rename_reorder.png" width="950">
