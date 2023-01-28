@@ -13,7 +13,7 @@ Each challenge has a set of tasks that need to be completed in order to move on 
 ---
 Earn a digital badge! In order to receive the "ADX-In-A-Day" digital badge, you will need to complete the tasks marked with 🎓. **Please submit the KQL queries/commands of these tasks in the following link**: [Answer sheet - ADX Lab 1](https://forms.office.com/r/9GwkwHs9hv)
 
-<img src="/assets/images/badge.png" width="200">
+<p align="center"><img src="/assets/images/badge.png" width="200"></p>
 
 ---
 ---
@@ -67,7 +67,7 @@ If you already have a free cluster and just want to create a new database for th
   Windows users can also download [Kusto Explorer](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer), a desktop client to run the queries and benefit from advanced features available in the client.
 
 ---
-### Challenge 2: Ingest data from Storage Account
+### Challenge 2: Ingest data from Azure Storage Account
   
   Data ingestion to ADX is the process used to load data records from one or more sources into a table in your ADX cluster. Once ingested, the data becomes available for query.
 
@@ -82,9 +82,9 @@ Run the following command to create our table:
 ```
 .create table logsRaw(Timestamp:datetime, Source:string, Node:string, Level:string, Component:string, ClientRequestId:string, Message:string, Properties:dynamic) 
 ```
-#### Challenge 2, Task 2: Use the “One-click” UI (User Interface) to create a data connection to Azure blob storage
-  
-  Go back to the **My Cluster** page, click the **Ingest** button
+#### Challenge 2, Task 2: Use the “One-click” UI (User Interface) to ingest data from Azure blob storage
+You need to analyze the system logs for Contoso, which are stored in Azure blob storage. <br>
+Go back to the **My Cluster** page, click the **Ingest** button
   
   ![Screen capture 1](/assets/images/data_ingest.png)
 
@@ -94,16 +94,16 @@ Run the following command to create our table:
 
   <img src="/assets/images/ingest_table.png" width="500">
   
-  **Ingest from Storage**: Select "Blob container" as the source type in Ingest data window. In the **Link to source**, paste the following SAS URL.
+  **Ingest from Storage**: Select "Blob container" as the source type in Ingest data window. <br>
+In the **Link to source**, paste the following SAS (Shared Access Signature) URL of the blob storage. SAS URL is a way to provide limited, time-bound access to Azure storage resources such as Blobs.
 ```
 https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D
 ``` 
 
  Select one of the **Schema defining file** (one is autoselected unless you want to change that) and click **Next**
- 
-    <img src="/assets/images/ingest_from_storage.png" width="500">
-  
-  Under Data format, make sure you select 'Keep current table schema' and deselect 'Ignore the first record'
+<img src="/assets/images/ingest_from_storage.png" width="500">
+
+  Under Data format, make sure you select **'Keep current table schema'** and deselect **'Ignore the first record'**
   
   ![Screen capture 1](/assets/images/ingest_from_storage_schema.png)
   
@@ -111,7 +111,7 @@ https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st
 
   ![Screen capture 1](/assets/images/ingestion_completed.png)
   
-  Go to the **Query** page. Run the following query to verify that data was ingested to the table. The *logsRaw* table should have 3834012 records
+  Go to the **Query** page. Run the following KQL query to verify that data was ingested to the table. The *logsRaw* table should have 3834012 records
 
 ```
   logsRaw
@@ -166,7 +166,7 @@ logsRaw
 | project MaxTimestamp
 ```
 References:
-- [SQL to KQL cheat sheets](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/sqlcheatsheet)
+- [SQL to KQL cheat sheets - aka.ms/SQL2KQL](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/sqlcheatsheet)
 ---
 #### Challenge 3, Task 1: Basic KQL queries - explore the data
   
@@ -196,21 +196,14 @@ logsRaw
  ``` 
  
 Azure Data Explorer provides a set of system data types that define all the types of data that can be stored. <br>
-Some data types for example are: string, int, decimal, GUID, bool, datetime. <br>
+Some data types for example are: string, int, decimal, GUID, bool, datetime. <br><br>
 Note, that the data type of the *Properties* column is *dynamic*. The *dynamic* data type is special in that it can take on any value of other data types, as well as arrays and property bags (dictionaries). <br>
 Our dataset has trace records written by Contoso's DOWNLOADER program (*| where Component == "DOWNLOADER"*), which downloads files from blob storage as part of its business operations. This is how a typical *Properties* column looks like:
-
-```
-{
-	"compressedSize": 2096219754,
-	"OriginalSize": 16769758032,
-	"downloadDuration": "00:02:19.2740627"
-}
-```
+<img src="/assets/images/properties_column.png" width="700">
 
 The *dynamic* type is extremely beneficial when it comes to storing JSON data, since KQL makes it simple to access fields in JSON and treat them like an independent column: just use either the dot notation (*dict.key*) or the bracket notation (*dict["key"]*). <br>
 
-The *extend* operator adds a new calculated column to the result set. This allows for the creation of new standalone columns from the JSON data in *dynamic* columns.
+The *extend* operator adds a new calculated column to the result set, during query time. This allows for the creation of new standalone columns to the result set, from the JSON data in *dynamic* columns.
 
 ```
 logsRaw
@@ -293,13 +286,16 @@ Example result:</br>
 
 ---
 #### Challenge 3, Task 7: Total number of records 🎓
-Write a query to find out how many records are in the table by *Component*. 
+The system has several Components, but you don't know what they are. 
+The system comprises of several "components", but you don't know their names or how many records were generated by each.<br>
+Write a query to find out how many records were generated by each components. Use the *Component* column. 
 
 [count aggregation function](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/count-aggfunction)
 
 ---
 #### Challenge 3, Task 8: Aggregations and string operations 🎓
-Write a query to find out how many records contain the string 'ingestion' in the *Message* column. Aggregate the results by Level.
+You assume that the incident being investigated has a connection to the ingestion process run by Contoso's program.<br>
+Write a query to find out how many records contain the string 'ingestion' in the *Message* column. Aggregate the results by *Level*.
 
 Example result:
 
@@ -311,7 +307,7 @@ Example result:
 
 ---
 #### Challenge 3, Task 9: Render a chart 🎓
-Write a query to find out how many records are present per *Level* (aggregated by Level) and render a piechart.
+Write a query to find out how many total records are present per *Level* (aggregated by *Level*) and render a piechart.
 
 Example result:
 
