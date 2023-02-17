@@ -34,7 +34,7 @@ Create your free cluster and database here: https://aka.ms/kustofree.
 ![Screen capture 1](/assets/images/CreateNewCluster.png)
   
 #### Challenge 1, Task 2: Review the free cluster home page and the Azure Data Explorer Web UI 
-On your **My Cluster** page, you'll see ysee the following:
+On your **My Cluster** page, you'll see the following:
 * Your cluster's name, the option to upgrade to a full cluster, and the option to delete the cluster.
 * Cluster details like: cluster's location, and URI links for connecting to your cluster via APIs or other tools.
 * Quick actions you can take to get started with your cluster.
