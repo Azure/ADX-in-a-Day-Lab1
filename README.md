@@ -399,10 +399,15 @@ Create the update policy 🎓
 Update policy can transform and move the data from source table from the time it is created. It cannot look back at already existing data in source table. In order to mimic new data ingesting into source table we will use ".set-or-append" control commnd to ingest 100000 rows into source table (sample data from source table)
 
 ```
-  .set-or-append logsRaw <| logsRaw | take 100000
+  .set-or-append async logsRaw <| logsRaw
 ```
 [Kusto Ingest from Query | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/data-ingestion/ingest-from-query)
 
+**Note:** The above command does not completely immediately. Because we used the 'aync' parameter, the output of the above query will be a operationId. The progress of the query can be checked by used the below command
+
+```
+  .show operations <operationId>
+```
 
 Make sure the data is transformed correctly in the destination tables
 ```
