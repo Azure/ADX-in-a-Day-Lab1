@@ -396,7 +396,7 @@ Create the update policy 🎓
 ```
  [Kusto update policy - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/updatepolicy)
  
-Update policy can transform and move the data from source table from the time it is created. It cannot look back at already existing data in source table. In order to mimic new data ingesting into source table we will use ".set-or-append" control commnd to ingest 100000 rows into source table (sample data from source table)
+Update policy can transform and move the data from source table from the time it is created. It cannot look back at already existing data in source table. In order to mimic new data ingesting into source table we will use ".set-or-append async" control commnd to ingest logsraw table rows into source table
 
 ```
   .set-or-append async logsRaw <| logsRaw
