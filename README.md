@@ -147,7 +147,7 @@ logsRaw
 This query has a single tabular expression statement. The statement begins with a reference to the table logsRaw and contains the operators take. Each operator is separated by a pipe.
 
 References:
-- [KQL cheat sheets](https://github.com/marcusbakker/KQL/blob/master/kql_cheat_sheet.pdf)
+- [KQL cheat sheets](https://learn.microsoft.com/en-us/azure/data-explorer/kql-quick-reference)
 
 ---
 #### Challenge 3, Task 0 : Journey from SQL to KQL!
