@@ -79,7 +79,7 @@ If you already have a free cluster and just want to create a new database for th
   
 ---
 #### Challenge 2, Task 1: Create the raw table - logsRaw
-Run the following command to create our table:
+Go to the "Query" tab and run the following command to create our table:
 ```
 .create table logsRaw(Timestamp:datetime, Source:string, Node:string, Level:string, Component:string, ClientRequestId:string, Message:string, Properties:dynamic) 
 ```
@@ -105,7 +105,7 @@ https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st
  Select one of the **Schema defining file** (one is autoselected unless you want to change that) and click **Next**
 <img src="/assets/images/ingest_from_storage.png" width="500">
 
-  Under Data format, make sure you select **'Keep current table schema'** and deselect **'Ignore the first record'**
+  Under Data format, make sure you select **'Keep current table schema'** and deselect **'Ignore the first record'**. Click on "Next: Start ingestion"
   
   ![Screen capture 1](/assets/images/ingest_from_storage_schema.png)
   
@@ -155,6 +155,8 @@ For all the SQL pros out there, Azure data explorer allows a subset of TSQL quer
 ```
 select count() from logsRaw
 ```
+**Note**: Intellisense will not work for SQL queries.
+
 The primary language to interact with Kusto is KQL (Kusto Query Language). To make the transition and learning experience easier, you can use 'explain' operator to translate SQL queries to KQL.
 
 ```
@@ -403,7 +405,7 @@ Update policy can transform and move the data from source table from the time it
 ```
 [Kusto Ingest from Query | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/data-ingestion/ingest-from-query)
 
-**Note:** The above command does not completely immediately. Because we used the 'aync' parameter, the output of the above query will be a operationId. The progress of the query can be checked by used the below command
+**Note:** The above command does not complete immediately. Because we used the 'aync' parameter, the output of the above query will be an operationId. The progress of the query can be checked by using the below command
 
 ```
   .show operations <operationId>
