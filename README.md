@@ -388,13 +388,14 @@ In this task, we will use an 'update policy' to filter the raw data in the logsR
 ```
 .create table ingestionLogs (Timestamp: datetime, Source: string,Node: string, Level: string, Component: string, ClientRequestId: string, Message: string, Properties: dynamic)
 ```
-Create a function for the update policy 🎓
+Create a function for the update policy 
  ```
  **Use the function created in Task 1**
 ```
-Create the update policy 🎓
+Create the update policy(Fill in the blanks) 🎓
 ```
-     <Complete the command>
+.alter table ...... policy update 
+@'[{ "IsEnabled": true, "Source": "....", "Query": ".....", "IsTransactional": true, "PropagateIngestionProperties": false}]'
 ```
  [Kusto update policy - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/updatepolicy)
  
