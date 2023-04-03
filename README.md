@@ -79,7 +79,7 @@ If you already have a free cluster and just want to create a new database for th
   
 ---
 #### Challenge 2, Task 1: Create the raw table - logsRaw
-Run the following command to create our table:
+Go to the "Query" tab and run the following command to create our table:
 ```
 .create table logsRaw(Timestamp:datetime, Source:string, Node:string, Level:string, Component:string, ClientRequestId:string, Message:string, Properties:dynamic) 
 ```
@@ -105,7 +105,7 @@ https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st
  Select one of the **Schema defining file** (one is autoselected unless you want to change that) and click **Next**
 <img src="/assets/images/ingest_from_storage.png" width="500">
 
-  Under Data format, make sure you select **'Keep current table schema'** and deselect **'Ignore the first record'**
+  Under Data format, make sure you select **'Keep current table schema'** and deselect **'Ignore the first record'**. Click on "Next: Start ingestion"
   
   ![Screen capture 1](/assets/images/ingest_from_storage_schema.png)
   
@@ -147,7 +147,7 @@ logsRaw
 This query has a single tabular expression statement. The statement begins with a reference to the table logsRaw and contains the operators take. Each operator is separated by a pipe.
 
 References:
-- [KQL cheat sheets](https://github.com/marcusbakker/KQL/blob/master/kql_cheat_sheet.pdf)
+- [KQL cheat sheets](https://learn.microsoft.com/en-us/azure/data-explorer/kql-quick-reference)
 
 ---
 #### Challenge 3, Task 0 : Journey from SQL to KQL!
@@ -155,6 +155,8 @@ For all the SQL pros out there, Azure data explorer allows a subset of TSQL quer
 ```
 select count() from logsRaw
 ```
+**Note**: Intellisense will not work for SQL queries.
+
 The primary language to interact with Kusto is KQL (Kusto Query Language). To make the transition and learning experience easier, you can use 'explain' operator to translate SQL queries to KQL.
 
 ```
@@ -412,9 +414,10 @@ Create a function for the update policy
  ```
  **Use the function created in Task 1**
 ```
-Create the update policy 
+Create the update policy(Fill in the blanks) 
 ```
-     <Complete the command>
+.alter table ...... policy update 
+@'[{ "IsEnabled": true, "Source": "....", "Query": ".....", "IsTransactional": true, "PropagateIngestionProperties": false}]'
 ```
  [Kusto update policy - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/updatepolicy)
  
