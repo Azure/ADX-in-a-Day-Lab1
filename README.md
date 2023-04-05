@@ -398,6 +398,7 @@ Create a stored functions, named *ManiputatelogsRaw*, that will contain the code
 logsRaw
 | where Component in ('INGESTOR_EXECUTER', 'INGESTOR_GATEWAY', 'INTEGRATIONDATABASE','INTEGRATIONSERVICEFLOWS', 'INTEGRATIONSERVICETRACE', 'DOWNLOADER')
  ```
+**Question**: What is property used when creating function that is used for UI functions categorization?
 
 See the [create function](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/create-function) article.
 
@@ -424,6 +425,7 @@ Create the update policy(Fill in the blanks)
 Update policy can transform and move the data from source table from the time it is created. It cannot look back at already existing data in source table. We will ingest new data into logsraw table and see new data flowing into ingestionLogs table
 
 ```
+.execute database script <|
 .ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/00/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T00:00:00Z');
 .ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/01/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T01:00:00Z');
 .ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/02/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T02:00:00Z');
@@ -432,7 +434,7 @@ Update policy can transform and move the data from source table from the time it
 ```
 [Kusto Ingest from Storage | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/data-ingestion/ingest-from-storage)
 
-**Note:** The above command does not complete immediately. Because we used the 'aync' parameter, the output of the above query will be multiple operationId. The progress of the query can be checked by used the below command
+**Note:** The above command does not complete immediately. Because we used the 'aync' parameter, the output of the above query will be multiple operationIds. The progress of the query can be checked by used the below command
 
 ```
   .show operations <operationId>
@@ -453,7 +455,7 @@ Hint 3: Use [ago()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/
 
 - What is the count of records that were ingested into ingestionLogs(target) table with this update policy?
 
-**Question**: Calculate the ratio => ingestionLogs count / logsRaw count (Only the latest ingestion)
+**Question**: Calculate the ratio => ingestionLogs count / logsRaw count (Only the latest ingestion). Consider 4 digits after decimal points in the output.
 
 ---
 ---
