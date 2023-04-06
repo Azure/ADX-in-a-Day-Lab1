@@ -1,4 +1,6 @@
-# ADX-in-a-Day Lab1 is undergoing maintainance and will be ready by Monday, 10 April 2023, 6PM IST.  
+# ===> **ADX-in-a-Day Lab1 is undergoing maintainance and will be ready by Monday, 10 April 2023, 6PM IST**.  <===
+
+
 
 ## Lab1: Cluster Creation, Data Ingestion and Exploration
 
