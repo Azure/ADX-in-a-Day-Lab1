@@ -1,3 +1,5 @@
+# ADX-in-a-Day Lab1 is undergoing maintainance and will be ready by Monday, 10 April 2023, 6PM IST.  
+
 ## Lab1: Cluster Creation, Data Ingestion and Exploration
 
 This Lab is organized into the following 4 Challenges:
