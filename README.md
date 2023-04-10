@@ -244,7 +244,7 @@ Example result:
 You are investigating an incident and wish to review only several columns of the dataset. <br>
 Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records.
 
-**Question**: If we have to change ClientRequestId column from string to guid datatype, what the function we use?
+**Question**: If we have to change ClientRequestId column from string to guid datatype, what is the function we should use?
 
 Example result:
 ![Screen capture 1](/assets/images/project.png)
