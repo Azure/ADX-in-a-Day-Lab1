@@ -419,7 +419,8 @@ Create a function for the update policy
  ```
  **Use the function created in Task 1**
 ```
-Create the update policy(Fill in the blanks) 
+
+Create the update policy(Fill in the blanks) 🎓
 ```
 .alter table ...... policy update 
 @'[{ "IsEnabled": true, "Source": "....", "Query": ".....", "IsTransactional": true, "PropagateIngestionProperties": false}]'
@@ -439,7 +440,6 @@ Update policy can transform and move the data from source table from the time it
 [Kusto Ingest from Storage | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/data-ingestion/ingest-from-storage)
 
 **Note:** The above command does not complete immediately. Because we used the 'aync' parameter, the output of the above query will be multiple operationIds. The progress of the query can be checked by used the below command
-
 ```
   .show operations <operationId>
 ```
