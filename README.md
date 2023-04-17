@@ -435,7 +435,7 @@ Update policy can transform and move the data from source table from the time it
 ```
 [Kusto Ingest from Storage | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/data-ingestion/ingest-from-storage)
 
-**Note:** The above command does not complete immediately. Because we used the 'aync' parameter, the output of the above query will be multiple operationIds. The progress of the query can be checked by used the below command
+**Note:** The above command does not complete immediately. Because we used the 'async' parameter, the output of the above query will be multiple operationIds. The progress of the query can be checked by used the below command
 ```
   .show operations <operationId>
 ```
@@ -445,7 +445,13 @@ Make sure the data is transformed correctly in the destination tables
 ingestionLogs
 | count
 ```
-- What is the latest count of records inserted in logsRaw(Source) table using the above .ingest commands?
+- Check if the count of ingestionLogs table is 93648.
+
+**Note:** If the count is not matching for ingestionLogs table, it means that one of the above .ingest commands have throttles or failed. Please run the following command to clean ingestionLogs table
+```
+.clear table ingestionLogs data
+```
+You can then run the above .ingest commands one by one and this will result in 93648 count in ingestionLogs table.
 
 Hint 1: Remember we have already ingested data into logsRaw in Challenge 2. We need the count of records from latest ingestion only. 
 
