@@ -447,7 +447,7 @@ ingestionLogs
 ```
 - Check if the count of ingestionLogs table is 93648.
 
-**Note:** If the count is not matching for ingestionLogs table, it means that one of the above .ingest commands have throttles or failed. Please run the following command to clean ingestionLogs table
+**Note:** If the count is not matching for ingestionLogs table, it means that one of the above .ingest commands have throttled or failed. Please run the following command to clean ingestionLogs table
 ```
 .clear table ingestionLogs data
 ```
