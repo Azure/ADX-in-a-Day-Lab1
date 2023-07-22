@@ -28,10 +28,10 @@ To use Azure Data Explorer (ADX), you first have to create a free ADX cluster, a
 
 In this Challenge, you will create a Free cluster and a database. You will run simple KQL query in Kusto Web Explorer (KWE UI).
 
-**Challanges:**
-- [Challenge 1, Task 1: Create an ADX cluster and Database](#challenge-1-task-1-create-an-adx-cluster-and-database)
-- [Challenge 1, Task 2: Review the free cluster home page and the Azure Data Explorer Web UI](#challenge-1-task-2-review-the-free-cluster-home-page-and-the-azure-data-explorer-web-ui)
-- [Challenge 1, Task 3: Write your first Kusto Query Language (KQL) query](#challenge-1-task-3-write-your-first-kusto-query-language-kql-query)
+**Tasks:**
+- [**Task 1:** Create an ADX cluster and Database](#challenge-1-task-1-create-an-adx-cluster-and-database)
+- [**Task 2:** Review the free cluster home page and the Azure Data Explorer Web UI](#challenge-1-task-2-review-the-free-cluster-home-page-and-the-azure-data-explorer-web-ui)
+- [**Task 3:** Write your first Kusto Query Language (KQL) query](#challenge-1-task-3-write-your-first-kusto-query-language-kql-query)
 
 **Expected Learning Outcomes:**
 - Create and work with Free ADX cluster.
@@ -106,9 +106,9 @@ Data ingestion to ADX is the process used to load data records from one or more 
 
 ADX supports several ingestion methods, including ingestion tools, connectors and plugins, Azure managed pipelines, programmatic ingestion using SDKs, and direct access to ingestion.
 
-**Challanges**
-- [Challenge 2, Task 1: Create the raw table - logsRaw](#challenge-2-ingest-data-from-azure-storage-account)
-- [Challenge 2, Task 2: Use the “One-click” UI (User Interface) to ingest data from Azure blob storage](#challenge-2-task-2-use-the-one-click-ui-user-interface-to-ingest-data-from-azure-blob-storage)
+**Tasks**
+- [**Task 1:** Create the raw table - logsRaw](#challenge-2-ingest-data-from-azure-storage-account)
+- [**Task 2:** Use the “One-click” UI (User Interface) to ingest data from Azure blob storage](#challenge-2-task-2-use-the-one-click-ui-user-interface-to-ingest-data-from-azure-blob-storage)
 
 **Expected Learning Outcomes:**
   - Ingest data using one-click ingestion from Azure Blob Storage to your ADX cluster.
@@ -168,24 +168,40 @@ Select **Blob container** as the **Source type** in the **Source** tab. As **Ing
       | count 
     ```
 
-    The ``logsRaw`` table should have 3,834,012 records
+    The ``logsRaw`` table should have 3,834,012 records.
 
 ---
 ## **Challenge 3: Starting with the basics of KQL**
 
 In this challenge you’ll write queries in Kusto Query Language (KQL) to explore and gain insights from your data. 
 
-Expected Learning Outcomes:
+**Tasks:**
+- [**Task 0:** Journey from SQL to KQL!](#challenge-3-task-0--journey-from-sql-to-kql)
+- [**Task 1:** Basic KQL queries - explore the data](#challenge-3-task-1-basic-kql-queries---explore-the-data)
+- [**Task 2:** Explore the table and columns](#challenge-3-task-2-explore-the-table-and-columns-✅)
+- [**Task 3:** Keep the columns of your interest](#challenge-3-task-3-keep-the-columns-of-your-interest-✅)
+- [**Task 4:** Filter the output](#challenge-3-task-4-filter-the-output-✅)
+- [**Task 5:** Sorting the results](#challenge-3-task-5-sorting-the-results-✅)
+- [**Task 6:** Data profiling](#challenge-3-task-6-data-profiling-✅)
+- [**Task 7:** Total number of records ](#challenge-3-task-7-total-number-of-records-✅)
+- [**Task 8:** Aggregations and string operations](#challenge-3-task-8-aggregations-and-string-operations-✅)
+- [**Task 9:** Render a chart](#challenge-3-task-9-render-a-chart-✅)
+- [**Task 10:** Create bins and visualize time series](#challenge-3-task-10-create-bins-and-visualize-time-series-✅)
+ - [**Task 11:** Shortcuts](#challenge-3-task-11-shortcuts)
+
+**Expected Learning Outcomes:**
 - Know how to write queries with KQL.
 - Use KQL to explore data by using the most common operators.
 
-**What is a Kusto query?**
-A Kusto query is a read-only request to process data and return results. The request is stated in plain text that's easy to read, author, and automate. A Kusto query has one or more query statements and returns data in a tabular or graph format.
+***What is a Kusto query?***
 
-**What is a tabular statement?**
+A *Kusto query* is a read-only request to process data and return results. The request is stated in plain text that's easy to read, author, and automate. A Kusto query has one or more query statements and returns data in a tabular or graph format.
+
+***What is a tabular statement?***
+
 The most common kind of query statement is a tabular expression statement. Both its input and its output consist of tables or tabular datasets.
 
-Tabular statements contain zero or more operators. Each operator starts with a tabular input and returns a tabular output. Operators are sequenced by a pipe (|). Data flows, or is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step.
+*Tabular statements* contain zero or more operators. Each operator starts with a tabular input and returns a tabular output. Operators are sequenced by a pipe (|). Data flows, or is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step.
 
 It's like a funnel, where you start out with an entire data table. Each time the data passes through another operator, it's filtered, rearranged, or summarized. Because the piping of information from one operator to another is sequential, the query's operator order is important. At the end of the funnel, you're left with a refined output.
 Let's look at an example query:
@@ -197,7 +213,7 @@ logsRaw
 
 This query has a single tabular expression statement. The statement begins with a reference to the table logsRaw and contains the operators take. Each operator is separated by a pipe.
 
-References:
+**References:**
 - [KQL cheat sheets](https://learn.microsoft.com/en-us/azure/data-explorer/kql-quick-reference)
 
 ---
