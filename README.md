@@ -54,6 +54,10 @@ In this Challenge, you will create a Free cluster and a database. You will run s
     
     ![Screen capture 1](/assets/images/free_cluster_create_db.png)
 
+2. Click on the Button **Create** in the tile **Create Database** 
+
+3. Enter a name for the database in field **Database**. As an example for the name you can use ``ADX in a day``.
+
 > If you already have a free cluster and just want to create a new database for this lab, use the **Create** button in the Create database tile.
   
 ### **Challenge 1, Task 3: Write your first Kusto Query Language (KQL) query**
