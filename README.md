@@ -222,22 +222,22 @@ This query has a single tabular expression statement. The statement begins with 
 For all the SQL pros out there, Azure data explorer allows a subset of TSQL queries. Try running the following SQL query in web UI
 
 ```SQL
-select count() from logsRaw
+SELECT COUNT() FROM logsRaw
 ```
 > **Note**: Intellisense will not work for SQL queries.
 
 The primary language to interact with Kusto is KQL (Kusto Query Language). To make the transition and learning experience easier, you can use the ``explain`` operator to translate SQL queries to KQL.
 
 ```kql
-explain select max(Timestamp) as MaxTimestamp from logsRaw where Level='Error'
+explain SELECT MAX(Timestamp) AS MaxTimestamp FROM logsRaw WHERE Level='Error'
 ```
 Output of the above query will be a corresponsing KQL query
-  ```kql
-  logsRaw
-  | where (Level == "Error")
-  | summarize MaxTimestamp=max(Timestamp)
-  | project MaxTimestamp
-  ```
+```kql
+logsRaw
+| where (Level == "Error")
+| summarize MaxTimestamp=max(Timestamp)
+| project MaxTimestamp
+```
 **References:**
 - [SQL to KQL cheat sheets - aka.ms/SQL2KQL](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/sqlcheatsheet)
 ---
@@ -264,50 +264,57 @@ In this task, you will see some KQL examples. For this task, we will use the tab
 
 3. Find out the minimum and maximum Timestamp
 
-    ```
+    ```kql
     logsRaw
     | summarize min(Timestamp), max(Timestamp)
     ``` 
  
-Azure Data Explorer provides a set of system data types that define all the types of data that can be stored. <br>
-Some data types for example are: string, int, decimal, GUID, bool, datetime. <br><br>
-Note, that the data type of the *Properties* column is *dynamic*. The *dynamic* data type is special in that it can take on any value of other data types, as well as arrays and property bags (dictionaries). <br>
-Our dataset has trace records written by Contoso's DOWNLOADER program (*| where Component == "DOWNLOADER"*), which downloads files from blob storage as part of its business operations. This is how a typical *Properties* column looks like:
-<img src="/assets/images/properties_column.png" width="1200">
+Azure Data Explorer provides a set of system data types that define all the types of data that can be stored.
 
-The *dynamic* type is extremely beneficial when it comes to storing JSON data, since KQL makes it simple to access fields in JSON and treat them like an independent column: just use either the dot notation (*dict.key*) or the bracket notation (*dict["key"]*). <br>
+Some data types for example are: ``string``, ``int``, ``decimal``, ``GUID``, ``bool``, ``datetime``. 
 
-The *extend* operator adds a new calculated column to the result set, during query time. This allows for the creation of new standalone columns to the result set, from the JSON data in *dynamic* columns.
+Note, that the data type of the **Properties** column is ``dynamic``. The ``dynamic`` data type is special in that it can take on any value of other data types, as well as arrays and property bags (dictionaries).
 
-```
+Our dataset has trace records written by Contoso's DOWNLOADER program (``| where Component == "DOWNLOADER"``), which downloads files from blob storage as part of its business operations. 
+
+This is how a typical *Properties* column looks like:
+
+![Screen capture 1](/assets/images/properties_column.png)
+
+The ``dynamic`` type is extremely beneficial when it comes to storing JSON data, since KQL makes it simple to access fields in JSON and treat them like an independent column: just use either the dot notation (``dict.key``) or the bracket notation (``dict["key"]``).
+
+The ``extend`` operator adds a new calculated column to the result set, during query time. This allows for the creation of new standalone columns to the result set, from the JSON data in ``dynamic`` columns.
+
+```kql
 logsRaw
 | where Component == "DOWNLOADER"
 | take 100
 | extend originalSize=Properties.OriginalSize, compressedSize=Properties.compressedSize
 ```
 
-Note that although the dynamic type appears JSON-like, it can hold values that the JSON model does not represent because they don't exist in JSON (e.g., long, real, datetime, timespan, and GUID). 
+Note that although the dynamic type appears JSON-like, it can hold values that the JSON model does not represent because they don't exist in JSON (e.g., ``long``, ``real``, ``datetime``, ``timespan``, and ``GUID``). 
 
----
 ### **Challenge 3, Task 2: Explore the table and columns ✅**
-After subscripting a dynamic object, it is necessary to cast (convert) the value to a simple type in order to utilize them (for example, if you want to summarize the sizes of all the *OriginalSize*, you should convert the *dynamic* type to a numeric type, like *long*).<br><br>
+After subscripting a dynamic object, it is necessary to cast (convert) the value to a simple type in order to utilize them (for example, if you want to summarize the sizes of all the ``OriginalSize``, you should convert the ``dynamic`` type to a numeric type, like ``long``).
 
-Write a query to get the table that is shown in the image below (we want to convert the *OriginalSize* and *CompressedSize* columns to *long*).
-<br><br>
-Hint 1: Observe there are 2 new columns originalSize and compressedSize with datatype 'long' <br>
-Hint 2: Accessing a sub-object of a dynamic value yields another dynamic value, even if the sub-object has a different underlying type. <br>
-Hint 3: After subscripting a dynamic object, you must cast the value to a simple type.
+1. Write a query to get the table that is shown in the image below (we want to convert the ``OriginalSize`` and ``CompressedSize`` columns to ``long``).
 
-**Question**: What is the "Datatype" of "ColumnType = long ?
+    - ***Hint 1:*** Observe there are 2 new columns originalSize and compressedSize with datatype ``long``
+    - ***Hint 2:*** Accessing a sub-object of a dynamic value yields another dynamic value, even if the sub-object has a different underlying type.
+    - ***Hint 3:*** After subscripting a dynamic object, you must cast the value to a simple type.
+
+  **Question**: What is the "Datatype" of "ColumnType = long ?
 
 Example result:  
+
 ![Screen capture 1](/assets/images/get_schema.png)
 
-[extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
+**Reference**
+- [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
 
-[tolong()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/tolongfunction)
+- [tolong()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/tolongfunction)
 
-[getschema operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/getschemaoperator)
+- [getschema operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/getschemaoperator)
 
 ---
 ### **Challenge 3, Task 3: Keep the columns of your interest ✅**
