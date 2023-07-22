@@ -303,9 +303,9 @@ After subscripting a dynamic object, it is necessary to cast (convert) the value
     - ***Hint 2:*** Accessing a sub-object of a dynamic value yields another dynamic value, even if the sub-object has a different underlying type.
     - ***Hint 3:*** After subscripting a dynamic object, you must cast the value to a simple type.
 
-  **Question**: What is the "Datatype" of "ColumnType = long ?
+> **Question**: What is the "Datatype" of "ColumnType = long ?
 
-Example result:  
+**Example result:**
 
 ![Screen capture 1](/assets/images/get_schema.png)
 
@@ -321,9 +321,9 @@ You are investigating an incident and wish to review only several columns of the
 
 1. Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records.
 
-**Question**: If we have to change ClientRequestId column from string to guid datatype, what is the function we should use?
+> **Question**: If we have to change ClientRequestId column from string to guid datatype, what is the function we should use?
 
-Example result:
+**Example result:**
 ![Screen capture 1](/assets/images/project.png)
 
 **References**
@@ -336,7 +336,7 @@ You are investigating an incident that occurred within a specific time frame.
 
     - ***Hint 1:*** In case you see 0 records, remember that operators are sequenced by a pipe (``|``). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
 
-**Question**: What is the count of records in this timeframe?
+> **Question**: What is the count of records in this timeframe?
 
 **References**
 
@@ -357,11 +357,11 @@ Your system generated an alert indicating a significant decrease in incoming dat
 
     - ***Hint 3:*** Note the "Executer" [sic] spelling
 
-**Question**: What is the value of rowCount column of this record?
+  > **Question**: What is the value of rowCount column of this record?
 
-Example result:
+**Example result:**
 
-![Screen capture 1](/assets/images/top_10_rowCount.png)
+  ![Screen capture 1](/assets/images/top_10_rowCount.png)
 
 **References:**
 
