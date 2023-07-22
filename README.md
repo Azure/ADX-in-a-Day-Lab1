@@ -201,7 +201,7 @@ A *Kusto query* is a read-only request to process data and return results. The r
 
 The most common kind of query statement is a tabular expression statement. Both its input and its output consist of tables or tabular datasets.
 
-*Tabular statements* contain zero or more operators. Each operator starts with a tabular input and returns a tabular output. Operators are sequenced by a pipe (|). Data flows, or is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step.
+*Tabular statements* contain zero or more operators. Each operator starts with a tabular input and returns a tabular output. Operators are sequenced by a pipe (``|``). Data flows, or is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step.
 
 It's like a funnel, where you start out with an entire data table. Each time the data passes through another operator, it's filtered, rearranged, or summarized. Because the piping of information from one operator to another is sequential, the query's operator order is important. At the end of the funnel, you're left with a refined output.
 Let's look at an example query:
@@ -211,7 +211,7 @@ logsRaw
 | take 10 
 ```
 
-This query has a single tabular expression statement. The statement begins with a reference to the table logsRaw and contains the operators take. Each operator is separated by a pipe.
+This query has a single tabular expression statement. The statement begins with a reference to the table ``logsRaw`` and contains the operators ``take``. Each operator is separated by a pipe.
 
 **References:**
 - [KQL cheat sheets](https://learn.microsoft.com/en-us/azure/data-explorer/kql-quick-reference)
@@ -222,9 +222,9 @@ For all the SQL pros out there, Azure data explorer allows a subset of TSQL quer
 ```
 select count() from logsRaw
 ```
-**Note**: Intellisense will not work for SQL queries.
+> **Note**: Intellisense will not work for SQL queries.
 
-The primary language to interact with Kusto is KQL (Kusto Query Language). To make the transition and learning experience easier, you can use 'explain' operator to translate SQL queries to KQL.
+The primary language to interact with Kusto is KQL (Kusto Query Language). To make the transition and learning experience easier, you can use the ``explain`` operator to translate SQL queries to KQL.
 
 ```
 explain select max(Timestamp) as MaxTimestamp from logsRaw where Level='Error'
@@ -236,35 +236,36 @@ logsRaw
 | summarize MaxTimestamp=max(Timestamp)
 | project MaxTimestamp
 ```
-References:
+**References:**
 - [SQL to KQL cheat sheets - aka.ms/SQL2KQL](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/sqlcheatsheet)
 ---
 ### **Challenge 3, Task 1: Basic KQL queries - explore the data**
   
-In this task, you will see some KQL examples. For this task, we will use the table logsRaw, which has data we loaded in previous challenge from storage account. </br> 
-Execute the queries and view the results. KQL queries can be used to filter data and return specific information. Now, you'll learn how to choose specific rows of data. <br>
-The where operator filters results that satisfy a certain condition. 
+In this task, you will see some KQL examples. For this task, we will use the table logsRaw, which has data we loaded in previous challenge from storage account. 
 
-```
-logsRaw
-| where Level=="Error"
-| take 10
-```
-The 'take' operator samples any number of records from our table without any order. In the above example, we asked to provide 10 random records.
+1. Execute the queries and view the results. KQL queries can be used to filter data and return specific information. Now, you'll learn how to choose specific rows of data. The ``where`` operator filters results that satisfy a certain condition. 
 
- Find out how many records are in the table
+    ```kql
+    logsRaw
+    | where Level=="Error"
+    | take 10
+    ```
 
-  ```
-logsRaw
-| summarize count() // or: count
-  ```
+   The ``take`` operator samples any number of records from our table without any order. In the above example, we asked to provide 10 random records.
 
-Find out the minimum and maximum Timestamp
+ 2. Find out how many records are in the table
 
-  ```
-logsRaw
-| summarize min(Timestamp), max(Timestamp)
- ``` 
+    ```kusto
+    logsRaw
+    | summarize count() // or: count
+    ```
+
+3. Find out the minimum and maximum Timestamp
+
+    ```
+    logsRaw
+    | summarize min(Timestamp), max(Timestamp)
+    ``` 
  
 Azure Data Explorer provides a set of system data types that define all the types of data that can be stored. <br>
 Some data types for example are: string, int, decimal, GUID, bool, datetime. <br><br>
