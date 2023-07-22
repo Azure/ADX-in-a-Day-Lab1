@@ -351,13 +351,13 @@ Your system generated an alert indicating a significant decrease in incoming dat
 
 2. Once done, rewrite the query to take the top 1 records by the value of ``rowCount`` (for the "INGESTOR_EXECUTER" [sic] records).
 
-    - ***Hint 1:*** Extract rowCount from Properties column
+    - ***Hint 1:*** Extract ``rowCount`` from ``Properties`` column
 
     - ***Hint 2:*** Think about the datatype and conversion
 
     - ***Hint 3:*** Note the "Executer" [sic] spelling
 
-  > **Question**: What is the value of rowCount column of this record?
+  > **Question**: What is the value of ``rowCount`` column of this record?
 
 **Example result:**
 
@@ -368,22 +368,23 @@ Your system generated an alert indicating a significant decrease in incoming dat
 - [sort operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sort-operator)
 [top operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/topoperator)
 
----
 ### **Challenge 3, Task 6: Data profiling ✅**
-As part of the incident investigation, you want to extract *format* and *rowCount* from INGESTOR_EXECUTER [sic] component. Rename the calculated fields to fileFormat and rowCount respectively. Also, Make Sure *Timestamp*, *fileFormat* and *rowCount* are the first 3 columns. 
+As part of the incident investigation, you want to extract ``format`` and ``rowCount`` from INGESTOR_EXECUTER [sic] component. Rename the calculated fields to fileFormat and rowCount respectively. Also, Make Sure ``Timestamp``, ``fileFormat`` and ``rowCount`` are the first 3 columns. 
 
-**Question**: How many different file formats are present in this data?
+> **Question**: How many different file formats are present in this data?
 
-Example result:</br>
-<img src="/assets/images/rename_reorder.png" width="950">
+**Example result:**
 
-[distinct operator](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/distinctoperator)
+  ![Screen capture 1](/assets/images/rename_reorder.png)
 
-[extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
+**References:**
+- [distinct operator](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/distinctoperator)
 
-[project-rename operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectrenameoperator)
+- [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
 
-[project-reorder operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectreorderoperator)
+- [project-rename operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectrenameoperator)
+
+- [project-reorder operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectreorderoperator)
 
 ---
 ### **Challenge 3, Task 7: Total number of records ✅**
