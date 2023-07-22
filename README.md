@@ -80,13 +80,13 @@ Kusto Query Language can also be used in other services that are built on-top of
 - [Microsoft Defender for Cloud](https://www.microsoft.com/en-us/security/business/cloud-security/microsoft-defender-cloud)
 - [Application Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview?tabs=net)
   
-We can see our cluster and the database that we created.
+1. We can see our cluster and the database that we created. If you followd the steps above the database is named ``ADX in a day``.
   
-1. To run KQL queries, you must select the **Query** button on the Free Cluster page. <br>
+2. To run KQL queries, you must select the **Query** button on the Free Cluster page. <br>
 
     ![Screen capture 1](/assets/images/free_cluster_query.png)
   
-  2. Now – you can write a simple KQL query: 
+  3. Now you can write a simple KQL query: 
 
       ```
         print "Hello World"
