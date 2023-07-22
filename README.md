@@ -467,7 +467,6 @@ Below are a few examples
 
 - [Kusto Explorer shortcuts | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer-shortcuts)
 
----
 ## **Challenge 4: Explore and Transform Data**
 
 In this challenge we will explore 3 capabilities of Data Explorer
@@ -477,13 +476,17 @@ Each time records get ingested into the source table, the update policy's query 
 
 - **User-defined functions** are reusable KQL subqueries that can be defined as part of the query itself (ad-hoc functions), or persisted as part of the database metadata (stored functions - reusable KQL query, with the given name). Stored functions are invoked through a name, are provided with zero or more input arguments (which can be scalar or tabular), and produce a single value (which can be scalar or tabular) based on the function body.
 
-Expected Learning Outcomes:
+**Tasks:**
+- [Task 1: User defined Function (Stored Functions)](#challenge-4-task-1-user-defined-function-stored-functions-)
+- [Task 2: Create an update policy](#challenge-4-task-2-create-an-update-policy-)
+
+**Expected Learning Outcomes:**
 - Create user defined functions to use repeatable logic
 - Create an update policy to transform the data at ingestion time
 
-<img src="/assets/images/Update_policy.png" width="500">
+  ![Screen capture 1](/assets/images/Update_policy.png)
 
-For the next task, we will use the *logsRaw* table.
+For the next task, we will use the ``logsRaw`` table.
 
 ---
 
