@@ -179,15 +179,15 @@ In this challenge you’ll write queries in Kusto Query Language (KQL) to explor
 **Tasks:**
 - [**Task 0:** Journey from SQL to KQL!](#challenge-3-task-0--journey-from-sql-to-kql)
 - [**Task 1:** Basic KQL queries - explore the data](#challenge-3-task-1-basic-kql-queries---explore-the-data)
-- [**Task 2:** Explore the table and columns](#challenge-3-task-2-explore-the-table-and-columns-✅)
-- [**Task 3:** Keep the columns of your interest](#challenge-3-task-3-keep-the-columns-of-your-interest-✅)
-- [**Task 4:** Filter the output](#challenge-3-task-4-filter-the-output-✅)
-- [**Task 5:** Sorting the results](#challenge-3-task-5-sorting-the-results-✅)
-- [**Task 6:** Data profiling](#challenge-3-task-6-data-profiling-✅)
-- [**Task 7:** Total number of records ](#challenge-3-task-7-total-number-of-records-✅)
-- [**Task 8:** Aggregations and string operations](#challenge-3-task-8-aggregations-and-string-operations-✅)
-- [**Task 9:** Render a chart](#challenge-3-task-9-render-a-chart-✅)
-- [**Task 10:** Create bins and visualize time series](#challenge-3-task-10-create-bins-and-visualize-time-series-✅)
+- [**Task 2:** Explore the table and columns](#challenge-3-task-2-explore-the-table-and-columns-)
+- [**Task 3:** Keep the columns of your interest](#challenge-3-task-3-keep-the-columns-of-your-interest-)
+- [**Task 4:** Filter the output](#challenge-3-task-4-filter-the-output-)
+- [**Task 5:** Sorting the results](#challenge-3-task-5-sorting-the-results-)
+- [**Task 6:** Data profiling](#challenge-3-task-6-data-profiling-)
+- [**Task 7:** Total number of records ](#challenge-3-task-7-total-number-of-records-)
+- [**Task 8:** Aggregations and string operations](#challenge-3-task-8-aggregations-and-string-operations-)
+- [**Task 9:** Render a chart](#challenge-3-task-9-render-a-chart-)
+- [**Task 10:** Create bins and visualize time series](#challenge-3-task-10-create-bins-and-visualize-time-series-)
  - [**Task 11:** Shortcuts](#challenge-3-task-11-shortcuts)
 
 **Expected Learning Outcomes:**
@@ -309,24 +309,25 @@ Example result:
 
 ![Screen capture 1](/assets/images/get_schema.png)
 
-**Reference**
+**References**
 - [extend operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
 
 - [tolong()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/tolongfunction)
 
 - [getschema operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/getschemaoperator)
 
----
 ### **Challenge 3, Task 3: Keep the columns of your interest ✅**
-You are investigating an incident and wish to review only several columns of the dataset. <br>
-Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records.
+You are investigating an incident and wish to review only several columns of the dataset.
+
+1. Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records.
 
 **Question**: If we have to change ClientRequestId column from string to guid datatype, what is the function we should use?
 
 Example result:
 ![Screen capture 1](/assets/images/project.png)
 
-[project operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectoperator)
+**References**
+- [project operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectoperator)
 
 ---
 ### **Challenge 3, Task 4: Filter the output ✅**
