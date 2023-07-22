@@ -116,7 +116,7 @@ ADX supports several ingestion methods, including ingestion tools, connectors an
 ---
 ### **Challenge 2, Task 1: Create the raw table - logsRaw**
 1. Go to the **Query** tab and run the following command to create our table:
-    ```
+    ```kql
     .create table logsRaw(
         Timestamp:datetime, 
         Source:string, 
