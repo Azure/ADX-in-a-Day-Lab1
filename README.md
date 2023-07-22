@@ -442,24 +442,30 @@ You assume that the incident being investigated has a connection to the ingestio
 
 - [``summarize`` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
 
----
 ### **Challenge 3, Task 11: Shortcuts**
 
 Purpose of this task is to expose some cool productivity features of Azure Data Explorer Web Interface. This task is not evaluated.
 
 There are many keyboard shortcuts available in ADX Web UI and Kusto Explorer to increase productivity while working with KQL.
+
 Below are a few examples
-- You don't have to select a block of code. Based on current cursor position, code that is separated by empty lines is considered a single block of code.<br>
-<img src="/assets/images/code_block.png" width="500">
 
-- You can execute a block of code using Shift+Enter
-- You can directly insert filters based on data cells selections using Ctrl+Shift+Space <br>
+- You don't have to select a block of code. Based on current cursor position, code that is separated by empty lines is considered a single block of code.
 
-![Screen capture 1](/assets/images/add_as_filters.gif)
+    ![Screen capture 1](/assets/images/code_block.png)
 
-[Kusto Web UI shortcuts | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/web-ui-query-keyboard-shortcuts)
 
-[Kusto Explorer shortcuts | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer-shortcuts)
+- You can execute a block of code using ``Shift``+``Enter``
+- You can directly insert filters based on data cells selections using ``Ctrl``+``Shift``+``Space``
+
+  ![Screen capture 1](/assets/images/add_as_filters.
+  gif)
+
+**References:**
+
+- [Kusto Web UI shortcuts | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/web-ui-query-keyboard-shortcuts)
+
+- [Kusto Explorer shortcuts | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer-shortcuts)
 
 ---
 ## **Challenge 4: Explore and Transform Data**
