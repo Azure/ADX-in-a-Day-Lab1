@@ -103,11 +103,15 @@ Kusto Query Language can also be used in other services that are built on-top of
 ---
 ## **Challenge 2: Ingest data from Azure Storage Account**
   
-  Data ingestion to ADX is the process used to load data records from one or more sources into a table in your ADX cluster. Once ingested, the data becomes available for query.
+Data ingestion to ADX is the process used to load data records from one or more sources into a table in your ADX cluster. Once ingested, the data becomes available for query.
 
-  ADX supports several ingestion methods, including ingestion tools, connectors and plugins, Azure managed pipelines, programmatic ingestion using SDKs, and direct access to ingestion.
+ADX supports several ingestion methods, including ingestion tools, connectors and plugins, Azure managed pipelines, programmatic ingestion using SDKs, and direct access to ingestion.
 
-  **Expected Learning Outcomes:**
+**Challanges**
+- [Challenge 2, Task 1: Create the raw table - logsRaw](#challenge-2-ingest-data-from-azure-storage-account)
+- [Challenge 2, Task 2: Use the “One-click” UI (User Interface) to ingest data from Azure blob storage](#challenge-2-task-2-use-the-one-click-ui-user-interface-to-ingest-data-from-azure-blob-storage)
+
+**Expected Learning Outcomes:**
   - Ingest data using one-click ingestion from Azure Blob Storage to your ADX cluster.
   
 ---
