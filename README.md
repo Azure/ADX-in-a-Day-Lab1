@@ -428,19 +428,19 @@ You assume that the incident being investigated has a connection to the ingestio
 
 - [``render`` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/renderoperator?pivots=azuredataexplorer)
 
----
 ### **Challenge 3, Task 10: Create bins and visualize time series ✅**
-Write a query to show a timechart of the number of records in 30 minute bins (buckets). Each point on the timechart represent the number of logs in that bucket.
+1. Write a query to show a timechart of the number of records in 30 minute bins (buckets). Each point on the timechart represent the number of logs in that bucket.
 
-**Question**: What is the count of records on March 8th, 10:30 ?
+> **Question**: What is the count of records on March 8th, 10:30 ?
 
-Example result:<br>
-<img src="/assets/images/timeseries.png" width="500">
+**Example result:**<br>
 
-[bin() - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
+ ![Screen capture 1](/assets/images/timeseries.png)
 
+**References:**
+- [``bin()`` - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
 
-[summarize operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
+- [``summarize`` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
 
 ---
 ### **Challenge 3, Task 11: Shortcuts**
