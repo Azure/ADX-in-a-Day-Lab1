@@ -329,17 +329,20 @@ Example result:
 **References**
 - [project operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectoperator)
 
----
 ### **Challenge 3, Task 4: Filter the output ✅**
-You are investigating an incident that occurred within a specific time frame. <br> Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take all the records between 2014-03-08 01:00 and 2014-03-08 10:00.
+You are investigating an incident that occurred within a specific time frame. 
 
-Hint 1: In case you see 0 records, remember that operators are sequenced by a pipe (|). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
+1. Write a query to get only specific desired columns: ``Timestamp``, ``ClientRequestId``, ``Level``, ``Message``. Take all the records between ``2014-03-08 01:00`` and ``2014-03-08 10:00``.
+
+    - ***Hint 1:*** In case you see 0 records, remember that operators are sequenced by a pipe (``|``). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
 
 **Question**: What is the count of records in this timeframe?
 
-[datetime data type](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/scalar-data-types/datetime)<br>
-[where operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/whereoperator)<br>
-[between operator](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/betweenoperator#filter-datetime)
+**References**
+
+- [datetime data type](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/scalar-data-types/datetime)<br>
+- [where operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/whereoperator)<br>
+- [between operator](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/betweenoperator#filter-datetime)
 
 ---
 ### **Challenge 3, Task 5: Sorting the results ✅**
