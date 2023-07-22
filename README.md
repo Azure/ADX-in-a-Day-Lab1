@@ -344,24 +344,28 @@ You are investigating an incident that occurred within a specific time frame.
 - [where operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/whereoperator)<br>
 - [between operator](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/betweenoperator#filter-datetime)
 
----
 ### **Challenge 3, Task 5: Sorting the results ✅**
 Your system generated an alert indicating a significant decrease in incoming data. You want to check the traces of the "INGESTOR_EXECUTER" [sic] component of the program. <br>
-Write a query that returns 20 sample records in which the *Component* column equals the word "INGESTOR_EXECUTER" [sic].
-Once done, rewrite the query to take the top 1 records by the value of *rowCount* (for the "INGESTOR_EXECUTER" [sic] records).
 
-Hint 1: Extract rowCount from Properties column
+1. Write a query that returns 20 sample records in which the ``Component`` column equals the word "INGESTOR_EXECUTER" [sic].
 
-Hint 2: Think about the datatype and conversion
+2. Once done, rewrite the query to take the top 1 records by the value of ``rowCount`` (for the "INGESTOR_EXECUTER" [sic] records).
 
-Hint 3: Note the "Executer" [sic] spelling
+    - ***Hint 1:*** Extract rowCount from Properties column
+
+    - ***Hint 2:*** Think about the datatype and conversion
+
+    - ***Hint 3:*** Note the "Executer" [sic] spelling
 
 **Question**: What is the value of rowCount column of this record?
 
-Example result:</br>
-<img src="/assets/images/top_10_rowCount.png" width="950">
+Example result:
 
-[sort operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sort-operator)
+![Screen capture 1](/assets/images/top_10_rowCount.png)
+
+**References:**
+
+- [sort operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/sort-operator)
 [top operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/topoperator)
 
 ---
