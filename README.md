@@ -21,7 +21,6 @@ In order to receive the "ADX-In-A-Day" digital badge, you will need to complete 
 <p align="center"><img src="/assets/images/badge.png" width="200"></p>
 
 ---
----
 # [Go to ADX-In-A-Day HomePage](https://github.com/Azure/ADX-in-a-Day)
 ---
 ## **Challenge 1: Create an ADX cluster**
