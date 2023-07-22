@@ -414,17 +414,19 @@ You assume that the incident being investigated has a connection to the ingestio
 
 - [``summarize`` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
 
----
 ### **Challenge 3, Task 9: Render a chart ✅**
-Write a query to find out how many total records are present per *Level* (aggregated by *Level*) and render a piechart.
 
-**Question**: What is the "Warning" %?
+1. Write a query to find out how many total records are present per ``Level`` (aggregated by ``Level``) and render a piechart.
 
-Example result:
+> **Question**: What is the "Warning" %?
 
-<img src="/assets/images/pie.png" width="500">
+**Example result:**
 
-[render operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/renderoperator?pivots=azuredataexplorer)
+ ![Screen capture 1](/assets/images/pie.png)
+
+**References:**
+
+- [``render`` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/renderoperator?pivots=azuredataexplorer)
 
 ---
 ### **Challenge 3, Task 10: Create bins and visualize time series ✅**
