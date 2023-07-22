@@ -59,9 +59,9 @@ In this Challenge, you will create a Free cluster and a database. You will run s
     
 3. Click on the Button **Create** in the tile **Create Database** 
 
-4. Enter a name for the database in field **Database**. As an example for the name you can use ``ADX in a day``.
+4. Enter a name for the database in field **Database**. As an example for the name you can use ``FreeTestDB``.
 
-> If you already have a free cluster and just want to create a new database for this lab, use the **Create** button in the Create database tile.
+> **NOTE:** If you already have a free cluster and just want to create a new database for this lab, use the **Create** button in the Create database tile.
   
 ### **Challenge 1, Task 3: Write your first Kusto Query Language (KQL) query**
   
@@ -83,7 +83,7 @@ Kusto Query Language can also be used in other services that are built on-top of
 - [Microsoft Defender for Cloud](https://www.microsoft.com/en-us/security/business/cloud-security/microsoft-defender-cloud)
 - [Application Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview?tabs=net)
   
-1. We can see our cluster and the database that we created. If you followd the steps above the database is named ``ADX in a day``.
+1. We can see our cluster and the database that we created. If you followd the steps above the database is named ``FreeTestDB``.
   
 2. To run KQL queries, you must select the **Query** button on the Free Cluster page. <br>
 
@@ -100,7 +100,6 @@ Kusto Query Language can also be used in other services that are built on-top of
   
   > Windows users can also download [**Kusto Explorer**](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer), a desktop client to run the queries and benefit from advanced features available in the client.
 
----
 ## **Challenge 2: Ingest data from Azure Storage Account**
   
 Data ingestion to ADX is the process used to load data records from one or more sources into a table in your ADX cluster. Once ingested, the data becomes available for query.
@@ -116,55 +115,61 @@ ADX supports several ingestion methods, including ingestion tools, connectors an
   
 ---
 ### **Challenge 2, Task 1: Create the raw table - logsRaw**
-Go to the "Query" tab and run the following command to create our table:
-```
-.create table logsRaw(
-    Timestamp:datetime, 
-    Source:string, 
-    Node:string, 
-    Level:string, 
-    Component:string, 
-    ClientRequestId:string, 
-    Message:string, 
-    Properties:dynamic
-) 
-```
+1. Go to the **Query** tab and run the following command to create our table:
+    ```
+    .create table logsRaw(
+        Timestamp:datetime, 
+        Source:string, 
+        Node:string, 
+        Level:string, 
+        Component:string, 
+        ClientRequestId:string, 
+        Message:string, 
+        Properties:dynamic
+    ) 
+    ```
 ### **Challenge 2, Task 2: Use the “One-click” UI (User Interface) to ingest data from Azure blob storage**
-You need to analyze the system logs for Contoso, which are stored in Azure blob storage. <br>
-Go back to the **My Cluster** page, click the **Ingest** button
-  
-  ![Screen capture 1](/assets/images/data_ingest.png)
+You need to analyze the system logs for Contoso, which are stored in Azure blob storage.
 
-  Make sure the cluster and the Database fields are correct. Select **Existing table**
+1. Go back to the **My Cluster** page, click the **Ingest** button in the tile **Ingest Data**.
   
-  **Note**: We used an example table name as 'logsRaw' here. You can give any name to your table but be sure to use it in all your queries going forward.
+      ![Screen capture 1](/assets/images/data_ingest.png)
 
-  <img src="/assets/images/ingest_table.png" width="500">
+2. Make sure the cluster and the Database fields are correct. In our example the cluster is named ``MyFreeCluster`` and the database is named ``ADX in a day``. Select the option **Existing table**.
+
+      ![Screen capture 1](/assets/images/ingest_table.png)
   
-  **Ingest from Storage**: <br>
-Select "Blob container" as the *Source type* in the *Source* tab. <br>
-In the **Link to source**, paste the following SAS (Shared Access Signature) URL of the blob storage. SAS URL is a way to provide limited, time-bound access to Azure storage resources such as Blobs.
-```
-https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D
-``` 
-
- Select one of the **Schema defining file** (one is autoselected unless you want to change that) and click **Next**
-<img src="/assets/images/ingest_from_storage.png" width="500">
-
-  Under Data format, make sure you select **'Keep current table schema'** and deselect **'Ignore the first record'**. Click on "Next: Start ingestion"
+    > **Note**: We used an example table name as ``logsRaw`` here. You can give any name to your table but be sure to use it in all your queries going forward.
   
-  ![Screen capture 1](/assets/images/ingest_from_storage_schema.png)
-  
-  Wait for the ingestion to be completed, and click **Close**.
+3. Ingest from Storage:
+Select **Blob container** as the **Source type** in the **Source** tab. As **Ingestion type** you can leave the default selection **One-Time**. For **Select source** you can use the default value **Add URL** because we will add a SAS Url next.
 
-  ![Screen capture 1](/assets/images/ingestion_completed.png)
-  
-  Go to the **Query** page. Run the following KQL query to verify that data was ingested to the table. The *logsRaw* table should have 3834012 records
+4. In the **Link to source**, paste the following SAS ([*Shared Access Signature*](https://learn.microsoft.com/en-us/shows/inside-azure-for-it/introduction-to-sas-shared-access-signature)) URL of the blob storage. SAS URL is a way to provide limited, time-bound access to Azure storage resources such as Blobs. 
+    ```
+    https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D
+    ``` 
 
-```
-  logsRaw
-  | count 
-```
+5. In the list **Schema defining file** select a file. This file is used to determine the schema of the data. One file is autoselected unless you want to change that. In our example it does not matter which file you choose because all files have the same structure, so you can stick with the autoselected file and click **Next: Schema**.
+
+    ![Screen capture 1](/assets/images/ingest_from_storage.png)
+
+
+6. Under Data format, make sure you select **Keep current table schema** and deselect **Ignore the first record**. Click on **Next: Start ingestion**.
+  
+    ![Screen capture 1](/assets/images/ingest_from_storage_schema.png)
+  
+7. Wait for the ingestion to be completed, and click **Close**.
+
+    ![Screen capture 1](/assets/images/ingestion_completed.png)
+  
+8. Go to the **Query** page. Run the following KQL query to verify that data was ingested to the table. 
+    ```
+      logsRaw
+      | count 
+    ```
+
+    The ``logsRaw`` table should have 3834012 records
+
 ---
 ## **Challenge 3: Starting with the basics of KQL**
 
