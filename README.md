@@ -221,7 +221,7 @@ This query has a single tabular expression statement. The statement begins with 
 ### **Challenge 3, Task 0 : Journey from SQL to KQL!**
 For all the SQL pros out there, Azure data explorer allows a subset of TSQL queries. Try running the following SQL query in web UI
 
-```sql
+```SQL
 select count() from logsRaw
 ```
 > **Note**: Intellisense will not work for SQL queries.
@@ -232,12 +232,12 @@ The primary language to interact with Kusto is KQL (Kusto Query Language). To ma
 explain select max(Timestamp) as MaxTimestamp from logsRaw where Level='Error'
 ```
 Output of the above query will be a corresponsing KQL query
-```kql
-logsRaw
-| where (Level == "Error")
-| summarize MaxTimestamp=max(Timestamp)
-| project MaxTimestamp
-```
+  ```kql
+  logsRaw
+  | where (Level == "Error")
+  | summarize MaxTimestamp=max(Timestamp)
+  | project MaxTimestamp
+  ```
 **References:**
 - [SQL to KQL cheat sheets - aka.ms/SQL2KQL](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/sqlcheatsheet)
 ---
