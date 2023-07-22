@@ -162,8 +162,9 @@ Select **Blob container** as the **Source type** in the **Source** tab. As **Ing
 
     ![Screen capture 1](/assets/images/ingestion_completed.png)
   
-8. Go to the **Query** page. Run the following KQL query to verify that data was ingested to the table. 
-    ```
+8. Go to the **Query** page. Run the following KQL query to verify that data was ingested to the table.
+
+    ```kql
       logsRaw
       | count 
     ```
@@ -206,7 +207,7 @@ The most common kind of query statement is a tabular expression statement. Both 
 It's like a funnel, where you start out with an entire data table. Each time the data passes through another operator, it's filtered, rearranged, or summarized. Because the piping of information from one operator to another is sequential, the query's operator order is important. At the end of the funnel, you're left with a refined output.
 Let's look at an example query:
 
-```
+```kql
 logsRaw
 | take 10 
 ```
@@ -219,18 +220,19 @@ This query has a single tabular expression statement. The statement begins with 
 ---
 ### **Challenge 3, Task 0 : Journey from SQL to KQL!**
 For all the SQL pros out there, Azure data explorer allows a subset of TSQL queries. Try running the following SQL query in web UI
-```
+
+```sql
 select count() from logsRaw
 ```
 > **Note**: Intellisense will not work for SQL queries.
 
 The primary language to interact with Kusto is KQL (Kusto Query Language). To make the transition and learning experience easier, you can use the ``explain`` operator to translate SQL queries to KQL.
 
-```
+```kql
 explain select max(Timestamp) as MaxTimestamp from logsRaw where Level='Error'
 ```
 Output of the above query will be a corresponsing KQL query
-```
+```kql
 logsRaw
 | where (Level == "Error")
 | summarize MaxTimestamp=max(Timestamp)
@@ -255,7 +257,7 @@ In this task, you will see some KQL examples. For this task, we will use the tab
 
  2. Find out how many records are in the table
 
-    ```kusto
+    ```kql
     logsRaw
     | summarize count() // or: count
     ```
