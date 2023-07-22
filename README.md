@@ -28,7 +28,7 @@ To use Azure Data Explorer (ADX), you first have to create a free ADX cluster, a
 
 In this Challenge, you will create a Free cluster and a database. You will run simple KQL query in Kusto Web Explorer (KWE UI).
 
-**Challanges**
+**Challanges:**
 - [Challenge 1, Task 1: Create an ADX cluster and Database](#challenge-1-task-1-create-an-adx-cluster-and-database)
 - [Challenge 1, Task 2: Review the free cluster home page and the Azure Data Explorer Web UI](#challenge-1-task-2-review-the-free-cluster-home-page-and-the-azure-data-explorer-web-ui)
 - [Challenge 1, Task 3: Write your first Kusto Query Language (KQL) query](#challenge-1-task-3-write-your-first-kusto-query-language-kql-query)
@@ -38,7 +38,7 @@ In this Challenge, you will create a Free cluster and a database. You will run s
 
 ---
 ### **Challenge 1, Task 1: Create an ADX cluster and Database**
-1. Create your free cluster and database here: https://aka.ms/kustofree.
+1. Create your free cluster and database here: <a href="https://aka.ms/kustofree" target="_blank">https://aka.ms/kustofree</a>.
 
     ![Screen capture 1](/assets/images/CreateNewCluster.png)
   
