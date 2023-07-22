@@ -33,42 +33,60 @@ In this Challenge, you will create a Free cluster and a database. You will run s
 
 ---
 ### **Challenge 1, Task 1: Create an ADX cluster and Database**
-Create your free cluster and database here: https://aka.ms/kustofree.
+1. Create your free cluster and database here: https://aka.ms/kustofree.
 
-![Screen capture 1](/assets/images/CreateNewCluster.png)
+    ![Screen capture 1](/assets/images/CreateNewCluster.png)
   
 ### **Challenge 1, Task 2: Review the free cluster home page and the Azure Data Explorer Web UI**
-On your **My Cluster** page, you'll see the following:
-* Your cluster's name, the option to upgrade to a full cluster, and the option to delete the cluster.
-* Cluster details like: cluster's location, and URI links for connecting to your cluster via APIs or other tools.
-* Quick actions you can take to get started with your cluster.
-* A list of databases in your cluster.
 
-If you already have a free cluster and just want to create a new database for this lab, use the **Create** button in the Create database tile.
+1. Have a look at the cluster home page 
 
-![Screen capture 1](/assets/images/free_cluster_create_db.png)
+    On your **My Cluster** page, you'll see the following:
+    * Your cluster's name, the option to upgrade to a full cluster, and the option to delete the cluster.
+    * Cluster details like: cluster's location, and URI links for connecting to your cluster via APIs or other tools.
+    * Quick actions you can take to get started with your cluster.
+    * A list of databases in your cluster.
+    
+    ![Screen capture 1](/assets/images/free_cluster_create_db.png)
+
+> If you already have a free cluster and just want to create a new database for this lab, use the **Create** button in the Create database tile.
   
----
 ### **Challenge 1, Task 3: Write your first Kusto Query Language (KQL) query**
-  What is a Kusto query? </br>
-  Azure Data Explorer provides a web experience that enables you to connect to your Azure Data Explorer clusters and write and run Kusto Query Language queries. The web experience is available in the Azure portal and as a stand-alone web application, the Azure Data Explorer Web UI, which we will use later.<br></br>
   
- A Kusto query is a read-only request to process data and return results. The request is stated in plain text that's easy to read. A Kusto query has one or more query statements and returns data in a tabular or graph format.<br><br>
-  In the next Challenge, we'll ingest data to the cluster, and then learn the most important concepts in KQL and write interesting queries. In this task, you will write a few basic queries to get an understanding of the environment.<br><br>
-  In this example, you'll use the Azure Data Explorer web interface as a query editor (Kusto Query Language can also be used in other services that are built on-top of Azure Data Explorer, like: Azure Monitor Logs, Azure Sentinel, Microsoft Defender for IoT, Endpoint and Cloud, and Application Insights).
+***What is a Kusto query?*** 
+
+Azure Data Explorer provides a web experience that enables you to connect to your Azure Data Explorer clusters and write and run Kusto Query Language queries. The web experience is available in the Azure portal and as a stand-alone web application, the Azure Data Explorer Web UI, which we will use later.
+
+A *Kusto query* is a read-only request to process data and return results. The request is stated in plain text that's easy to read. A Kusto query has one or more query statements and returns data in a tabular or graph format.
+
+In the next Challenge, we'll ingest data to the cluster, and then learn the most important concepts in KQL and write interesting queries. In this task, you will write a basic query to get an understanding of the environment.
+
+In this example, you'll use the Azure Data Explorer web interface as a query editor. 
+
+Kusto Query Language can also be used in other services that are built on-top of Azure Data Explorer, like: 
+- [Azure Monitor Logs](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-platform-logs)
+- [Azure Sentinel](https://learn.microsoft.com/en-us/azure/sentinel/overview)
+- [Microsoft Defender for IoT](https://www.microsoft.com/en-us/security/business/endpoint-security/microsoft-defender-iot) 
+- [Microsoft Defender for Endpoint](https://www.microsoft.com/en-us/security/business/endpoint-security/microsoft-defender-endpoint)
+- [Microsoft Defender for Cloud](https://www.microsoft.com/en-us/security/business/cloud-security/microsoft-defender-cloud)
+- [Application Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview?tabs=net)
   
-  We can see our cluster and the database that we created.
-  To run KQL queries, you must select the **Query** button on the Free Cluster page. <br>
-  ![Screen capture 1](/assets/images/free_cluster_query.png)
-  Now – you can write a simple KQL query: 
-  ```
-  print "Hello World"
-  ```
-  Hit the “Run” button. The query will be executed and its result can be seen in the result grid at the bottom of the page. 
+We can see our cluster and the database that we created.
   
-  ![Screen capture 1](/assets/images/hello_world.png)
+1. To run KQL queries, you must select the **Query** button on the Free Cluster page. <br>
+
+    ![Screen capture 1](/assets/images/free_cluster_query.png)
   
-  Windows users can also download [Kusto Explorer](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer), a desktop client to run the queries and benefit from advanced features available in the client.
+  2. Now – you can write a simple KQL query: 
+
+      ```
+        print "Hello World"
+      ```
+  4. Hit the **Run** button. The query will be executed and its result can be seen in the result grid at the bottom of the page. 
+  
+      ![Screen capture 1](/assets/images/hello_world.png)
+  
+  > Windows users can also download [**Kusto Explorer**](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer), a desktop client to run the queries and benefit from advanced features available in the client.
 
 ---
 ## **Challenge 2: Ingest data from Azure Storage Account**
