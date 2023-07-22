@@ -1,4 +1,4 @@
-## Lab1: Cluster Creation, Data Ingestion and Exploration
+# **Lab1: Cluster Creation, Data Ingestion and Exploration**
 
 This Lab is organized into the following 4 Challenges:
 | Challenge | Description | Est. Time |
@@ -22,7 +22,7 @@ Earn a digital badge! In order to receive the "ADX-In-A-Day" digital badge, you 
 ---
 # [Go to ADX-In-A-Day HomePage](https://github.com/Azure/ADX-in-a-Day)
 ---
-### Challenge 1: Create an ADX cluster
+## **Challenge 1: Create an ADX cluster**
 To use Azure Data Explorer (ADX), you first have to create a free ADX cluster, and create one or more databases in that cluster. Each database has tables. Then you can ingest data into a database so that you can run queries against it.
 
 In this Challenge, you will create a Free cluster and a database. You will run simple KQL query in Kusto Web Explorer (KWE UI).
@@ -31,12 +31,12 @@ In this Challenge, you will create a Free cluster and a database. You will run s
 - Create and work with Free ADX cluster.
 
 ---
-#### Challenge 1, Task 1: Create an ADX cluster and Database
+### **Challenge 1, Task 1: Create an ADX cluster and Database**
 Create your free cluster and database here: https://aka.ms/kustofree.
 
 ![Screen capture 1](/assets/images/CreateNewCluster.png)
   
-#### Challenge 1, Task 2: Review the free cluster home page and the Azure Data Explorer Web UI 
+### **Challenge 1, Task 2: Review the free cluster home page and the Azure Data Explorer Web UI**
 On your **My Cluster** page, you'll see the following:
 * Your cluster's name, the option to upgrade to a full cluster, and the option to delete the cluster.
 * Cluster details like: cluster's location, and URI links for connecting to your cluster via APIs or other tools.
@@ -48,7 +48,7 @@ If you already have a free cluster and just want to create a new database for th
 ![Screen capture 1](/assets/images/free_cluster_create_db.png)
   
 ---
-#### Challenge 1, Task 3: Write your first Kusto Query Language (KQL) query
+### **Challenge 1, Task 3: Write your first Kusto Query Language (KQL) query**
   What is a Kusto query? </br>
   Azure Data Explorer provides a web experience that enables you to connect to your Azure Data Explorer clusters and write and run Kusto Query Language queries. The web experience is available in the Azure portal and as a stand-alone web application, the Azure Data Explorer Web UI, which we will use later.<br></br>
   
@@ -70,7 +70,7 @@ If you already have a free cluster and just want to create a new database for th
   Windows users can also download [Kusto Explorer](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer), a desktop client to run the queries and benefit from advanced features available in the client.
 
 ---
-### Challenge 2: Ingest data from Azure Storage Account
+## **Challenge 2: Ingest data from Azure Storage Account**
   
   Data ingestion to ADX is the process used to load data records from one or more sources into a table in your ADX cluster. Once ingested, the data becomes available for query.
 
@@ -80,7 +80,7 @@ If you already have a free cluster and just want to create a new database for th
   - Ingest data using one-click ingestion from Azure Blob Storage to your ADX cluster.
   
 ---
-#### Challenge 2, Task 1: Create the raw table - logsRaw
+### **Challenge 2, Task 1: Create the raw table - logsRaw**
 Go to the "Query" tab and run the following command to create our table:
 ```
 .create table logsRaw(
@@ -94,7 +94,7 @@ Go to the "Query" tab and run the following command to create our table:
     Properties:dynamic
 ) 
 ```
-#### Challenge 2, Task 2: Use the “One-click” UI (User Interface) to ingest data from Azure blob storage
+### **Challenge 2, Task 2: Use the “One-click” UI (User Interface) to ingest data from Azure blob storage**
 You need to analyze the system logs for Contoso, which are stored in Azure blob storage. <br>
 Go back to the **My Cluster** page, click the **Ingest** button
   
@@ -131,7 +131,7 @@ https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st
   | count 
 ```
 ---
-### Challenge 3: Starting with the basics of KQL
+## **Challenge 3: Starting with the basics of KQL**
 
 In this challenge you’ll write queries in Kusto Query Language (KQL) to explore and gain insights from your data. 
 
@@ -161,7 +161,7 @@ References:
 - [KQL cheat sheets](https://learn.microsoft.com/en-us/azure/data-explorer/kql-quick-reference)
 
 ---
-#### Challenge 3, Task 0 : Journey from SQL to KQL!
+### **Challenge 3, Task 0 : Journey from SQL to KQL!**
 For all the SQL pros out there, Azure data explorer allows a subset of TSQL queries. Try running the following SQL query in web UI
 ```
 select count() from logsRaw
@@ -183,7 +183,7 @@ logsRaw
 References:
 - [SQL to KQL cheat sheets - aka.ms/SQL2KQL](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/sqlcheatsheet)
 ---
-#### Challenge 3, Task 1: Basic KQL queries - explore the data
+### **Challenge 3, Task 1: Basic KQL queries - explore the data**
   
 In this task, you will see some KQL examples. For this task, we will use the table logsRaw, which has data we loaded in previous challenge from storage account. </br> 
 Execute the queries and view the results. KQL queries can be used to filter data and return specific information. Now, you'll learn how to choose specific rows of data. <br>
@@ -230,7 +230,7 @@ logsRaw
 Note that although the dynamic type appears JSON-like, it can hold values that the JSON model does not represent because they don't exist in JSON (e.g., long, real, datetime, timespan, and GUID). 
 
 ---
-#### Challenge 3, Task 2: Explore the table and columns ✅
+### **Challenge 3, Task 2: Explore the table and columns ✅**
 After subscripting a dynamic object, it is necessary to cast (convert) the value to a simple type in order to utilize them (for example, if you want to summarize the sizes of all the *OriginalSize*, you should convert the *dynamic* type to a numeric type, like *long*).<br><br>
 
 Write a query to get the table that is shown in the image below (we want to convert the *OriginalSize* and *CompressedSize* columns to *long*).
@@ -251,7 +251,7 @@ Example result:
 [getschema operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/getschemaoperator)
 
 ---
-#### Challenge 3, Task 3: Keep the columns of your interest ✅
+### **Challenge 3, Task 3: Keep the columns of your interest ✅**
 You are investigating an incident and wish to review only several columns of the dataset. <br>
 Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records.
 
@@ -263,7 +263,7 @@ Example result:
 [project operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectoperator)
 
 ---
-#### Challenge 3, Task 4: Filter the output ✅
+### **Challenge 3, Task 4: Filter the output ✅**
 You are investigating an incident that occurred within a specific time frame. <br> Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take all the records between 2014-03-08 01:00 and 2014-03-08 10:00.
 
 Hint 1: In case you see 0 records, remember that operators are sequenced by a pipe (|). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
@@ -275,7 +275,7 @@ Hint 1: In case you see 0 records, remember that operators are sequenced by a pi
 [between operator](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/betweenoperator#filter-datetime)
 
 ---
-#### Challenge 3, Task 5: Sorting the results ✅
+### **Challenge 3, Task 5: Sorting the results ✅**
 Your system generated an alert indicating a significant decrease in incoming data. You want to check the traces of the "INGESTOR_EXECUTER" [sic] component of the program. <br>
 Write a query that returns 20 sample records in which the *Component* column equals the word "INGESTOR_EXECUTER" [sic].
 Once done, rewrite the query to take the top 1 records by the value of *rowCount* (for the "INGESTOR_EXECUTER" [sic] records).
@@ -295,7 +295,7 @@ Example result:</br>
 [top operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/topoperator)
 
 ---
-#### Challenge 3, Task 6: Data profiling ✅
+### **Challenge 3, Task 6: Data profiling ✅**
 As part of the incident investigation, you want to extract *format* and *rowCount* from INGESTOR_EXECUTER [sic] component. Rename the calculated fields to fileFormat and rowCount respectively. Also, Make Sure *Timestamp*, *fileFormat* and *rowCount* are the first 3 columns. 
 
 **Question**: How many different file formats are present in this data?
@@ -312,7 +312,7 @@ Example result:</br>
 [project-reorder operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectreorderoperator)
 
 ---
-#### Challenge 3, Task 7: Total number of records ✅
+### **Challenge 3, Task 7: Total number of records ✅**
 The system has several components, but you don't know what they are. 
 The system comprises of several "components", but you don't know their names or how many records were generated by each.<br>
 Write a query to find out how many records were generated by each component. Use the *Component* column. 
@@ -322,7 +322,7 @@ Write a query to find out how many records were generated by each component. Use
 [count aggregation function](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/count-aggfunction)
 
 ---
-#### Challenge 3, Task 8: Aggregations and string operations ✅
+### **Challenge 3, Task 8: Aggregations and string operations ✅**
 You assume that the incident being investigated has a connection to the ingestion process run by Contoso's program.<br>
 Write a query to find out how many records contain the string 'ingestion' in the *Message* column. Aggregate the results by *Level*.
 
@@ -337,7 +337,7 @@ Example result:
 [summarize operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
 
 ---
-#### Challenge 3, Task 9: Render a chart ✅
+### **Challenge 3, Task 9: Render a chart ✅**
 Write a query to find out how many total records are present per *Level* (aggregated by *Level*) and render a piechart.
 
 **Question**: What is the "Warning" %?
@@ -349,7 +349,7 @@ Example result:
 [render operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/renderoperator?pivots=azuredataexplorer)
 
 ---
-#### Challenge 3, Task 10: Create bins and visualize time series ✅
+### **Challenge 3, Task 10: Create bins and visualize time series ✅**
 Write a query to show a timechart of the number of records in 30 minute bins (buckets). Each point on the timechart represent the number of logs in that bucket.
 
 **Question**: What is the count of records on March 8th, 10:30 ?
@@ -363,7 +363,7 @@ Example result:<br>
 [summarize operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
 
 ---
-#### Challenge 3, Task 11: Shortcuts
+### **Challenge 3, Task 11: Shortcuts**
 
 Purpose of this task is to expose some cool productivity features of Azure Data Explorer Web Interface. This task is not evaluated.
 
@@ -382,7 +382,7 @@ Below are a few examples
 [Kusto Explorer shortcuts | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer-shortcuts)
 
 ---
-### Challenge 4: Explore and Transform Data
+## **Challenge 4: Explore and Transform Data**
 
 In this challenge we will explore 3 capabilities of Data Explorer
 
@@ -401,7 +401,7 @@ For the next task, we will use the *logsRaw* table.
 
 ---
 
-#### Challenge 4, Task 1: User defined Function (Stored Functions) ✅
+### **Challenge 4, Task 1: User defined Function (Stored Functions) ✅**
 
 Create a stored functions, named *ManiputatelogsRaw*, that will contain the code below. Make sure the function works.
 
@@ -415,7 +415,7 @@ See the [create function](https://learn.microsoft.com/en-us/azure/data-explorer/
 
 ---
 
-#### Challenge 4, Task 2: Create an update policy ✅
+### **Challenge 4, Task 2: Create an update policy ✅**
 In this task, we will use an 'update policy' to filter the raw data in the logsRaw table (the source table) for ingestion logs, that will be ingested into new tables that we’ll create (“ingestionLogs”).
 
 **Build the target tables**
