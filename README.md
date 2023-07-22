@@ -458,8 +458,7 @@ Below are a few examples
 - You can execute a block of code using ``Shift``+``Enter``
 - You can directly insert filters based on data cells selections using ``Ctrl``+``Shift``+``Space``
 
-  ![Screen capture 1](/assets/images/add_as_filters.
-  gif)
+  ![Screen capture 1](/assets/images/add_as_filters.gif)
 
 **References:**
 
