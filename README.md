@@ -168,7 +168,7 @@ Select **Blob container** as the **Source type** in the **Source** tab. As **Ing
       | count 
     ```
 
-    The ``logsRaw`` table should have 3834012 records
+    The ``logsRaw`` table should have 3,834,012 records
 
 ---
 ## **Challenge 3: Starting with the basics of KQL**
