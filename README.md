@@ -44,19 +44,22 @@ In this Challenge, you will create a Free cluster and a database. You will run s
   
 ### **Challenge 1, Task 2: Review the free cluster home page and the Azure Data Explorer Web UI**
 
-1. Have a look at the cluster home page 
+1. Have a look at the cluster home page.
 
-    On your **My Cluster** page, you'll see the following:
+2. Click on the Icon **My Cluster** in the left navigation pane. 
+
+    ![Screen capture 1](/assets/images/free_cluster_create_db.png)
+
+
+    On the page **My Cluster**, you'll see the following:
     * Your cluster's name, the option to upgrade to a full cluster, and the option to delete the cluster.
     * Cluster details like: cluster's location, and URI links for connecting to your cluster via APIs or other tools.
     * Quick actions you can take to get started with your cluster.
     * A list of databases in your cluster.
     
-    ![Screen capture 1](/assets/images/free_cluster_create_db.png)
+3. Click on the Button **Create** in the tile **Create Database** 
 
-2. Click on the Button **Create** in the tile **Create Database** 
-
-3. Enter a name for the database in field **Database**. As an example for the name you can use ``ADX in a day``.
+4. Enter a name for the database in field **Database**. As an example for the name you can use ``ADX in a day``.
 
 > If you already have a free cluster and just want to create a new database for this lab, use the **Create** button in the Create database tile.
   
