@@ -83,7 +83,16 @@ If you already have a free cluster and just want to create a new database for th
 #### Challenge 2, Task 1: Create the raw table - logsRaw
 Go to the "Query" tab and run the following command to create our table:
 ```
-.create table logsRaw(Timestamp:datetime, Source:string, Node:string, Level:string, Component:string, ClientRequestId:string, Message:string, Properties:dynamic) 
+.create table logsRaw(
+    Timestamp:datetime, 
+    Source:string, 
+    Node:string, 
+    Level:string, 
+    Component:string, 
+    ClientRequestId:string, 
+    Message:string, 
+    Properties:dynamic
+)
 ```
 #### Challenge 2, Task 2: Use the “One-click” UI (User Interface) to ingest data from Azure blob storage
 You need to analyze the system logs for Contoso, which are stored in Azure blob storage. <br>
