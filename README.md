@@ -470,10 +470,10 @@ Below are a few examples
 
 In this challenge we will explore 3 capabilities of Data Explorer
 
+- **User-defined functions** are reusable KQL subqueries that can be defined as part of the query itself (ad-hoc functions), or persisted as part of the database metadata (stored functions - reusable KQL query, with the given name). Stored functions are invoked through a name, are provided with zero or more input arguments (which can be scalar or tabular), and produce a single value (which can be scalar or tabular) based on the function body.
+
 - **Update Policy** is like an internal ETL. It can help you manipulate or enrich the data as it gets ingested into the source table (e.g. extracting JSON into separate columns, creating a new calculated column, joining the newly ingested records with a static dimension table that is already in your database, etc). For these cases, using an update policy is a very common and powerful practice.<br>
 Each time records get ingested into the source table, the update policy's query (which we'll define in the update policy) will run on them (and **only on newly ingested records** - other existing records in the source table aren’t visible to the update policy when it runs), and the results of the query will be appended to the target table. This function's output schema and target table schema should exactly match.
-
-- **User-defined functions** are reusable KQL subqueries that can be defined as part of the query itself (ad-hoc functions), or persisted as part of the database metadata (stored functions - reusable KQL query, with the given name). Stored functions are invoked through a name, are provided with zero or more input arguments (which can be scalar or tabular), and produce a single value (which can be scalar or tabular) based on the function body.
 
 **Tasks:**
 - [Task 1: User defined Function (Stored Functions)](#challenge-4-task-1-user-defined-function-stored-functions-)
