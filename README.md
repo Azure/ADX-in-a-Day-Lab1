@@ -473,101 +473,140 @@ In this challenge we will explore 3 capabilities of Data Explorer
 - **User-defined functions** are reusable KQL subqueries that can be defined as part of the query itself (ad-hoc functions), or persisted as part of the database metadata (stored functions - reusable KQL query, with the given name). Stored functions are invoked through a name, are provided with zero or more input arguments (which can be scalar or tabular), and produce a single value (which can be scalar or tabular) based on the function body.
 
 - **Update Policy** is like an internal ETL. It can help you manipulate or enrich the data as it gets ingested into the source table (e.g. extracting JSON into separate columns, creating a new calculated column, joining the newly ingested records with a static dimension table that is already in your database, etc). For these cases, using an update policy is a very common and powerful practice.<br>
-Each time records get ingested into the source table, the update policy's query (which we'll define in the update policy) will run on them (and **only on newly ingested records** - other existing records in the source table aren’t visible to the update policy when it runs), and the results of the query will be appended to the target table. This function's output schema and target table schema should exactly match.
+Each time records get ingested into the source table, the update policy's query (which we'll define in the update policy) will run on them (**only on newly ingested records** - other existing records in the source table aren’t visible to the update policy when it runs), and the results of the query will be appended to the target table. This function's output schema and target table schema should exactly match.
+
+  ![Screen capture 1](/assets/images/Update_policy.png)
+
 
 **Tasks:**
-- [Task 1: User defined Function (Stored Functions)](#challenge-4-task-1-user-defined-function-stored-functions-)
-- [Task 2: Create an update policy](#challenge-4-task-2-create-an-update-policy-)
+- [**Task 1:** User defined Function (Stored Functions)](#challenge-4-task-1-user-defined-function-stored-functions-)
+- [**Task 2:** Create an update policy](#challenge-4-task-2-create-an-update-policy-)
 
 **Expected Learning Outcomes:**
 - Create user defined functions to use repeatable logic
 - Create an update policy to transform the data at ingestion time
 
-  ![Screen capture 1](/assets/images/Update_policy.png)
-
 For the next task, we will use the ``logsRaw`` table.
-
----
 
 ### **Challenge 4, Task 1: User defined Function (Stored Functions) ✅**
 
-Create a stored functions, named *ManiputatelogsRaw*, that will contain the code below. Make sure the function works.
+1. Create a stored functions, named ``ManiputatelogsRaw``, that will contain the code below. Make sure the function works.
 
- ```
-logsRaw
-| where Component in ('INGESTOR_EXECUTER', 'INGESTOR_GATEWAY', 'INTEGRATIONDATABASE','INTEGRATIONSERVICEFLOWS', 'INTEGRATIONSERVICETRACE', 'DOWNLOADER')
- ```
-**Question**: What is property used when creating function that is used for UI functions categorization?
+    ```kql
+    logsRaw
+    | where Component in (
+      'INGESTOR_EXECUTER', 
+      'INGESTOR_GATEWAY', 
+      'INTEGRATIONDATABASE',
+      'INTEGRATIONSERVICEFLOWS', 
+      'INTEGRATIONSERVICETRACE', 
+      'DOWNLOADER')
+    ```
+> **Question**: What is property used when creating function that is used for UI functions categorization?
 
-See the [create function](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/create-function) article.
+**References:**
 
----
+- See the [``create function``](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/create-function) article.
 
 ### **Challenge 4, Task 2: Create an update policy ✅**
-In this task, we will use an 'update policy' to filter the raw data in the logsRaw table (the source table) for ingestion logs, that will be ingested into new tables that we’ll create (“ingestionLogs”).
+In this task, we will use an ``update policy`` to filter the raw data in the ``logsRaw`` table (the source table) for ingestion logs, that will be ingested into the new table ``ingestionLogs`` that we’ll create.
 
-**Build the target tables**
-```
-.create table ingestionLogs (Timestamp: datetime, Source: string,Node: string, Level: string, Component: string, ClientRequestId: string, Message: string, Properties: dynamic)
-```
-Create a function for the update policy 
- ```
- **Use the function created in Task 1**
-```
+1. Build the target table
+    ```kql
+    .create table ingestionLogs (
+      Timestamp: datetime, 
+      Source: string,
+      Node: string, 
+      Level: string, 
+      Component: string, 
+      ClientRequestId: string, 
+      Message: string, 
+      Properties: dynamic)
+    ```
+2. Create a function for the update policy 
+    ```kql
+    **Use the function created in Task 1**
+    ```
 
-Create the update policy(Fill in the blanks) ✅
-```
-.alter table ...... policy update 
-@'[{ "IsEnabled": true, "Source": "....", "Query": ".....", "IsTransactional": true, "PropagateIngestionProperties": false}]'
-```
- [Kusto update policy - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/updatepolicy)
- 
-Update policy can transform and move the data from source table from the time it is created. It cannot look back at already existing data in source table. We will ingest new data into logsraw table and see new data flowing into ingestionLogs table
+3. Create the update policy(Fill in the blanks) ✅
+      ```kql
+      .alter table ...... 
+          policy update 
+          @'[{ "IsEnabled": true, 
+                "Source": "....", 
+                "Query": ".....", 
+                "IsTransactional": true, "PropagateIngestionProperties": false}
+            ]'
+      ```
 
-```
-// Note: execute the below commands one after another => Using operationId(output of each command), check the status and execute a new command only after the previous one is completed
+4. Update policy can transform and move the data from source table from the time it is created. It cannot look back at already existing data in source table. We will ingest new data into logsraw table and see new data flowing into ingestionLogs table
 
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/00/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T00:00:00Z');
+    ```kql
+    // Note: execute the below commands one after another => Using operationId(output of each command), check the status and execute a new command only after the previous one is completed
 
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/01/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T01:00:00Z');
+    .ingest async into table logsRaw (
+      h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/00/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') 
+      with (format='csv',   
+            creationTime='2014-03-08T00:00:00Z');
 
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/02/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T02:00:00Z');
+    .ingest async into table logsRaw (
+      h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/01/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') 
+      with (format='csv', 
+            creationTime='2014-03-08T01:00:00Z');
 
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/03/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T03:00:00Z');
+    .ingest async into table logsRaw (
+      h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/02/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') 
+      with (format='csv', 
+            creationTime='2014-03-08T02:00:00Z');
 
-.ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/04/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2014-03-08T04:00:00Z');
-```
-[Kusto Ingest from Storage | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/data-ingestion/ingest-from-storage)
+    .ingest async into table logsRaw (
+      h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/03/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') 
+      with (format='csv', 
+            creationTime='2014-03-08T03:00:00Z');
 
-**Note:** The above command does not complete immediately. Because we used the 'async' parameter, the output of the above query will be operationIds. The progress of the query can be checked by used the below command
-```
-  .show operations <operationId>
-```
+    .ingest async into table logsRaw (
+      h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/04/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') 
+      with (format='csv', 
+            creationTime='2014-03-08T04:00:00Z');
+    ```
 
-Make sure the data is transformed correctly in the destination tables
-```
-ingestionLogs
-| count
-```
-- Check if the count of ingestionLogs table is 93648.
+    > **Note:** The above command does not complete immediately. Because we used the 'async' parameter, the output of the above query will be operationIds. The progress of the query can be checked by used the below command
 
-**Note:** If the count is not matching for ingestionLogs table, it means that one of the above .ingest commands have throttled or failed. Please run the following command to clean ingestionLogs table
-```
-.clear table ingestionLogs data
-```
-You can then run the above .ingest commands one by one and this will result in 93648 count in ingestionLogs table.
+5. Check progress of the commands
+    ```kql
+      .show operations <operationId>
+    ```
 
-Hint 1: Remember we have already ingested data into logsRaw in Challenge 2. We need the count of records from latest ingestion only. 
+6. Make sure the data is transformed correctly in the destination tables
+    ```kql
+    ingestionLogs
+    | count
+    ```
+    
+    Check if the count of ingestionLogs table is 93,648.
 
-Hint 2: ingestion_time() is a hidden column that stores ingested datetime of extents. 
+    > **Note:** If the count is not matching for ingestionLogs table, it means that one of the above ``.ingest`` commands have throttled or failed. 
+    
+7. Please run the following command to clean ingestionLogs table
+    ```kql
+    .clear table ingestionLogs data
+    ```
 
-Hint 3: Use [ago()](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/agofunction) to filter for latest records inserted.
+8. You can then run the above ``.ingest`` commands one by one and this will result in 93,648 count in ingestionLogs table.
 
-- What is the count of records that were ingested into ingestionLogs(target) table with this update policy?
+    - ***Hint 1:*** Remember we have already ingested data into logsRaw in Challenge 2. We need the count of records from latest ingestion only. 
 
-**Question**: Calculate the ratio => ingestionLogs count / logsRaw count (Only the latest ingestion). Consider 4 digits after decimal points in the output.
+    - ***Hint 2:*** ``ingestion_time()`` is a hidden column that stores ingested datetime of extents. 
 
----
----
+    - ***Hint 3:*** Use [``ago()``](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/agofunction) to filter for latest records inserted.
+
+9. What is the count of records that were ingested into ``ingestionLogs(target)`` table with this update policy?
+
+> **Question**: Calculate the ratio => ``ingestionLogs count / logsRaw count`` (Only the latest ingestion). Consider 4 digits after decimal points in the output.
+
+**References:**
+-  [Kusto update policy - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/updatepolicy)
+- [Kusto Ingest from Storage | Microsoft Docs](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/data-ingestion/ingest-from-storage)
+
 
 🎉 Congrats! You've completed ADX in a Day Lab 1. Keep going with [**Lab 2: Advanced KQL, Policies and Visualization**](https://github.com/Azure/ADX-in-a-Day-Lab2)
