@@ -10,7 +10,8 @@ This Lab is organized into the following 4 Challenges:
 
 Each challenge has a set of tasks that need to be completed in order to move on to the next challenge. It is advisable to complete the challenges and tasks in the prescribed order.
 
----
+- [Go to ADX-In-A-Day HomePage](https://github.com/Azure/ADX-in-a-Day)
+
 ## **Earn a digital badge!** 
 In order to receive the "ADX-In-A-Day" digital badge, you will need to complete the tasks marked with ✅ in Lab 1 & Lab 2. Submit your answers for Lab 1 and Lab 2 quizzes in order to receive the "ADX in a Day" digital badge. You may edit your answers after or try again. 
 
@@ -18,11 +19,10 @@ In order to receive the "ADX-In-A-Day" digital badge, you will need to complete 
 
 > **Please allow us 5 working days to issue the badge**
 
-<p align="center"><img src="/assets/images/badge.png" width="200"></p>
+![Screen capture 1](/assets/images/badge.png)
 
 ---
-# [Go to ADX-In-A-Day HomePage](https://github.com/Azure/ADX-in-a-Day)
----
+
 ## **Challenge 1: Create an ADX cluster**
 To use Azure Data Explorer (ADX), you first have to create a free ADX cluster, and create one or more databases in that cluster. Each database has tables. Then you can ingest data into a database so that you can run queries against it.
 
