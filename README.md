@@ -191,7 +191,7 @@ In this challenge you’ll write queries in Kusto Query Language (KQL) to explor
 - [**Task 7:** Total number of records ](#challenge-3-task-7-total-number-of-records-) :white_check_mark:
 - [**Task 8:** Aggregations and string operations](#challenge-3-task-8-aggregations-and-string-operations-) :white_check_mark:
 - [**Task 9:** Render a chart](#challenge-3-task-9-render-a-chart-) :white_check_mark:
-- [**Task 10:** Create bins and visualize time series] :white_check_mark:(#challenge-3-task-10-create-bins-and-visualize-time-series-)
+- [**Task 10:** Create bins and visualize time series] (#challenge-3-task-10-create-bins-and-visualize-time-series-) :white_check_mark:
  - [**Task 11:** Shortcuts](#challenge-3-task-11-shortcuts)
 
 **Expected Learning Outcomes:**
