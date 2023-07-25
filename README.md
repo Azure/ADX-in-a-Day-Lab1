@@ -60,7 +60,9 @@ In this Challenge, you will create a Free cluster and a database. You will run s
 
 4. Enter a name for the database in field **Database**. As an example for the name you can use ``FreeTestDB``.
 
-> **NOTE:** If you already have a free cluster and just want to create a new database for this lab, use the **Create** button in the Create database tile.
+| :information_source: **Note**    |
+|:---------------------------|
+| If you already have a free cluster and just want to create a new database for this lab, use the **Create** button in the Create database tile. |
   
 ### **Challenge 1, Task 3: Write your first Kusto Query Language (KQL) query**
   
