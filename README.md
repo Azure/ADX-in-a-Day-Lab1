@@ -323,7 +323,7 @@ You are investigating an incident and wish to review only several columns of the
 
 > **Question**: If we have to change ClientRequestId column from string to guid datatype, what is the function we should use?
 
-| :white_check_mark: **Question**              |
+| :question: **Question**              |
 |:---------------------------|
 | If we have to change ClientRequestId column from string to guid datatype, what is the function we should use? |
 
