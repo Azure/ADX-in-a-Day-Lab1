@@ -591,7 +591,8 @@ In this task, we will use an ``update policy`` to filter the raw data in the ``l
             creationTime='2014-03-08T04:00:00Z');
     ```
 
-    > **Note:** The above command does not complete immediately. Because we used the 'async' parameter, the output of the above query will be operationIds. The progress of the query can be checked by used the below command
+    > **Note** 
+    > The above command does not complete immediately. Because we used the 'async' parameter, the output of the above query will be operationIds. The progress of the query can be checked by used the below command
 
 5. Check progress of the commands
     ```kql
