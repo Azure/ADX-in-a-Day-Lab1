@@ -177,7 +177,7 @@ Select **Blob container** as the **Source type** in the **Source** tab. As **Ing
 In this challenge you’ll write queries in Kusto Query Language (KQL) to explore and gain insights from your data. 
 
 **Tasks:**
-- [**Task 0:** Journey from SQL to KQL!](#challenge-3-task-0--journey-from-sql-to-kql)
+- [**Task 0:** Journey from SQL to KQL! ] (#challenge-3-task-0--journey-from-sql-to-kql) :white_check_mark:✅
 - [**Task 1:** Basic KQL queries - explore the data](#challenge-3-task-1-basic-kql-queries---explore-the-data)
 - [**Task 2:** Explore the table and columns](#challenge-3-task-2-explore-the-table-and-columns-)
 - [**Task 3:** Keep the columns of your interest](#challenge-3-task-3-keep-the-columns-of-your-interest-)
@@ -271,7 +271,7 @@ In this task, you will see some KQL examples. For this task, we will use the tab
  
 Azure Data Explorer provides a set of system data types that define all the types of data that can be stored.
 
-Some data types for example are: ``string``, ``int``, ``decimal``, ``GUID``, ``bool``, ``datetime``. 
+Some data types for example are: `string`, ``int``, ``decimal``, ``GUID``, ``bool``, ``datetime``. 
 
 Note, that the data type of the **Properties** column is ``dynamic``. The ``dynamic`` data type is special in that it can take on any value of other data types, as well as arrays and property bags (dictionaries).
 
@@ -322,6 +322,10 @@ You are investigating an incident and wish to review only several columns of the
 1. Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records.
 
 > **Question**: If we have to change ClientRequestId column from string to guid datatype, what is the function we should use?
+
+| :white_check_mark: **Question**              |
+|:---------------------------|
+| If we have to change ClientRequestId column from string to guid datatype, what is the function we should use? |
 
 **Example result:**
 ![Screen capture 1](/assets/images/project.png)
