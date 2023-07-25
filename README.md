@@ -50,7 +50,6 @@ In this Challenge, you will create a Free cluster and a database. You will run s
 
     ![Screen capture 1](/assets/images/free_cluster_create_db.png)
 
-
     On the page **My Cluster**, you'll see the following:
     * Your cluster's name, the option to upgrade to a full cluster, and the option to delete the cluster.
     * Cluster details like: cluster's location, and URI links for connecting to your cluster via APIs or other tools.
@@ -177,17 +176,17 @@ Select **Blob container** as the **Source type** in the **Source** tab. As **Ing
 In this challenge you’ll write queries in Kusto Query Language (KQL) to explore and gain insights from your data. 
 
 **Tasks:**
-- [**Task 0:** Journey from SQL to KQL! ] (#challenge-3-task-0--journey-from-sql-to-kql) :white_check_mark:✅
+- [**Task 0:** Journey from SQL to KQL!](#challenge-3-task-0--journey-from-sql-to-kql)  
 - [**Task 1:** Basic KQL queries - explore the data](#challenge-3-task-1-basic-kql-queries---explore-the-data)
-- [**Task 2:** Explore the table and columns](#challenge-3-task-2-explore-the-table-and-columns-)
-- [**Task 3:** Keep the columns of your interest](#challenge-3-task-3-keep-the-columns-of-your-interest-)
-- [**Task 4:** Filter the output](#challenge-3-task-4-filter-the-output-)
-- [**Task 5:** Sorting the results](#challenge-3-task-5-sorting-the-results-)
-- [**Task 6:** Data profiling](#challenge-3-task-6-data-profiling-)
-- [**Task 7:** Total number of records ](#challenge-3-task-7-total-number-of-records-)
-- [**Task 8:** Aggregations and string operations](#challenge-3-task-8-aggregations-and-string-operations-)
-- [**Task 9:** Render a chart](#challenge-3-task-9-render-a-chart-)
-- [**Task 10:** Create bins and visualize time series](#challenge-3-task-10-create-bins-and-visualize-time-series-)
+- [**Task 2:** Explore the table and columns](#challenge-3-task-2-explore-the-table-and-columns-) :white_check_mark:
+- [**Task 3:** Keep the columns of your interest](#challenge-3-task-3-keep-the-columns-of-your-interest-) :white_check_mark:
+- [**Task 4:** Filter the output](#challenge-3-task-4-filter-the-output-) :white_check_mark:
+- [**Task 5:** Sorting the results](#challenge-3-task-5-sorting-the-results-) :white_check_mark:
+- [**Task 6:** Data profiling](#challenge-3-task-6-data-profiling-) :white_check_mark:
+- [**Task 7:** Total number of records ](#challenge-3-task-7-total-number-of-records-) :white_check_mark:
+- [**Task 8:** Aggregations and string operations](#challenge-3-task-8-aggregations-and-string-operations-) :white_check_mark:
+- [**Task 9:** Render a chart](#challenge-3-task-9-render-a-chart-) :white_check_mark:
+- [**Task 10:** Create bins and visualize time series] :white_check_mark:(#challenge-3-task-10-create-bins-and-visualize-time-series-)
  - [**Task 11:** Shortcuts](#challenge-3-task-11-shortcuts)
 
 **Expected Learning Outcomes:**
@@ -497,8 +496,8 @@ Each time records get ingested into the source table, the update policy's query 
 
 
 **Tasks:**
-- [**Task 1:** User defined Function (Stored Functions)](#challenge-4-task-1-user-defined-function-stored-functions-)
-- [**Task 2:** Create an update policy](#challenge-4-task-2-create-an-update-policy-)
+- [**Task 1:** User defined Function (Stored Functions)] :white_check_mark:(#challenge-4-task-1-user-defined-function-stored-functions-)
+- [**Task 2:** Create an update policy](#challenge-4-task-2-create-an-update-policy-) :white_check_mark:
 
 **Expected Learning Outcomes:**
 - Create user defined functions to use repeatable logic
@@ -563,7 +562,8 @@ In this task, we will use an ``update policy`` to filter the raw data in the ``l
 4. Update policy can transform and move the data from source table from the time it is created. It cannot look back at already existing data in source table. We will ingest new data into logsraw table and see new data flowing into ingestionLogs table
 
     ```kql
-    // Note: execute the below commands one after another => Using operationId(output of each command), check the status and execute a new command only after the previous one is completed
+    // Note: execute the below commands one after another => Using operationId(output of each command), 
+    //check the status and execute a new command only after the previous one is completed
 
     .ingest async into table logsRaw (
       h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/00/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') 
