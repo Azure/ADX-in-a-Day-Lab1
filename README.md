@@ -98,8 +98,9 @@ Kusto Query Language can also be used in other services that are built on-top of
   4. Hit the **Run** button. The query will be executed and its result can be seen in the result grid at the bottom of the page. 
   
       ![Screen capture 1](/assets/images/hello_world.png)
-  
-  > Windows users can also download [**Kusto Explorer**](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer), a desktop client to run the queries and benefit from advanced features available in the client.
+      | :information_source: **Note**    |
+      |:---------------------------|
+      | Windows users can also download [**Kusto Explorer**](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer), a desktop client to run the queries and benefit from advanced features available in the client. |
 
 ## **Challenge 2: Ingest data from Azure Storage Account**
   
@@ -140,7 +141,10 @@ You need to analyze the system logs for Contoso, which are stored in Azure blob 
 
       ![Screen capture 1](/assets/images/ingest_table.png)
   
-    > **Note**: We used an example table name as ``logsRaw`` here. You can give any name to your table but be sure to use it in all your queries going forward.
+
+    | :information_source: **Note**    |
+    |:---------------------------|
+    | We used an example table name as ``logsRaw`` here. You can give any name to your table but be sure to use it in all your queries going forward. |
   
 3. Ingest from Storage:
 Select **Blob container** as the **Source type** in the **Source** tab. As **Ingestion type** you can leave the default selection **One-Time**. For **Select source** you can use the default value **Add URL** because we will add a SAS Url next.
@@ -153,7 +157,6 @@ Select **Blob container** as the **Source type** in the **Source** tab. As **Ing
 5. In the list **Schema defining file** select a file. This file is used to determine the schema of the data. One file is autoselected unless you want to change that. In our example it does not matter which file you choose because all files have the same structure, so you can stick with the autoselected file and click **Next: Schema**.
 
     ![Screen capture 1](/assets/images/ingest_from_storage.png)
-
 
 6. Under Data format, make sure you select **Keep current table schema** and deselect **Ignore the first record**. Click on **Next: Start ingestion**.
   
@@ -203,7 +206,7 @@ A *Kusto query* is a read-only request to process data and return results. The r
 
 The most common kind of query statement is a tabular expression statement. Both its input and its output consist of tables or tabular datasets.
 
-*Tabular statements* contain zero or more operators. Each operator starts with a tabular input and returns a tabular output. Operators are sequenced by a pipe (``|``). Data flows, or is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step.
+*Tabular statements* contain zero or more operators. Each operator starts with a tabular input and returns a tabular output. Operators are sequenced by a pipe (`|`). Data flows, or is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step.
 
 It's like a funnel, where you start out with an entire data table. Each time the data passes through another operator, it's filtered, rearranged, or summarized. Because the piping of information from one operator to another is sequential, the query's operator order is important. At the end of the funnel, you're left with a refined output.
 Let's look at an example query:
@@ -213,7 +216,7 @@ logsRaw
 | take 10 
 ```
 
-This query has a single tabular expression statement. The statement begins with a reference to the table ``logsRaw`` and contains the operators ``take``. Each operator is separated by a pipe.
+This query has a single tabular expression statement. The statement begins with a reference to the table `logsRaw` and contains the operators `take`. Each operator is separated by a pipe.
 
 **References:**
 - [KQL cheat sheets](https://learn.microsoft.com/en-us/azure/data-explorer/kql-quick-reference)
@@ -225,9 +228,12 @@ For all the SQL pros out there, Azure data explorer allows a subset of TSQL quer
 ```SQL
 SELECT COUNT() FROM logsRaw
 ```
-> **Note**: Intellisense will not work for SQL queries.
 
-The primary language to interact with Kusto is KQL (Kusto Query Language). To make the transition and learning experience easier, you can use the ``explain`` operator to translate SQL queries to KQL.
+| :information_source: **Note**    |
+|:---------------------------|
+| Intellisense will not work for SQL queries.|
+
+The primary language to interact with Kusto is KQL (Kusto Query Language). To make the transition and learning experience easier, you can use the `explain` operator to translate SQL queries to KQL.
 
 ```kql
 explain SELECT MAX(Timestamp) AS MaxTimestamp FROM logsRaw WHERE Level='Error'
@@ -246,7 +252,7 @@ logsRaw
   
 In this task, you will see some KQL examples. For this task, we will use the table logsRaw, which has data we loaded in previous challenge from storage account. 
 
-1. Execute the queries and view the results. KQL queries can be used to filter data and return specific information. Now, you'll learn how to choose specific rows of data. The ``where`` operator filters results that satisfy a certain condition. 
+1. Execute the queries and view the results. KQL queries can be used to filter data and return specific information. Now, you'll learn how to choose specific rows of data. The `where` operator filters results that satisfy a certain condition. 
 
     ```kql
     logsRaw
@@ -254,7 +260,7 @@ In this task, you will see some KQL examples. For this task, we will use the tab
     | take 10
     ```
 
-   The ``take`` operator samples any number of records from our table without any order. In the above example, we asked to provide 10 random records.
+   The `take` operator samples any number of records from our table without any order. In the above example, we asked to provide 10 random records.
 
  2. Find out how many records are in the table
 
@@ -272,19 +278,19 @@ In this task, you will see some KQL examples. For this task, we will use the tab
  
 Azure Data Explorer provides a set of system data types that define all the types of data that can be stored.
 
-Some data types for example are: `string`, ``int``, ``decimal``, ``GUID``, ``bool``, ``datetime``. 
+Some data types for example are: `string`, `int`, `decimal`, `GUID`, `bool`, `datetime`. 
 
-Note, that the data type of the **Properties** column is ``dynamic``. The ``dynamic`` data type is special in that it can take on any value of other data types, as well as arrays and property bags (dictionaries).
+Note, that the data type of the **Properties** column is `dynamic`. The `dynamic` data type is special in that it can take on any value of other data types, as well as arrays and property bags (dictionaries).
 
-Our dataset has trace records written by Contoso's DOWNLOADER program (``| where Component == "DOWNLOADER"``), which downloads files from blob storage as part of its business operations. 
+Our dataset has trace records written by Contoso's DOWNLOADER program (`| where Component == "DOWNLOADER"`), which downloads files from blob storage as part of its business operations. 
 
 This is how a typical *Properties* column looks like:
 
 ![Screen capture 1](/assets/images/properties_column.png)
 
-The ``dynamic`` type is extremely beneficial when it comes to storing JSON data, since KQL makes it simple to access fields in JSON and treat them like an independent column: just use either the dot notation (``dict.key``) or the bracket notation (``dict["key"]``).
+The `dynamic` type is extremely beneficial when it comes to storing JSON data, since KQL makes it simple to access fields in JSON and treat them like an independent column: just use either the dot notation (`dict.key`) or the bracket notation (`dict["key"]`).
 
-The ``extend`` operator adds a new calculated column to the result set, during query time. This allows for the creation of new standalone columns to the result set, from the JSON data in ``dynamic`` columns.
+The `extend` operator adds a new calculated column to the result set, during query time. This allows for the creation of new standalone columns to the result set, from the JSON data in `dynamic` columns.
 
 ```kql
 logsRaw
@@ -293,14 +299,14 @@ logsRaw
 | extend originalSize=Properties.OriginalSize, compressedSize=Properties.compressedSize
 ```
 
-Note that although the dynamic type appears JSON-like, it can hold values that the JSON model does not represent because they don't exist in JSON (e.g., ``long``, ``real``, ``datetime``, ``timespan``, and ``GUID``). 
+Note that although the dynamic type appears JSON-like, it can hold values that the JSON model does not represent because they don't exist in JSON (e.g., `long`, `real`, `datetime`, `timespan`, and `GUID`). 
 
 ### **Challenge 3, Task 2: Explore the table and columns ✅**
-After subscripting a dynamic object, it is necessary to cast (convert) the value to a simple type in order to utilize them (for example, if you want to summarize the sizes of all the ``OriginalSize``, you should convert the ``dynamic`` type to a numeric type, like ``long``).
+After subscripting a dynamic object, it is necessary to cast (convert) the value to a simple type in order to utilize them (for example, if you want to summarize the sizes of all the `OriginalSize`, you should convert the `dynamic` type to a numeric type, like `long`).
 
-1. Write a query to get the table that is shown in the image below (we want to convert the ``OriginalSize`` and ``CompressedSize`` columns to ``long``).
+1. Write a query to get the table that is shown in the image below (we want to convert the `OriginalSize` and `CompressedSize` columns to `long`).
 
-    - ***Hint 1:*** Observe there are 2 new columns originalSize and compressedSize with datatype ``long``
+    - ***Hint 1:*** Observe there are 2 new columns originalSize and compressedSize with datatype `long`
     - ***Hint 2:*** Accessing a sub-object of a dynamic value yields another dynamic value, even if the sub-object has a different underlying type.
     - ***Hint 3:*** After subscripting a dynamic object, you must cast the value to a simple type.
 
@@ -313,11 +319,11 @@ After subscripting a dynamic object, it is necessary to cast (convert) the value
 ![Screen capture 1](/assets/images/get_schema.png)
 
 **References**
-- [``extend`` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
+- [`extend` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
 
-- [``tolong()``](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/tolongfunction)
+- [`tolong()`](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/tolongfunction)
 
-- [``getschema`` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/getschemaoperator)
+- [`getschema` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/getschemaoperator)
 
 ### **Challenge 3, Task 3: Keep the columns of your interest ✅**
 You are investigating an incident and wish to review only several columns of the dataset.
@@ -337,9 +343,9 @@ You are investigating an incident and wish to review only several columns of the
 ### **Challenge 3, Task 4: Filter the output ✅**
 You are investigating an incident that occurred within a specific time frame. 
 
-1. Write a query to get only specific desired columns: ``Timestamp``, ``ClientRequestId``, ``Level``, ``Message``. Take all the records between ``2014-03-08 01:00`` and ``2014-03-08 10:00``.
+1. Write a query to get only specific desired columns: `Timestamp`, `ClientRequestId`, `Level`, `Message`. Take all the records between `2014-03-08 01:00` and `2014-03-08 10:00`.
 
-    - ***Hint 1:*** In case you see 0 records, remember that operators are sequenced by a pipe (``|``). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
+    - ***Hint 1:*** In case you see 0 records, remember that operators are sequenced by a pipe (`|`). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
 
 | :question: **Question**    |
 |:---------------------------|
@@ -347,18 +353,18 @@ You are investigating an incident that occurred within a specific time frame.
 
 **References**
 
-- [``datetime`` data type](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/scalar-data-types/datetime)<br>
-- [``where`` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/whereoperator)<br>
+- [``datetime`` data type](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/scalar-data-types/datetime)
+- [``where`` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/whereoperator)
 - [``between`` operator](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/betweenoperator#filter-datetime)
 
 ### **Challenge 3, Task 5: Sorting the results ✅**
-Your system generated an alert indicating a significant decrease in incoming data. You want to check the traces of the "INGESTOR_EXECUTER" [sic] component of the program. <br>
+Your system generated an alert indicating a significant decrease in incoming data. You want to check the traces of the "INGESTOR_EXECUTER" [sic] component of the program.
 
-1. Write a query that returns 20 sample records in which the ``Component`` column equals the word "INGESTOR_EXECUTER" [sic].
+1. Write a query that returns 20 sample records in which the `Component` column equals the word "INGESTOR_EXECUTER" [sic].
 
-2. Once done, rewrite the query to take the top 1 records by the value of ``rowCount`` (for the "INGESTOR_EXECUTER" [sic] records).
+2. Once done, rewrite the query to take the top 1 records by the value of `rowCount` (for the "INGESTOR_EXECUTER" [sic] records).
 
-    - ***Hint 1:*** Extract ``rowCount`` from ``Properties`` column
+    - ***Hint 1:*** Extract `rowCount` from `Properties` column
 
     - ***Hint 2:*** Think about the datatype and conversion
 
@@ -366,7 +372,7 @@ Your system generated an alert indicating a significant decrease in incoming dat
 
 | :question: **Question**    |
 |:---------------------------|
-| What is the value of ``rowCount`` column of this record? |
+| What is the value of `rowCount` column of this record? |
 
 **Example result:**
 
@@ -378,7 +384,7 @@ Your system generated an alert indicating a significant decrease in incoming dat
 [top operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/topoperator)
 
 ### **Challenge 3, Task 6: Data profiling ✅**
-As part of the incident investigation, you want to extract ``format`` and ``rowCount`` from INGESTOR_EXECUTER [sic] component. Rename the calculated fields to fileFormat and rowCount respectively. Also, Make Sure ``Timestamp``, ``fileFormat`` and ``rowCount`` are the first 3 columns. 
+As part of the incident investigation, you want to extract `format` and `rowCount` from INGESTOR_EXECUTER [sic] component. Rename the calculated fields to fileFormat and rowCount respectively. Also, Make Sure `Timestamp`, `fileFormat` and `rowCount` are the first 3 columns. 
 
 | :question: **Question**    |
 |:---------------------------|
@@ -389,18 +395,18 @@ As part of the incident investigation, you want to extract ``format`` and ``rowC
   ![Screen capture 1](/assets/images/rename_reorder.png)
 
 **References:**
-- [``distinct`` operator](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/distinctoperator)
+- [`distinct` operator](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/distinctoperator)
 
-- [``extend`` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
+- [`extend` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/extendoperator)
 
-- [``project-rename`` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectrenameoperator)
+- [`project-rename` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectrenameoperator)
 
-- [``project-reorder`` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectreorderoperator)
+- [`project-reorder` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectreorderoperator)
 
 ### **Challenge 3, Task 7: Total number of records ✅**
 The system comprises of several "components", but you don't know their names or how many records were generated by each.
 
-1. Write a query to find out how many records were generated by each component. Use the ``Component`` column. 
+1. Write a query to find out how many records were generated by each component. Use the `Component` column. 
 
 | :question: **Question**    |
 |:---------------------------|
@@ -408,12 +414,12 @@ The system comprises of several "components", but you don't know their names or 
 
 **References**
 
-- [``count`` aggregation function](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/count-aggfunction)
+- [`count` aggregation function](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/count-aggfunction)
 
 ### **Challenge 3, Task 8: Aggregations and string operations ✅**
 You assume that the incident being investigated has a connection to the ingestion process run by Contoso's program.
 
-1. Write a query to find out how many records contain the string ``'ingestion'`` in the ``Message`` column. Aggregate the results by ``Level``.
+1. Write a query to find out how many records contain the string `'ingestion'` in the `Message` column. Aggregate the results by `Level`.
 
 | :question: **Question**    |
 |:---------------------------|
@@ -431,7 +437,7 @@ You assume that the incident being investigated has a connection to the ingestio
 
 ### **Challenge 3, Task 9: Render a chart ✅**
 
-1. Write a query to find out how many total records are present per ``Level`` (aggregated by ``Level``) and render a piechart.
+1. Write a query to find out how many total records are present per `Level` (aggregated by `Level`) and render a piechart.
 
 | :question: **Question**    |
 |:---------------------------|
@@ -457,9 +463,9 @@ You assume that the incident being investigated has a connection to the ingestio
  ![Screen capture 1](/assets/images/timeseries.png)
 
 **References:**
-- [``bin()`` - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
+- [`bin()` - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/binfunction)
 
-- [``summarize`` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
+- [`summarize` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/summarizeoperator)
 
 ### **Challenge 3, Task 11: Shortcuts**
 
@@ -474,8 +480,8 @@ Below are a few examples
     ![Screen capture 1](/assets/images/code_block.png)
 
 
-- You can execute a block of code using ``Shift``+``Enter``
-- You can directly insert filters based on data cells selections using ``Ctrl``+``Shift``+``Space``
+- You can execute a block of code using `Shift`+`Enter`
+- You can directly insert filters based on data cells selections using `Ctrl`+`Shift`+`Space`
 
   ![Screen capture 1](/assets/images/add_as_filters.gif)
 
@@ -505,11 +511,11 @@ Each time records get ingested into the source table, the update policy's query 
 - Create user defined functions to use repeatable logic
 - Create an update policy to transform the data at ingestion time
 
-For the next task, we will use the ``logsRaw`` table.
+For the next task, we will use the `logsRaw` table.
 
 ### **Challenge 4, Task 1: User defined Function (Stored Functions) ✅**
 
-1. Create a stored functions, named ``ManiputatelogsRaw``, that will contain the code below. Make sure the function works.
+1. Create a stored functions, named `ManiputatelogsRaw`, that will contain the code below. Make sure the function works.
 
     ```kql
     logsRaw
@@ -528,10 +534,10 @@ For the next task, we will use the ``logsRaw`` table.
 
 **References:**
 
-- See the [``create function``](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/create-function) article.
+- See the [`create function`](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/management/create-function) article.
 
 ### **Challenge 4, Task 2: Create an update policy ✅**
-In this task, we will use an ``update policy`` to filter the raw data in the ``logsRaw`` table (the source table) for ingestion logs, that will be ingested into the new table ``ingestionLogs`` that we’ll create.
+In this task, we will use an `update policy` to filter the raw data in the `logsRaw` table (the source table) for ingestion logs, that will be ingested into the new table `ingestionLogs` that we’ll create.
 
 1. Build the target table
     ```kql
@@ -593,8 +599,9 @@ In this task, we will use an ``update policy`` to filter the raw data in the ``l
             creationTime='2014-03-08T04:00:00Z');
     ```
 
-    > **Note** 
-    > The above command does not complete immediately. Because we used the 'async' parameter, the output of the above query will be operationIds. The progress of the query can be checked by used the below command
+    | :information_source: **Note**    |
+    |:---------------------------|
+    | The above command does not complete immediately. Because we used the `async` parameter, the output of the above query will be `operationIds`. The progress of the query can be checked by used the below command |
 
 5. Check progress of the commands
     ```kql
@@ -609,26 +616,28 @@ In this task, we will use an ``update policy`` to filter the raw data in the ``l
     
     Check if the count of ingestionLogs table is 93,648.
 
-    > **Note:** If the count is not matching for ingestionLogs table, it means that one of the above ``.ingest`` commands have throttled or failed. 
+    | :information_source: **Note**    |
+    |:---------------------------|
+    | If the count is not matching for ingestionLogs table, it means that one of the above `.ingest` commands have throttled or failed.  |
     
 7. Please run the following command to clean ingestionLogs table
     ```kql
     .clear table ingestionLogs data
     ```
 
-8. You can then run the above ``.ingest`` commands one by one and this will result in 93,648 count in ingestionLogs table.
+8. You can then run the above `.ingest` commands one by one and this will result in 93,648 count in ingestionLogs table.
 
     - ***Hint 1:*** Remember we have already ingested data into logsRaw in Challenge 2. We need the count of records from latest ingestion only. 
 
-    - ***Hint 2:*** ``ingestion_time()`` is a hidden column that stores ingested datetime of extents. 
+    - ***Hint 2:*** `ingestion_time()` is a hidden column that stores ingested datetime of extents. 
 
-    - ***Hint 3:*** Use [``ago()``](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/agofunction) to filter for latest records inserted.
+    - ***Hint 3:*** Use [`ago()`](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/agofunction) to filter for latest records inserted.
 
-9. What is the count of records that were ingested into ``ingestionLogs(target)`` table with this update policy?
+9. What is the count of records that were ingested into `ingestionLogs(target)` table with this update policy?
 
 | :question: **Question**    |
 |:---------------------------|
-| Calculate the ratio => ``ingestionLogs count / logsRaw count`` (Only the latest ingestion). Consider 4 digits after decimal points in the output. |
+| Calculate the ratio => `ingestionLogs count / logsRaw count` (Only the latest ingestion). Consider 4 digits after decimal points in the output. |
 
 **References:**
 -  [Kusto update policy - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/updatepolicy)
