@@ -181,18 +181,31 @@ Select **Blob container** as the **Source type** in the **Source** tab. As **Ing
 In this challenge you’ll write queries in Kusto Query Language (KQL) to explore and gain insights from your data. 
 
 **Tasks:**
-- [**Task 0:** Journey from SQL to KQL!](#challenge-3-task-0--journey-from-sql-to-kql)  
-- [**Task 1:** Basic KQL queries - explore the data](#challenge-3-task-1-basic-kql-queries---explore-the-data)
-- [**Task 2:** Explore the table and columns](#challenge-3-task-2-explore-the-table-and-columns-) :white_check_mark:
-- [**Task 3:** Keep the columns of your interest](#challenge-3-task-3-keep-the-columns-of-your-interest-) :white_check_mark:
-- [**Task 4:** Filter the output](#challenge-3-task-4-filter-the-output-) :white_check_mark:
-- [**Task 5:** Sorting the results](#challenge-3-task-5-sorting-the-results-) :white_check_mark:
-- [**Task 6:** Data profiling](#challenge-3-task-6-data-profiling-) :white_check_mark:
-- [**Task 7:** Total number of records ](#challenge-3-task-7-total-number-of-records-) :white_check_mark:
-- [**Task 8:** Aggregations and string operations](#challenge-3-task-8-aggregations-and-string-operations-) :white_check_mark:
-- [**Task 9:** Render a chart](#challenge-3-task-9-render-a-chart-) :white_check_mark:
-- [**Task 10:** Create bins and visualize time series] (#challenge-3-task-10-create-bins-and-visualize-time-series-) :white_check_mark:
- - [**Task 11:** Shortcuts](#challenge-3-task-11-shortcuts)
+- [**Lab1: Cluster Creation, Data Ingestion and Exploration**](#lab1-cluster-creation-data-ingestion-and-exploration)
+  - [**Earn a digital badge!**](#earn-a-digital-badge)
+  - [**Challenge 1: Create an ADX cluster**](#challenge-1-create-an-adx-cluster)
+    - [**Challenge 1, Task 1: Create an ADX cluster and Database**](#challenge-1-task-1-create-an-adx-cluster-and-database)
+    - [**Challenge 1, Task 2: Review the free cluster home page and the Azure Data Explorer Web UI**](#challenge-1-task-2-review-the-free-cluster-home-page-and-the-azure-data-explorer-web-ui)
+    - [**Challenge 1, Task 3: Write your first Kusto Query Language (KQL) query**](#challenge-1-task-3-write-your-first-kusto-query-language-kql-query)
+  - [**Challenge 2: Ingest data from Azure Storage Account**](#challenge-2-ingest-data-from-azure-storage-account)
+    - [**Challenge 2, Task 1: Create the raw table - logsRaw**](#challenge-2-task-1-create-the-raw-table---logsraw)
+    - [**Challenge 2, Task 2: Use the “One-click” UI (User Interface) to ingest data from Azure blob storage**](#challenge-2-task-2-use-the-one-click-ui-user-interface-to-ingest-data-from-azure-blob-storage)
+  - [**Challenge 3: Starting with the basics of KQL**](#challenge-3-starting-with-the-basics-of-kql)
+    - [**Challenge 3, Task 0 : Journey from SQL to KQL!**](#challenge-3-task-0--journey-from-sql-to-kql)
+    - [**Challenge 3, Task 1: Basic KQL queries - explore the data**](#challenge-3-task-1-basic-kql-queries---explore-the-data)
+    - [**Challenge 3, Task 2: Explore the table and columns ✅**](#challenge-3-task-2-explore-the-table-and-columns-)
+    - [**Challenge 3, Task 3: Keep the columns of your interest ✅**](#challenge-3-task-3-keep-the-columns-of-your-interest-)
+    - [**Challenge 3, Task 4: Filter the output ✅**](#challenge-3-task-4-filter-the-output-)
+    - [**Challenge 3, Task 5: Sorting the results ✅**](#challenge-3-task-5-sorting-the-results-)
+    - [**Challenge 3, Task 6: Data profiling ✅**](#challenge-3-task-6-data-profiling-)
+    - [**Challenge 3, Task 7: Total number of records ✅**](#challenge-3-task-7-total-number-of-records-)
+    - [**Challenge 3, Task 8: Aggregations and string operations ✅**](#challenge-3-task-8-aggregations-and-string-operations-)
+    - [**Challenge 3, Task 9: Render a chart ✅**](#challenge-3-task-9-render-a-chart-)
+    - [**Challenge 3, Task 10: Create bins and visualize time series ✅**](#challenge-3-task-10-create-bins-and-visualize-time-series-)
+    - [**Challenge 3, Task 11: Shortcuts**](#challenge-3-task-11-shortcuts)
+  - [**Challenge 4: Explore and Transform Data**](#challenge-4-explore-and-transform-data)
+    - [**Challenge 4, Task 1: User defined Function (Stored Functions) ✅**](#challenge-4-task-1-user-defined-function-stored-functions-)
+    - [**Challenge 4, Task 2: Create an update policy ✅**](#challenge-4-task-2-create-an-update-policy-)
 
 **Expected Learning Outcomes:**
 - Know how to write queries with KQL.
@@ -302,6 +315,7 @@ logsRaw
 Note that although the dynamic type appears JSON-like, it can hold values that the JSON model does not represent because they don't exist in JSON (e.g., `long`, `real`, `datetime`, `timespan`, and `GUID`). 
 
 ### **Challenge 3, Task 2: Explore the table and columns ✅**
+
 After subscripting a dynamic object, it is necessary to cast (convert) the value to a simple type in order to utilize them (for example, if you want to summarize the sizes of all the `OriginalSize`, you should convert the `dynamic` type to a numeric type, like `long`).
 
 1. Write a query to get the table that is shown in the image below (we want to convert the `OriginalSize` and `CompressedSize` columns to `long`).
@@ -310,7 +324,7 @@ After subscripting a dynamic object, it is necessary to cast (convert) the value
     - ***Hint 2:*** Accessing a sub-object of a dynamic value yields another dynamic value, even if the sub-object has a different underlying type.
     - ***Hint 3:*** After subscripting a dynamic object, you must cast the value to a simple type.
 
-| :question: **Question**    |
+| :question: **Question 3.2**    |
 |:---------------------------|
 | What is the "Datatype" of "ColumnType = long ? |
 
@@ -326,11 +340,12 @@ After subscripting a dynamic object, it is necessary to cast (convert) the value
 - [`getschema` operator](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/getschemaoperator)
 
 ### **Challenge 3, Task 3: Keep the columns of your interest ✅**
+
 You are investigating an incident and wish to review only several columns of the dataset.
 
 1. Write a query to get only specific desired columns: Timestamp, ClientRequestId, Level, Message. Take arbitrary 10 records.
 
-| :question: **Question**    |
+| :question: **Question 3.3**    |
 |:---------------------------|
 | If we have to change ClientRequestId column from string to guid datatype, what is the function we should use? |
 
@@ -347,7 +362,7 @@ You are investigating an incident that occurred within a specific time frame.
 
     - ***Hint 1:*** In case you see 0 records, remember that operators are sequenced by a pipe (`|`). Data is piped, from one operator to the next. The data is filtered or manipulated at each step and then fed into the following step. By using the ‘Take’ operator, there is no guarantee which records are returned
 
-| :question: **Question**    |
+| :question: **Question 3.4**    |
 |:---------------------------|
 | What is the count of records in this timeframe? |
 
@@ -370,7 +385,7 @@ Your system generated an alert indicating a significant decrease in incoming dat
 
     - ***Hint 3:*** Note the "Executer" [sic] spelling
 
-| :question: **Question**    |
+| :question: **Question 3.5**    |
 |:---------------------------|
 | What is the value of `rowCount` column of this record? |
 
@@ -386,7 +401,7 @@ Your system generated an alert indicating a significant decrease in incoming dat
 ### **Challenge 3, Task 6: Data profiling ✅**
 As part of the incident investigation, you want to extract `format` and `rowCount` from INGESTOR_EXECUTER [sic] component. Rename the calculated fields to fileFormat and rowCount respectively. Also, Make Sure `Timestamp`, `fileFormat` and `rowCount` are the first 3 columns. 
 
-| :question: **Question**    |
+| :question: **Question 3.6**    |
 |:---------------------------|
 | How many different file formats are present in this data? |
 
@@ -408,7 +423,7 @@ The system comprises of several "components", but you don't know their names or 
 
 1. Write a query to find out how many records were generated by each component. Use the `Component` column. 
 
-| :question: **Question**    |
+| :question: **Question 3.7**    |
 |:---------------------------|
 | What is the count of "DATAACCESS" component? |
 
@@ -421,7 +436,7 @@ You assume that the incident being investigated has a connection to the ingestio
 
 1. Write a query to find out how many records contain the string `'ingestion'` in the `Message` column. Aggregate the results by `Level`.
 
-| :question: **Question**    |
+| :question: **Question 3.8**    |
 |:---------------------------|
 | What is count of "Error" records?|
 
@@ -439,7 +454,7 @@ You assume that the incident being investigated has a connection to the ingestio
 
 1. Write a query to find out how many total records are present per `Level` (aggregated by `Level`) and render a piechart.
 
-| :question: **Question**    |
+| :question: **Question 3.9**    |
 |:---------------------------|
 | What is the "Warning" %? |
 
@@ -454,7 +469,7 @@ You assume that the incident being investigated has a connection to the ingestio
 ### **Challenge 3, Task 10: Create bins and visualize time series ✅**
 1. Write a query to show a timechart of the number of records in 30 minute bins (buckets). Each point on the timechart represent the number of logs in that bucket.
 
-| :question: **Question**    |
+| :question: **Question 3.10**    |
 |:---------------------------|
 | What is the count of records on March 8th, 10:30 ?|
 
@@ -528,7 +543,7 @@ For the next task, we will use the `logsRaw` table.
       'DOWNLOADER')
     ```
 
-| :question: **Question**    |
+| :question: **Question 4.1**    |
 |:---------------------------|
 | What is property used when creating function that is used for UI functions categorization? |
 
@@ -604,6 +619,7 @@ In this task, we will use an `update policy` to filter the raw data in the `logs
     | The above command does not complete immediately. Because we used the `async` parameter, the output of the above query will be `operationIds`. The progress of the query can be checked by used the below command |
 
 5. Check progress of the commands
+
     ```kql
       .show operations <operationId>
     ```
@@ -633,9 +649,9 @@ In this task, we will use an `update policy` to filter the raw data in the `logs
 
     - ***Hint 3:*** Use [`ago()`](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/agofunction) to filter for latest records inserted.
 
-9. What is the count of records that were ingested into `ingestionLogs(target)` table with this update policy?
+9.  What is the count of records that were ingested into `ingestionLogs(target)` table with this update policy?
 
-| :question: **Question**    |
+| :question: **Question 4.2**    |
 |:---------------------------|
 | Calculate the ratio => `ingestionLogs count / logsRaw count` (Only the latest ingestion). Consider 4 digits after decimal points in the output. |
 
