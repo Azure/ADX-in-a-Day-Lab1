@@ -198,31 +198,18 @@ In this challenge you’ll write queries in Kusto Query Language (KQL) to explor
 
 **Tasks:**
 
-- [**Lab1: Cluster Creation, Data Ingestion and Exploration**](#lab1-cluster-creation-data-ingestion-and-exploration)
-  - [**Earn a digital badge!**](#earn-a-digital-badge)
-  - [**Challenge 1: Create an ADX cluster**](#challenge-1-create-an-adx-cluster)
-    - [**Challenge 1, Task 1: Create an ADX cluster and Database**](#challenge-1-task-1-create-an-adx-cluster-and-database)
-    - [**Challenge 1, Task 2: Review the free cluster home page and the Azure Data Explorer Web UI**](#challenge-1-task-2-review-the-free-cluster-home-page-and-the-azure-data-explorer-web-ui)
-    - [**Challenge 1, Task 3: Write your first Kusto Query Language (KQL) query**](#challenge-1-task-3-write-your-first-kusto-query-language-kql-query)
-  - [**Challenge 2: Ingest data from Azure Storage Account**](#challenge-2-ingest-data-from-azure-storage-account)
-    - [**Challenge 2, Task 1: Create the raw table - logsRaw**](#challenge-2-task-1-create-the-raw-table---logsraw)
-    - [**Challenge 2, Task 2: Use the “One-click” UI (User Interface) to ingest data from Azure blob storage**](#challenge-2-task-2-use-the-one-click-ui-user-interface-to-ingest-data-from-azure-blob-storage)
-  - [**Challenge 3: Starting with the basics of KQL**](#challenge-3-starting-with-the-basics-of-kql)
-    - [**Challenge 3, Task 0 : Journey from SQL to KQL!**](#challenge-3-task-0--journey-from-sql-to-kql)
-    - [**Challenge 3, Task 1: Basic KQL queries - explore the data**](#challenge-3-task-1-basic-kql-queries---explore-the-data)
-    - [**Challenge 3, Task 2: Explore the table and columns ✅**](#challenge-3-task-2-explore-the-table-and-columns-)
-    - [**Challenge 3, Task 3: Keep the columns of your interest ✅**](#challenge-3-task-3-keep-the-columns-of-your-interest-)
-    - [**Challenge 3, Task 4: Filter the output ✅**](#challenge-3-task-4-filter-the-output-)
-    - [**Challenge 3, Task 5: Sorting the results ✅**](#challenge-3-task-5-sorting-the-results-)
-    - [**Challenge 3, Task 6: Data profiling ✅**](#challenge-3-task-6-data-profiling-)
-    - [**Challenge 3, Task 7: Total number of records ✅**](#challenge-3-task-7-total-number-of-records-)
-    - [**Challenge 3, Task 8: Aggregations and string operations ✅**](#challenge-3-task-8-aggregations-and-string-operations-)
-    - [**Challenge 3, Task 9: Render a chart ✅**](#challenge-3-task-9-render-a-chart-)
-    - [**Challenge 3, Task 10: Create bins and visualize time series ✅**](#challenge-3-task-10-create-bins-and-visualize-time-series-)
-    - [**Challenge 3, Task 11: Shortcuts**](#challenge-3-task-11-shortcuts)
-  - [**Challenge 4: Explore and Transform Data**](#challenge-4-explore-and-transform-data)
-    - [**Challenge 4, Task 1: User defined Function (Stored Functions) ✅**](#challenge-4-task-1-user-defined-function-stored-functions-)
-    - [**Challenge 4, Task 2: Create an update policy ✅**](#challenge-4-task-2-create-an-update-policy-)
+- [**Task 0:** Journey from SQL to KQL!](#challenge-3-task-0--journey-from-sql-to-kql)
+- [**Task 1:** Basic KQL queries - explore the data](#challenge-3-task-1-basic-kql-queries---explore-the-data)
+- [**Task 2:** Explore the table and columns](#challenge-3-task-2-explore-the-table-and-columns-):white_check_mark:
+- [**Task 3:** Keep the columns of your interest](#challenge-3-task-3-keep-the-columns-of-your-interest-):white_check_mark:
+- [**Task 4:** Filter the output](#challenge-3-task-4-filter-the-output-):white_check_mark:
+- [**Task 5:** Sorting the results](#challenge-3-task-5-sorting-the-results-):white_check_mark:
+- [**Task 6:** Data profiling](#challenge-3-task-6-data-profiling-):white_check_mark:
+- [**Task 7:** Total number of records](#challenge-3-task-7-total-number-of-records-):white_check_mark:
+- [**Task 8:** Aggregations and string operations](#challenge-3-task-8-aggregations-and-string-operations-):white_check_mark:
+- [**Task 9:** Render a chart](#challenge-3-task-9-render-a-chart-):white_check_mark:
+- [**Task 10:** Create bins and visualize time series](#challenge-3-task-10-create-bins-and-visualize-time-series-):white_check_mark:
+- [**Task 11:** Shortcuts](#challenge-3-task-11-shortcuts)
 
 **Expected Learning Outcomes:**
 
@@ -546,7 +533,7 @@ In this challenge we will explore 3 capabilities of Data Explorer
 
 **Tasks:**
 
-- [**Task 1:** User defined Function (Stored Functions)] :white_check_mark:(#challenge-4-task-1-user-defined-function-stored-functions-)
+- [**Task 1:** User defined Function (Stored Functions)](#challenge-4-task-1-user-defined-function-stored-functions-) :white_check_mark:
 - [**Task 2:** Create an update policy](#challenge-4-task-2-create-an-update-policy-) :white_check_mark:
 
 **Expected Learning Outcomes:**
