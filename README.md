@@ -24,7 +24,7 @@ In order to receive the "ADX-In-A-Day" digital badge, you will need to complete 
 |:---------------------------|
 | **Please allow us 5 working days to issue the badge**|
 
-![Azure Data Explorer Badge](/assets/images/badge.png "Azure Data Explorer Badge")
+![ADX in a day Badge](/assets/images/badge.png "ADX in a day Badge")
 
 ---
 
