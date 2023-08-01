@@ -24,7 +24,7 @@ In order to receive the "ADX-In-A-Day" digital badge, you will need to complete 
 |:---------------------------|
 | **Please allow us 5 working days to issue the badge**|
 
-![Screen capture 1](/assets/images/badge.png)
+![ADX in a day Badge](/assets/images/badge.png "ADX in a day Badge")
 
 ---
 
@@ -44,13 +44,11 @@ In this Challenge, you will create a Free cluster and a database. You will run s
 
 - Create and work with Free ADX cluster.
 
----
-
 ### **Challenge 1, Task 1: Create an ADX cluster and Database**
 
 1. Create your free cluster and database here: [Free ADX Cluster](https://aka.ms/kustofree). If you want to open the ADX Web UI in another Tab click on the link holding down the ``CTRL`` Key.
 
-    ![Screen capture 1](/assets/images/CreateNewCluster.png)
+    ![Create Cluster and Database](/assets/images/CreateNewCluster.png "Create Cluster and Database")
   
 ### **Challenge 1, Task 2: Review the free cluster home page and the Azure Data Explorer Web UI**
 
@@ -58,7 +56,7 @@ In this Challenge, you will create a Free cluster and a database. You will run s
 
 2. Click on the Icon **My Cluster** in the left navigation pane.
 
-    ![Screen capture 1](/assets/images/free_cluster_create_db.png)
+    ![Create free cluster](/assets/images/free_cluster_create_db.png "Create free cluster")
 
     On the page **My Cluster**, you'll see the following:
     - Your cluster's name, the option to upgrade to a full cluster, and the option to delete the cluster.
@@ -90,7 +88,7 @@ Kusto Query Language can also be used in other services that are built on-top of
 
 - [Azure Monitor Logs](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-platform-logs)
 - [Azure Sentinel](https://learn.microsoft.com/en-us/azure/sentinel/overview)
-- [Microsoft Defender for IoT](https://www.microsoft.com/en-us/security/business/endpoint-security/microsoft-defender-iot) 
+- [Microsoft Defender for IoT](https://www.microsoft.com/en-us/security/business/endpoint-security/microsoft-defender-iot)
 - [Microsoft Defender for Endpoint](https://www.microsoft.com/en-us/security/business/endpoint-security/microsoft-defender-endpoint)
 - [Microsoft Defender for Cloud](https://www.microsoft.com/en-us/security/business/cloud-security/microsoft-defender-cloud)
 - [Application Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview?tabs=net)
@@ -99,7 +97,7 @@ Kusto Query Language can also be used in other services that are built on-top of
   
 2. To run KQL queries, you must select the **Query** button on the Free Cluster page.
 
-    ![Screen capture 1](/assets/images/free_cluster_query.png)
+    ![Query Button on the Free Cluster Page](/assets/images/free_cluster_query.png "Query Button on the Free Cluster Page")
   
 3. Now you can write a simple KQL query:
 
@@ -109,7 +107,8 @@ Kusto Query Language can also be used in other services that are built on-top of
 
 4. Hit the **Run** button. The query will be executed and its result can be seen in the result grid at the bottom of the page.
   
-      ![Screen capture 1](/assets/images/hello_world.png)
+      ![Hello World](/assets/images/hello_world.png "Hello World")
+
       | :information_source: **Note**    |
       |:---------------------------|
       | Windows users can also download [**Kusto Explorer**](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/tools/kusto-explorer), a desktop client to run the queries and benefit from advanced features available in the client. |
@@ -152,11 +151,11 @@ You need to analyze the system logs for Contoso, which are stored in Azure blob 
 
 1. Go back to the **My Cluster** page, click the **Ingest** button in the tile **Ingest Data**.
   
-      ![Screen capture 1](/assets/images/data_ingest.png)
+      ![Ingest Data Button](/assets/images/data_ingest.png "Ingest Data Button")
 
 2. Make sure the cluster and the Database fields are correct. In our example the cluster is named ``MyFreeCluster`` and the database is named ``ADX in a day``. Select the option **Existing table**.
 
-      ![Screen capture 1](/assets/images/ingest_table.png)
+      ![Ingest Data Wizard](/assets/images/ingest_table.png "Ingest Data Wizard")
   
     | :information_source: **Note**    |
     |:---------------------------|
@@ -173,15 +172,15 @@ Select **Blob container** as the **Source type** in the **Source** tab. As **Ing
 
 5. In the list **Schema defining file** select a file. This file is used to determine the schema of the data. One file is autoselected unless you want to change that. In our example it does not matter which file you choose because all files have the same structure, so you can stick with the autoselected file and click **Next: Schema**.
 
-    ![Screen capture 1](/assets/images/ingest_from_storage.png)
+    ![Ingest Data from storage](/assets/images/ingest_from_storage.png "Ingest Data from storage")
 
 6. Under Data format, make sure you select **Keep current table schema** and deselect **Ignore the first record**. Click on **Next: Start ingestion**.
   
-    ![Screen capture 1](/assets/images/ingest_from_storage_schema.png)
+    ![Use schema from ingested data](/assets/images/ingest_from_storage_schema.png "Use schema from ingested data")
   
 7. Wait for the ingestion to be completed, and click **Close**.
 
-    ![Screen capture 1](/assets/images/ingestion_completed.png)
+    ![Ingestion in progress](/assets/images/ingestion_completed.png "Ingestion in progress")
   
 8. Go to the **Query** page. Run the following KQL query to verify that data was ingested to the table.
 
@@ -309,7 +308,7 @@ Our dataset has trace records written by Contoso's DOWNLOADER program (`| where 
 
 This is how a typical *Properties* column looks like:
 
-![Screen capture 1](/assets/images/properties_column.png)
+![A typical properties column](/assets/images/properties_column.png "A typical properties column")
 
 The `dynamic` type is extremely beneficial when it comes to storing JSON data, since KQL makes it simple to access fields in JSON and treat them like an independent column: just use either the dot notation (`dict.key`) or the bracket notation (`dict["key"]`).
 
@@ -340,7 +339,7 @@ After subscripting a dynamic object, it is necessary to cast (convert) the value
 
 **Example result:**
 
-![Screen capture 1](/assets/images/get_schema.png)
+![Example result for Question 3.2](/assets/images/get_schema.png "Example result for Question 3.2")
 
 **References:**
 
@@ -359,11 +358,11 @@ You are investigating an incident and wish to review only several columns of the
 | If we have to change ClientRequestId column from string to guid datatype, what is the function we should use? |
 
 **Example result:**
-![Screen capture 1](/assets/images/project.png)
+![Example Result for Question 3.3](/assets/images/project.png "Example Result for Question 3.3")
 
 **References:**
 
-- [``project`` operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectoperator)
+- [`project` operator - Azure Data Explorer | Microsoft Docs](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/projectoperator)
 
 ### **Challenge 3, Task 4: Filter the output ✅**
 
@@ -403,7 +402,7 @@ Your system generated an alert indicating a significant decrease in incoming dat
 
 **Example result:**
 
-  ![Screen capture 1](/assets/images/top_10_rowCount.png)
+  ![Example result for question 3.5](/assets/images/top_10_rowCount.png "Example result for question 3.5")
 
 **References:**
 
@@ -420,7 +419,7 @@ As part of the incident investigation, you want to extract `format` and `rowCoun
 
 **Example result:**
 
-  ![Screen capture 1](/assets/images/rename_reorder.png)
+  ![Example Result for Question 3.6](/assets/images/rename_reorder.png "Example Result for Question 3.6")
 
 **References:**
 
@@ -455,7 +454,7 @@ You assume that the incident being investigated has a connection to the ingestio
 
 **Example result:**
 
-  ![Screen capture 1](/assets/images/count_by.png)
+  ![Example Result for Question 3.8](/assets/images/count_by.png "Example Result for Question 3.8")
 
 **References:**
 
@@ -473,7 +472,7 @@ You assume that the incident being investigated has a connection to the ingestio
 
 **Example result:**
 
- ![Screen capture 1](/assets/images/pie.png)
+ ![Example result for Question 3.9](/assets/images/pie.png "Example result for Question 3.9")
 
 **References:**
 
@@ -489,7 +488,7 @@ You assume that the incident being investigated has a connection to the ingestio
 
 **Example result:**
 
- ![Screen capture 1](/assets/images/timeseries.png)
+ ![Example result for question 3.10](/assets/images/timeseries.png "Example result for question 3.10")
 
 **References:**
 
@@ -506,12 +505,12 @@ Below are a few examples
 
 - You don't have to select a block of code. Based on current cursor position, code that is separated by empty lines is considered a single block of code.
 
-    ![Screen capture 1](/assets/images/code_block.png)
+    ![Two code blocks considered as one](/assets/images/code_block.png "Two code blocks considered as one")
 
 - You can execute a block of code using `Shift`+`Enter`
 - You can directly insert filters based on data cells selections using `Ctrl`+`Shift`+`Space`
 
-  ![Screen capture 1](/assets/images/add_as_filters.gif)
+  ![Insert filters based on data cells](/assets/images/add_as_filters.gif "Insert filters based on data cells")
 
 **References:**
 
@@ -529,7 +528,7 @@ In this challenge we will explore 3 capabilities of Data Explorer
   
   Each time records get ingested into the source table, the update policy's query (which we'll define in the update policy) will run on them (**only on newly ingested records** - other existing records in the source table aren’t visible to the update policy when it runs), and the results of the query will be appended to the target table. This function's output schema and target table schema should exactly match.
 
-  ![Screen capture 1](/assets/images/Update_policy.png)
+  ![How an update policy works](/assets/images/Update_policy.png "How an update policy works")
 
 **Tasks:**
 
