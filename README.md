@@ -149,9 +149,7 @@ ADX supports several ingestion methods, including ingestion tools, connectors an
 
 You need to analyze the system logs for Contoso, which are stored in Azure blob storage.
 
-1. Go back to the **My Cluster** page, click the **Ingest** button in the tile **Ingest Data**.
-  
-      ![Ingest Data Button](/assets/images/data_ingest.png "Ingest Data Button")
+1. Go to the **OneClick UI** via https://dataexplorer.azure.com/oneclick and click **Ingest** button. Select the name of your free-cluster and database name. 
 
 2. Make sure the cluster and the Database fields are correct. In our example the cluster is named ``MyFreeCluster`` and the database is named ``ADX in a day``. Select the option **Existing table**.
 
