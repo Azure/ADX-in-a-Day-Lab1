@@ -167,20 +167,26 @@ Select **Blob container** as the **Source type** in the **Source** tab. As **Ing
     ```kql
     https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D
     ```
+    
+    | :warning: **Warning**    |
+    |:---------------------------|
+    | If you receive the following error:  |
+    | Invalid URL. Either the URL leads to a blob instead of a container, or the permissions are incorrect. If you just granted permission, please wait a couple minutes and try again. |
+    | While we restore access to the original storage logsbenchmark00. Pls use the backup URL paths mentioned here: https://github.com/Azure/ADX-in-a-Day/blob/main/assets/blobURIbackup.md |
 
-5. In the list **Schema defining file** select a file. This file is used to determine the schema of the data. One file is autoselected unless you want to change that. In our example it does not matter which file you choose because all files have the same structure, so you can stick with the autoselected file and click **Next: Schema**.
+6. In the list **Schema defining file** select a file. This file is used to determine the schema of the data. One file is autoselected unless you want to change that. In our example it does not matter which file you choose because all files have the same structure, so you can stick with the autoselected file and click **Next: Schema**.
 
     ![Ingest Data from storage](/assets/images/ingest_from_storage.png "Ingest Data from storage")
 
-6. Under Data format, make sure you select **Keep current table schema** and deselect **Ignore the first record**. Click on **Next: Start ingestion**.
+7. Under Data format, make sure you select **Keep current table schema** and deselect **Ignore the first record**. Click on **Next: Start ingestion**.
   
     ![Use schema from ingested data](/assets/images/ingest_from_storage_schema.png "Use schema from ingested data")
   
-7. Wait for the ingestion to be completed, and click **Close**.
+8. Wait for the ingestion to be completed, and click **Close**.
 
     ![Ingestion in progress](/assets/images/ingestion_completed.png "Ingestion in progress")
   
-8. Go to the **Query** page. Run the following KQL query to verify that data was ingested to the table.
+9. Go to the **Query** page. Run the following KQL query to verify that data was ingested to the table.
 
     ```kql
       logsRaw
