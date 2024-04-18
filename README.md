@@ -172,7 +172,7 @@ Select **Blob container** as the **Source type** in the **Source** tab. As **Ing
     |:---------------------------|
     | If you receive the following error:  |
     | Invalid URL. Either the URL leads to a blob instead of a container, or the permissions are incorrect. If you just granted permission, please wait a couple minutes and try again. |
-    | While we restore access to the original storage logsbenchmark00. Pls use the backup URL paths mentioned here: https://github.com/Azure/ADX-in-a-Day/blob/main/assets/blobURIbackup.md |
+    | While we restore access to the original storage logsbenchmark00, please use the backup URL paths mentioned here instead: https://github.com/Azure/ADX-in-a-Day/blob/main/assets/blobURIbackup.md |
 
 6. In the list **Schema defining file** select a file. This file is used to determine the schema of the data. One file is autoselected unless you want to change that. In our example it does not matter which file you choose because all files have the same structure, so you can stick with the autoselected file and click **Next: Schema**.
 
@@ -618,6 +618,12 @@ In this task, we will use an `update policy` to filter the raw data in the `logs
 .ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/03/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2024-03-08T03:00:00Z');
 .ingest async into table logsRaw (h'https://logsbenchmark00.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/04/data.csv.gz?sp=rl&st=2022-08-18T00:00:00Z&se=2030-01-01T00:00:00Z&spr=https&sv=2021-06-08&sr=c&sig=5pjOow5An3%2BTs5mZ%2FyosJBPtDvV7%2FXfDO8pLEeeylVc%3D') with (format='csv', creationTime='2024-03-08T04:00:00Z');
 ```
+
+| :warning: **Warning**    |
+|:---------------------------|
+| The above script may fail due to error:  |
+| Invalid URL. Either the URL leads to a blob instead of a container, or the permissions are incorrect. If you just granted permission, please wait a couple minutes and try again. |
+| While we restore access to the original storage logsbenchmark00., please use the backup second database script mentioned here instead: https://github.com/Azure/ADX-in-a-Day/blob/main/assets/blobURIbackup.md |
 
 | :information_source: **Note**    |
 |:---------------------------|
