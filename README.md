@@ -145,13 +145,12 @@ ADX supports several ingestion methods, including ingestion tools, connectors an
     ) 
     ```
 
-### **Challenge 2, Task 2: Use the “One-click” UI (User Interface) to ingest data from Azure blob storage**
+### **Challenge 2, Task 2: Use the "One-click" UI (User Interface) to ingest data from Azure blob storage container**
 
-You need to analyze the system logs for Contoso, which are stored in Azure blob storage.
+You need to analyze the system logs for Contoso. The logs have been saved to an Azure Storage Container as CSVs. Let's import them to do the analysis in the platform.
 
-1. Go to the **OneClick UI** via https://dataexplorer.azure.com/oneclick and click **Ingest** button. Select the name of your free-cluster and database name. 
-
-2. Make sure the cluster and the Database fields are correct. In our example the cluster is named ``MyFreeCluster`` and the database is named ``ADX in a day``. Select the option **Existing table**.
+1. Go to the **One-Click UI** via https://dataexplorer.azure.com/oneclick > click **Ingest**. Select the name of your free-cluster and database name.
+2. Make sure the cluster and the Database fields are correct. In our example the cluster is named ``MyFreeCluster`` and the database is named ``ADX in a day``. Select the option **Existing table**. Select `logsRaw` from the list. Click **Next: Source** to proceed.
 
       ![Ingest Data Wizard](/assets/images/ingest_table.png "Ingest Data Wizard")
   
@@ -159,30 +158,23 @@ You need to analyze the system logs for Contoso, which are stored in Azure blob 
     |:---------------------------|
     | We used an example table name as ``logsRaw`` here. You can give any name to your table but be sure to use it in all your queries going forward. |
   
-3. Ingest from Storage:
-Select **Blob container** as the **Source type** in the **Source** tab. As **Ingestion type** you can leave the default selection **One-Time**. For **Select source** you can use the default value **Add URL** because we will add a SAS Url next.
+3. Select Source Type: **Blob container**. Leave "Ingestion type" to the default **One-Time** and "Select source" to the default value **Add URL**.
 
-4. In the **Link to source**, paste the following SAS ([*Shared Access Signature*](https://learn.microsoft.com/en-us/shows/inside-azure-for-it/introduction-to-sas-shared-access-signature)) URL of the blob storage. SAS URL is a way to provide limited, time-bound access to Azure storage resources such as Blobs.
-
-    ```kql
+4. In **Link to source** paste the following URL:
+   
+    ```url
     https://adxsamplefiles.blob.core.windows.net/publiccsvsamples/logsbenchmark-onegb/2014
     ```
-    
-    | :warning: **Warning**    |
-    |:---------------------------|
-    | If you receive the following error:  |
-    | Invalid URL. Either the URL leads to a blob instead of a container, or the permissions are incorrect. If you just granted permission, please wait a couple minutes and try again. |
-    | While we restore access to the original storage logsbenchmark00, please use the backup URL paths mentioned here instead: https://github.com/Azure/ADX-in-a-Day/blob/main/assets/blobURIbackup.md |
 
-6. In the list **Schema defining file** select a file. This file is used to determine the schema of the data. One file is autoselected unless you want to change that. In our example it does not matter which file you choose because all files have the same structure, so you can stick with the autoselected file and click **Next: Schema**.
+6. The **Schema defining file** should automatically select file: `03/08/00/data.csv.gz`. One file will be used to determine the schema of the data. For this lab, it does not matter which file you choose because all files have the same structure. Click **Next: Schema** to proceed.
 
     ![Ingest Data from storage](/assets/images/ingest_from_storage.png "Ingest Data from storage")
 
-7. Under Data format, make sure you select **Keep current table schema** and deselect **Ignore the first record**. Click on **Next: Start ingestion**.
+7. Under "Data format" select **Keep current table schema** and deselect **Ignore the first record**. Click **Next: Start ingestion** to proceed.
   
     ![Use schema from ingested data](/assets/images/ingest_from_storage_schema.png "Use schema from ingested data")
   
-8. Wait for the ingestion to be completed, and click **Close**.
+8. The ingestion should be completed within a few seconds, and click **Close** to finish.
 
     ![Ingestion in progress](/assets/images/ingestion_completed.png "Ingestion in progress")
   
@@ -618,12 +610,6 @@ In this task, we will use an `update policy` to filter the raw data in the `logs
 .ingest async into table logsRaw (h'https://adxsamplefiles.blob.core.windows.net/publiccsvsamples/logsbenchmark-onegb/2014/03/08/03/data.csv.gz') with (format='csv', creationTime='2024-03-08T03:00:00Z');
 .ingest async into table logsRaw (h'https://adxsamplefiles.blob.core.windows.net/publiccsvsamples/logsbenchmark-onegb/2014/03/08/04/data.csv.gz') with (format='csv', creationTime='2024-03-08T04:00:00Z');
 ```
-
-| :warning: **Warning**    |
-|:---------------------------|
-| The above script may fail due to error:  |
-| Invalid URL. Either the URL leads to a blob instead of a container, or the permissions are incorrect. If you just granted permission, please wait a couple minutes and try again. |
-| While we restore access to the original storage logsbenchmark00., please use the backup second database script mentioned here instead: https://github.com/Azure/ADX-in-a-Day/blob/main/assets/blobURIbackup.md |
 
 | :information_source: **Note**    |
 |:---------------------------|
