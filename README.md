@@ -163,7 +163,7 @@ You need to analyze the system logs for Contoso. The logs have been saved to an 
 4. In **Link to source** paste the following URL:
    
     ```url
-    https://adxsamplefiles.blob.core.windows.net/publiccsvsamples/logsbenchmark-onegb/2014
+    https://rtainaday.blob.core.windows.net/logsbenchmark-onegb?sp=rl&st=2025-03-12T19:25:59Z&se=2099-03-13T03:25:59Z&spr=https&sv=2022-11-02&sr=c&sig=XxQnOYzmqarwNi8xhRF7zbRMuY8T0WXmz5CVCJMiW0M%3D
     ```
 
 6. The **Schema defining file** should automatically select file: `03/08/00/data.csv.gz`. One file will be used to determine the schema of the data. For this lab, it does not matter which file you choose because all files have the same structure. Click **Next: Schema** to proceed.
@@ -604,11 +604,11 @@ In this task, we will use an `update policy` to filter the raw data in the `logs
 // This param allows to backfill the table with historical data and index it according ot the creationTime setting.
 
 .execute database script <|
-.ingest async into table logsRaw (h'https://adxsamplefiles.blob.core.windows.net/publiccsvsamples/logsbenchmark-onegb/2014/03/08/00/data.csv.gz') with (format='csv', creationTime='2024-03-08T00:00:00Z');
-.ingest async into table logsRaw (h'https://adxsamplefiles.blob.core.windows.net/publiccsvsamples/logsbenchmark-onegb/2014/03/08/01/data.csv.gz') with (format='csv', creationTime='2024-03-08T01:00:00Z');
-.ingest async into table logsRaw (h'https://adxsamplefiles.blob.core.windows.net/publiccsvsamples/logsbenchmark-onegb/2014/03/08/02/data.csv.gz') with (format='csv', creationTime='2024-03-08T02:00:00Z');
-.ingest async into table logsRaw (h'https://adxsamplefiles.blob.core.windows.net/publiccsvsamples/logsbenchmark-onegb/2014/03/08/03/data.csv.gz') with (format='csv', creationTime='2024-03-08T03:00:00Z');
-.ingest async into table logsRaw (h'https://adxsamplefiles.blob.core.windows.net/publiccsvsamples/logsbenchmark-onegb/2014/03/08/04/data.csv.gz') with (format='csv', creationTime='2024-03-08T04:00:00Z');
+.ingest async into table logsRaw (h'https://rtainaday.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/00/data.csv.gz?sp=rl&st=2025-03-12T19:25:59Z&se=2099-03-13T03:25:59Z&spr=https&sv=2022-11-02&sr=c&sig=XxQnOYzmqarwNi8xhRF7zbRMuY8T0WXmz5CVCJMiW0M%3D') with (format='csv', creationTime='2024-03-08T00:00:00Z');
+.ingest async into table logsRaw (h'https://rtainaday.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/01/data.csv.gz?sp=rl&st=2025-03-12T19:25:59Z&se=2099-03-13T03:25:59Z&spr=https&sv=2022-11-02&sr=c&sig=XxQnOYzmqarwNi8xhRF7zbRMuY8T0WXmz5CVCJMiW0M%3D') with (format='csv', creationTime='2024-03-08T00:00:00Z') with (format='csv', creationTime='2024-03-08T01:00:00Z');
+.ingest async into table logsRaw (h'https://rtainaday.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/02/data.csv.gz?sp=rl&st=2025-03-12T19:25:59Z&se=2099-03-13T03:25:59Z&spr=https&sv=2022-11-02&sr=c&sig=XxQnOYzmqarwNi8xhRF7zbRMuY8T0WXmz5CVCJMiW0M%3D') with (format='csv', creationTime='2024-03-08T00:00:00Z') with (format='csv', creationTime='2024-03-08T02:00:00Z');
+.ingest async into table logsRaw (h'https://rtainaday.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/03/data.csv.gz?sp=rl&st=2025-03-12T19:25:59Z&se=2099-03-13T03:25:59Z&spr=https&sv=2022-11-02&sr=c&sig=XxQnOYzmqarwNi8xhRF7zbRMuY8T0WXmz5CVCJMiW0M%3D') with (format='csv', creationTime='2024-03-08T00:00:00Z') with (format='csv', creationTime='2024-03-08T03:00:00Z');
+.ingest async into table logsRaw (h'https://rtainaday.blob.core.windows.net/logsbenchmark-onegb/2014/03/08/04/data.csv.gz?sp=rl&st=2025-03-12T19:25:59Z&se=2099-03-13T03:25:59Z&spr=https&sv=2022-11-02&sr=c&sig=XxQnOYzmqarwNi8xhRF7zbRMuY8T0WXmz5CVCJMiW0M%3D') with (format='csv', creationTime='2024-03-08T00:00:00Z') with (format='csv', creationTime='2024-03-08T04:00:00Z');
 ```
 
 | :information_source: **Note**    |
